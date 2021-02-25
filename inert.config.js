@@ -1,7 +1,7 @@
 const config = {
     build: {
         input: "./posts",
-        output: "./public",
+        output: "./docs",
         posts: "blog",
         sassEntry: './scss/index.scss',
         sassFolder: './scss',
