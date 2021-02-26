@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <%
+      function formatDate(date) {
+        const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
+                        'August', 'September', 'October', 'November', 'December'];
+        return months[date.getMonth()] + ' ' + date.getDate() + ', ' + date.getFullYear();
+      }
+    %>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Home | <%= posts.config.blogName %></title>
@@ -37,6 +44,7 @@
       <a id="hero-post" href="/<%= post.path %>">
         <img id="cover-0" src="<%=posts[0].attributes.cover%>" alt=""/>
         <h1><%= posts[0].attributes.title %></h1>
+        <time><%= formatDate(new Date(posts[0].attributes.time)) %></time>
       </a>
     </main>
   </body>
