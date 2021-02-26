@@ -61,6 +61,7 @@ main a#hero-post time {
 
 main a#hero-post .f p {
   margin-top: 0px;
+  font-size: 18px;
 }
 
 main a#hero-post img {
@@ -86,5 +87,6 @@ main .more h1#more-stories {
   main a#hero-post .f p {
     margin: 0;
     width: calc(50% - 20px);
+    margin-top: 10px;
   }
 }
