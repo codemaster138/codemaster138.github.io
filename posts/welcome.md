@@ -1,6 +1,6 @@
 ---
 title: 'Welcome'
-cover: '/assets/8030C188-AE2A-47C6-8E73-EBC7FBE7BEC3%20Cropped.jpg'
+cover: '/assets/8030C188-AE2A-47C6-8E73-EBC7FBE7BEC3.jpeg'
 time: 1614333226019
 ---
 
