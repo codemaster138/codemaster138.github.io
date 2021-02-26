@@ -1,2 +1,27 @@
 /* Styling for home page */
 
+header {
+  width: 100vw;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+header h2 {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 500;
+  font-size: 24px;
+  color: #000;
+}
+
+main {
+  width: 100vw;
+  padding: 20px;
+  box-sizing: border-box;
+  color: #000;
+  font-family: 'DM Sans', 'Roboto', 'DM Mono', sans-serif;
+}
+
+main h1 {
+  font-size: 36px;
+  font-weight: 700;
+}
