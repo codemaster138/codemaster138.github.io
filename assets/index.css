@@ -38,7 +38,11 @@ main a#hero-post {
 main a#hero-post h1 {
   font-size: 48px;
   font-weight: 700;
-  margin-to: 0;
+  margin-bottom: 0;
+}
+
+main a#hero-post time {
+  font-size: 18px;
 }
 
 main a#hero-post img {
