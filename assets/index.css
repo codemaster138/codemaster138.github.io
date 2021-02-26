@@ -1,5 +1,11 @@
 /* Styling for home page */
 
+html, body {
+  margin: 0px;
+  width: 100vw;
+  overflow-x: 0;
+}
+
 header {
   width: 100vw;
   padding: 10px 20px;
