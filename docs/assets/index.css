@@ -19,7 +19,7 @@ main {
   padding: 20px;
   box-sizing: border-box;
   color: #000;
-  font-family: 'DM Sans', 'Roboto', 'DM Mono', sans-serif;
+  font-family: monospace, 'DM Sans', 'Roboto', 'DM Mono', sans-serif;
 }
 
 main h1 {
