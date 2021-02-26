@@ -36,7 +36,7 @@ div.body {
     }
 }
 
-@media screen and ((min-width: 900px) or ((min-device-width: 900px) and (orientation: landscape))) {
+@media screen and (min-width: 900px) {
     div.body {
         h1.title {
             font-size: 84px;
