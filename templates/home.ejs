@@ -8,7 +8,7 @@
         return months[date.getMonth()] + ' ' + date.getDate() + ', ' + date.getFullYear();
       }
       
-      posts = posts.sort((a) => a.title === "Welcome to my new blog!" ? -1 : 0);
+      var postsList = posts.sort((a) => a.attributes.title === "Welcome to my new blog!" ? -1 : 0);
     %>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -43,20 +43,20 @@
       <h2><%= posts.config.ownerName %></h1>
     </header>
     <main>
-      <a id="hero-post" href="/blog/<%= posts[0].path %>">
-        <img id="cover-0" src="<%=posts[0].attributes.cover%>" alt=""/>
+      <a id="hero-post" href="/blog/<%= postsList[0].path %>">
+        <img id="cover-0" src="<%=postsList[0].attributes.cover%>" alt=""/>
         <div class="f">
           <div>
-            <h1><%= posts[0].attributes.title %></h1>
-            <time><%= formatDate(new Date(posts[0].attributes.time)) %></time>
+            <h1><%= postsList[0].attributes.title %></h1>
+            <time><%= formatDate(new Date(postsList[0].attributes.time)) %></time>
           </div>
-          <p><%= posts[0].attributes.description %></p>
+          <p><%= postsList[0].attributes.description %></p>
         </div>
       </a>
       <div class="more">
         <h1 id="more-stories">More Stories</h1>
         <div id="more-list">
-          <% posts.slice(1).forEach((post) => { %>
+          <% postsList.slice(1).forEach((post) => { %>
             <a class="post" href="/blog/<%= post.path %>">
               <img src="<% post.attributes.cover %>" alt=""/>
               <h1><% post.attributes.title %></h1>
