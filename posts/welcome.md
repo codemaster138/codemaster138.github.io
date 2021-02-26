@@ -1,6 +1,6 @@
 ---
 title: 'Welcome'
-cover: '/assets/cover0.jpg'
+cover: '/assets/8030C188-AE2A-47C6-8E73-EBC7FBE7BEC3%20Cropped.jpg'
 time: 1614333226019
 ---
 
@@ -18,4 +18,4 @@ web design and occasionally about space, too.
 This blog is not a complete guide to web design/development. This is just my personal blog where I occasionally share my
 progress and findings in web development and design.
 
-Anyway, I hope you enjoy my blog! [Click here for a complete list of all my blog posts](/)
+Anyway, I hope you enjoy my blog! [Click here for a complete list of all my blog posts](/#more)
