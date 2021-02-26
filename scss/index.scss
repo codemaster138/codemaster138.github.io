@@ -30,6 +30,24 @@ main {
 div.body {
     width: min(750px, 100%);
     font-family: 'DM Sans', sans-serif;
+    
+    h1.title {
+        font-size: 48px;
+    }
+}
+
+@media screen
+    and (min-width: 900px)
+    or (
+        (min-device-width: 900px)
+        and
+        (orientation: landscape)
+    ) {
+        div.body {
+            h1.title {
+                font-size: 84px;
+            }
+        }
 }
 
 body {
