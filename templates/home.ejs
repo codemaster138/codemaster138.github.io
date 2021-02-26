@@ -41,7 +41,7 @@
       <h2><%= posts.config.ownerName %></h1>
     </header>
     <main>
-      <a id="hero-post" href="/<%= posts[0].path %>">
+      <a id="hero-post" href="/blog/<%= posts[0].path %>">
         <img id="cover-0" src="<%=posts[0].attributes.cover%>" alt=""/>
         <div class="f">
           <div>
@@ -53,6 +53,15 @@
       </a>
       <div class="more">
         <h1 id="more-stories">More Stories</h1>
+        <div id="more-list">
+          <% posts.slice(1).forEach((post) => { %>
+            <a class="post" href="/blog/<%= post.path %>">
+              <img src="<% post.attributes.cover %>" alt=""/>
+              <h1><% post.attributes.title %></h1>
+              <p><%= post.attributes.description%></p>
+            </a>
+          <% }); %>
+        </div>
       </div>
     </main>
   </body>
