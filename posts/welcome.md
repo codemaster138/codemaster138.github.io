@@ -1,3 +1,9 @@
+---
+title: 'Welcome'
+cover: '/assets/cover0.jpg'
+time: 1614333226019
+---
+
 # Welcome!
 
 Hi, I'm Jake. I'm a full-stack webdeveloper & designer. In this blog I want to share my knowledge of web development,
