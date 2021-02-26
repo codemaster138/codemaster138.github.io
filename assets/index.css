@@ -2,7 +2,7 @@
 
 header {
   width: 100vw;
-  padding: 20px;
+  padding: 40 20px;
   box-sizing: border-box;
 }
 
@@ -19,11 +19,11 @@ main {
   padding: 20px;
   box-sizing: border-box;
   color: #000;
-  font-family: monospace, 'DM Sans', 'Roboto', 'DM Mono', sans-serif;
+  font-family: 'DM Sans', 'Roboto', 'DM Mono', sans-serif;
 }
 
 main h1 {
   font-size: 36px;
   font-weight: 700;
-  margin: 0.5em;
+  margin: 0;
 }
