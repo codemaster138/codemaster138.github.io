@@ -7,6 +7,8 @@
                         'August', 'September', 'October', 'November', 'December'];
         return months[date.getMonth()] + ' ' + date.getDate() + ', ' + date.getFullYear();
       }
+      
+      posts = posts.sort((a) => a.title === "Welcome to my new blog!" ? -1 : 0);
     %>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
