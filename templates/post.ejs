@@ -32,34 +32,6 @@
             </button>
         </div>
     </header>
-    <aside>
-        <div>
-            <a href="/<%=(post.lang === 'primary') ? '' : post.lang%>" id="logo">
-                <img src="/assets/logo.svg" alt="Logo" />
-            </a>
-        </div>
-        <h3 class="group-name">Navitation</h3>
-        <a href="/<%=(post.lang === 'primary') ? '' : post.lang%>">Home</a>
-        <nav>
-            <% posts.config.navLinks.forEach(function (link) { if (link.text) { %>
-                <a href="<%= link.href %>" class="<%- link.href === '/docs' ? 'selected' : ''%>">
-                    <%= link.text %>
-                </a>
-                <% } }); %>
-        </nav>
-        <% posts.config.i18n.languages[post.lang].sidebar.forEach(({ type, text, href})=> { %>
-            <% if (type === 'heading') { %>
-                <h3 class="group-name">
-                    <%= text %>
-                </h3>
-            <% } %>
-            <% if (type === 'link') { %>
-                <a href="<%= href %>">
-                    <%= text %>
-                </a>
-            <% } %>
-        <% }); %>
-    </aside>
     <main>
         <div class="body">
             <h1 class="title">
