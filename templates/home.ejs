@@ -60,6 +60,7 @@
             <a class="post" href="/blog/<%= post.path %>">
               <img src="<%= post.attributes.cover %>" alt=""/>
               <h1><%= post.attributes.title %></h1>
+              <time><%= formatDate(new Date(post.attributes.time)) %></time>
               <p><%= post.attributes.description%></p>
             </a>
           <% }); %>
