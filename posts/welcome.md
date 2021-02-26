@@ -1,5 +1,5 @@
 ---
-title: 'Welcome to my new Blog!'
+title: 'Welcome to my new blog!'
 cover: '/assets/099A8F03-351F-493A-9DA7-0C22BF222C5F.jpeg'
 time: 1614333226019
 description: "In this post, I outline, who I am, what this blog is about and what kind of content you'll find here."
