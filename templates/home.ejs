@@ -58,8 +58,8 @@
         <div id="more-list">
           <% postsList.slice(1).forEach((post) => { %>
             <a class="post" href="/blog/<%= post.path %>">
-              <img src="<% post.attributes.cover %>" alt=""/>
-              <h1><% post.attributes.title %></h1>
+              <img src="<%= post.attributes.cover %>" alt=""/>
+              <h1><%= post.attributes.title %></h1>
               <p><%= post.attributes.description%></p>
             </a>
           <% }); %>
