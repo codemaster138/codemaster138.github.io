@@ -1,5 +1,5 @@
 ---
-title: 'Welcome'
+title: 'Welcome to my new Blog!'
 cover: '/assets/A59F1FBF-0E6F-4080-926A-6868607AEA64.jpeg'
 time: 1614333226019
 ---
