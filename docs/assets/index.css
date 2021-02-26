@@ -94,6 +94,7 @@ main .more #more-list a {
 
 main .more #more-list a img {
   width: 100%;
+  display: inline-block;
 }
 
 main .more #more-list a h1 {
