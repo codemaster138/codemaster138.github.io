@@ -2,7 +2,7 @@
 
 header {
   width: 100vw;
-  padding: 40 20px;
+  padding: 10px 20px;
   box-sizing: border-box;
 }
 
@@ -23,7 +23,7 @@ main {
 }
 
 main h1 {
-  font-size: 36px;
+  font-size: 48px;
   font-weight: 700;
   margin: 0;
 }
