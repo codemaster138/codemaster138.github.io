@@ -87,6 +87,6 @@ main .more h1#more-stories {
   main a#hero-post .f p {
     margin: 0;
     width: calc(50% - 20px);
-    margin-top: 10px;
+    margin-top: 12px;
   }
 }
