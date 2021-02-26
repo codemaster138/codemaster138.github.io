@@ -66,10 +66,11 @@ main a#hero-post img {
 
 @media screen and (min-width: 950px) {
   main a#hero-post .f div {
-    width: calc(50% - 30px);
+    width: calc(50% - 20px);
   }
   
   main a#hero-post .f p {
-    width: calc(50% - 30px);
+    margin: 0;
+    width: calc(50% - 20px);
   }
 }
