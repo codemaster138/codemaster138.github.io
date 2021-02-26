@@ -57,6 +57,7 @@ main a#hero-post h1 {
 main a#hero-post time {
   font-size: 18px;
   margin: 0px;
+  margin-bottom: 25px;
 }
 
 main a#hero-post .f p {
@@ -105,7 +106,7 @@ main .more #more-list a h1 {
 main .more #more-list a time {
   font-size: 14px;
   display: block;
-  margin-bottom: 10px;
+  margin-bottom: 25px;
 }
 
 main .more #more-list a p {
