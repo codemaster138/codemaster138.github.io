@@ -64,13 +64,7 @@ main a#hero-post img {
   margin: 20px 0;
 }
 
-@media screen
-  and (min-width: 950px)
-  or (
-    (min-device-width: 950px)
-    and
-    (orientation: landscape)
-  ){
+@media screen and (min-width: 950px) {
   main a#hero-post .f div {
     width: calc(50% - 30px);
   }
