@@ -75,7 +75,7 @@ main .more {
 }
 
 main .more h1#more-stories {
-  font-size: clamp(48, 7.5vw, 72px);
+  font-size: clamp(48, 8.4vw, 65px);
   margin: 0;
 }
 
@@ -104,7 +104,8 @@ main .more #more-list a h1 {
 
 main .more #more-list a time {
   font-size: 14px;
-  margin-bottom: 20px;
+  display: block;
+  margin-bottom: 10px;
 }
 
 main .more #more-list a p {
