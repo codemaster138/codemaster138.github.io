@@ -35,6 +35,18 @@ main a#hero-post {
   color: #000;
 }
 
+main a#hero-post div.f {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-flow: row wrap;
+}
+
+main a#hero-post .f div {
+  width: 100%;
+}
+
 main a#hero-post h1 {
   font-size: 48px;
   font-weight: 700;
@@ -50,4 +62,14 @@ main a#hero-post img {
   width: 100%;
   height: auto;
   margin: 20px 0;
+}
+
+@media screen and (min-width: 950px) {
+  main a#hero-post .f div {
+    width: calc(50% - 30px);
+  }
+  
+  main a#hero-post .f p {
+    width: calc(50% - 30px);
+  }
 }
