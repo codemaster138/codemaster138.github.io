@@ -1,6 +1,6 @@
 ---
 title: 'Welcome to my new Blog!'
-cover: '/assets/A59F1FBF-0E6F-4080-926A-6868607AEA64.jpeg'
+cover: '/assets/099A8F03-351F-493A-9DA7-0C22BF222C5F.jpeg'
 time: 1614333226019
 ---
 
