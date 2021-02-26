@@ -43,8 +43,13 @@
     <main>
       <a id="hero-post" href="/<%= post.path %>">
         <img id="cover-0" src="<%=posts[0].attributes.cover%>" alt=""/>
-        <h1><%= posts[0].attributes.title %></h1>
-        <time><%= formatDate(new Date(posts[0].attributes.time)) %></time>
+        <div class="f">
+          <div>
+            <h1><%= posts[0].attributes.title %></h1>
+            <time><%= formatDate(new Date(posts[0].attributes.time)) %></time>
+          </div>
+          <p><%= posts[0].attributes.description %></p>
+        </div>
       </a>
     </main>
   </body>
