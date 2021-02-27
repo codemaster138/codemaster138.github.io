@@ -34,6 +34,42 @@ div.body h1.title {
   font-size: 48px;
 }
 
+img {
+  margin: 10px auto;
+  max-width: 100%;
+}
+
+img#cover {
+  width: 100%;
+  height: auto;
+  margin-top: 0;
+  margin-bottom: 70px;
+}
+
+h2, h3, h4 {
+  font-weight: 500;
+}
+
+h2 {
+  font-size: 36px;
+}
+
+h3 {
+  font-size: 24px;
+}
+
+h4 {
+  font-size: 18px;
+}
+
+p {
+  font-size: 18px;
+}
+p.description {
+  font-size: 14px;
+  color: #d5d5d5;
+}
+
 @media screen and (min-width: 900px) {
   div.body h1.title {
     font-size: 84px;
