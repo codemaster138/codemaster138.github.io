@@ -30,7 +30,15 @@ div.body {
   width: min(750px, 100%);
   font-family: "DM Sans", sans-serif;
 }
+div.body h1.title {
+  font-size: 48px;
+}
 
+@media screen and (min-width: 900px) {
+  div.body h1.title {
+    font-size: 84px;
+  }
+}
 body {
   /* PRISM */
 }
