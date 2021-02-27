@@ -68,7 +68,7 @@ p {
 }
 p.description {
   font-size: 14px;
-  color: #d5d5d5;
+  color: #b8b8b8;
 }
 
 @media screen and (min-width: 900px) {
