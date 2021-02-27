@@ -1,6 +1,6 @@
 ---
 title: 'Welcome to my new blog!'
-cover: '/assets/099A8F03-351F-493A-9DA7-0C22BF222C5F.jpeg'
+cover: '/assets/8030C188-AE2A-47C6-8E73-EBC7FBE7BEC3 Cropped Cropped.jpg'
 time: 1614333226019
 description: "In this post, I outline, who I am, what this blog is about and what kind of content you'll find here."
 ---
