@@ -16,6 +16,13 @@
     <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
     <%const marked=require('marked')%>
     <%const html=require('html-format')%>
+    <%
+        function formatDate(date) {
+            const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
+                            'August', 'September', 'October', 'November', 'December'];
+            return months[date.getMonth()] + ' ' + date.getDate() + ', ' + date.getFullYear();
+        }
+    %>
 </head>
 
 <body>
