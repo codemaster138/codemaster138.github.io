@@ -24,6 +24,10 @@
     </header>
     <main>
         <div class="body">
+            <nav>
+                <a href="/#more">⭠ Back Home</a>
+                <time><%= formateDate(new Date(post.attributes.time))%></time>
+            </nav>
             <h1 class="title">
                 <%= post.attributes.title %>
             </h1>
