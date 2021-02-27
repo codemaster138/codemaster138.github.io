@@ -32,6 +32,7 @@ div.body {
 }
 div.body h1.title {
   font-size: 48px;
+  margin-bottom: 0;
 }
 
 img {
@@ -42,7 +43,7 @@ img {
 img#cover {
   width: 100%;
   height: auto;
-  margin-top: 0;
+  margin-top: 70px;
   margin-bottom: 70px;
 }
 
