@@ -1,7 +1,7 @@
 ---
 title: 'Lorem ipsum'
 description: 'Lorem ipsum dolor sit amet, consectetur adispicing elit.'
-cover: '/assets/'
+cover: '/assets/mae-mu-Izsh2q2MhRU-unsplash.jpg'
 time: 1614443042941
 ---
 
