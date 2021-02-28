@@ -34,6 +34,9 @@ div.body h1.title {
   font-size: 48px;
   margin: 0;
 }
+div.body a {
+  color: #388ceb;
+}
 div.body nav {
   display: flex;
   flex-flow: row wrap;
