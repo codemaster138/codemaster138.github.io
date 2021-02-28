@@ -94,7 +94,7 @@ body {
   /* PRISM */
 }
 body main code {
-  font-size: 0.8em;
+  font-size: 14px;
   border-radius: 2px;
   color: #671ddf;
   margin: 0 2px;
@@ -118,6 +118,7 @@ body main pre {
   word-wrap: normal;
 }
 body .token {
+  font-size: 14px;
   font-family: "Fira Code", "Courier New", "Roboto Mono", Monaco, courier, monospace;
 }
 body .token.cdata,
@@ -197,7 +198,7 @@ body main pre > code {
   overflow: inherit;
   padding: 2.2em 5px;
   white-space: inherit;
-  font-size: 0.8em;
+  font-size: 14px;
 }
 body main code:after,
 body main code:before {

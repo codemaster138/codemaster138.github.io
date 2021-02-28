@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+        Creating a Programming Language: Part 1 – The Lexer | Jake&#39;s Blog
+    </title>
+    <link rel="stylesheet" href="/index.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css"
+        integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous"/>
+    <link rel="preload" as="style" onload="this.rel='stylesheet'"
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap"/>
+
+    <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+    
+    
+    
+</head>
+
+<body>
+    <header>
+        <a href="/">Jake Sarjeant</a>
+    </header>
+    <main>
+        <div class="body">
+            <nav>
+                <a href="/#more">⭠ Back Home</a>
+                <time>February 28, 2021</time>
+            </nav>
+            <h1 class="title">
+                Creating a Programming Language: Part 1 – The Lexer
+            </h1>
+            <p class="description">
+                In this series of posts I will walk you through creating your own programming language using JavaScript.
+            </p>
+            <img id="cover" src="/assets/D4459CA6-EEE7-48B0-9E93-80CF9CA98B37.jpeg" alt=""/>
+            <p>There are so many programming languages out there – hundreds, possibly thousands of different ways to write the same piece of code. Some are good for one thing, some are good for another, some are good for nothing at all. But have you ever wondered how those programming languages were made? That&#39;s what I&#39;ll teach you in this series of posts.</p>
+<h2 id="compiler-vs-interpreter">Compiler vs. Interpreter</h2>
+<p>There are two mainstream ways to make programming languages: Compilers and Interpreters.</p>
+<p>A compiler compiles a program ahead of time so that the computer can run it on it&#39;s own. An example of a compiled language would be C.</p>
+<p>An interpreter executes a program on the fly. Examples of this are javascript and python. For the sake of simplicity, this series will focus only on making an interpreted language.</p>
+<h2 id="parts-of-an-interpreter">Parts of an interpreter</h2>
+<p>When you run your program, the interpreter doesn&#39;t execute it right away. There are a few things the interpreter does to prepare the program for execution. Let&#39;s talk about those:</p>
+<h3 id="1-the-lexer">1. The Lexer</h3>
+<p>The lexer will be the focus of this tutorial. It takes your code and converts it into a list of something called &quot;tokens&quot;. These tokens each have a type and a value.</p>
+<h3 id="2-the-parser">2. The Parser</h3>
+<p>The parser takes the tokens and creates something called an <em>&quot;Abstract Syntax Tree&quot;</em>, or <em>&quot;AST&quot;</em>. The AST tells the interpreter what tokens belong together, and how. We&#39;ll discuss this in more detail in the next post.</p>
+<h3 id="execution">Execution</h3>
+<p>Once all these steps have run, the code will be executed. How exactly this works will also receive a dedicated post</p>
+<h2 id="setting-up-our-workspace">Setting up our workspace</h2>
+<p>For this project, create a new folder whereever you store your projects. I have a folder called <code>projects</code> on my desktop. I called my project folder <code>my-programming-language</code>. Open your folder in VSCode or whatever IDE you use. Open up the integrated terminal.</p>
+<p>In the terminal type the following commands:</p>
+<pre data-lang="bash"><code><span class="token function">npm</span> init -y
+<span class="token function">npm</span> <span class="token function">install</span> enquirer chalk</code></pre><p>Then, create a file, <code>index.js</code>. This will be the entry point for our program. In it, paste the following:</p>
+<pre data-lang="js"><code><span class="token keyword">const</span> <span class="token punctuation">{</span> createTokens <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'./lexer'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> <span class="token punctuation">{</span> prompt <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'enquirer'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> chalk <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'chalk'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token punctuation">(</span><span class="token keyword">async</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+  <span class="token comment">// Repeat forever</span>
+  <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// Prompt for a command</span>
+    <span class="token keyword">const</span> <span class="token punctuation">{</span> command <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token keyword">await</span> <span class="token function">prompt</span><span class="token punctuation">(</span><span class="token punctuation">{</span> name<span class="token operator">:</span> <span class="token string">'command'</span><span class="token punctuation">,</span> message<span class="token operator">:</span> <span class="token string">'>>>'</span><span class="token punctuation">,</span> type<span class="token operator">:</span> <span class="token string">'input'</span><span class="token punctuation">,</span> prefix<span class="token operator">:</span> <span class="token string">''</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    
+    <span class="token comment">// Run the lexer on the command</span>
+    <span class="token keyword">const</span> tokens <span class="token operator">=</span> <span class="token function">createTokens</span><span class="token punctuation">(</span>command<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    
+    <span class="token comment">// Output the tokens</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>chalk<span class="token punctuation">.</span><span class="token function">gray</span><span class="token punctuation">(</span><span class="token string">'&lt;•'</span><span class="token punctuation">)</span><span class="token interpolation-punctuation punctuation">}</span></span><span class="token string"> </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>tokens<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token parameter">t</span> <span class="token operator">=></span> t<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span><span class="token string">'; '</span><span class="token punctuation">)</span><span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre><p>This program will infinitely prompt you for a command, run the lexer and print the results. <strong>However, this will not work at all until we start coding our lexer</strong>, so don&#39;t be surprised if you receive an error.</p>
+<h2 id="the-token-class">The Token class</h2>
+<p>Now, let&#39;s start working on our lexer. First, create a new folder in your project called <code>lexer</code>. In that folder, create a new file, <code>token.js</code></p>
+<p>In this file, create an empty class called <code>Token</code>:</p>
+<pre data-lang="js"><code><span class="token keyword">class</span> <span class="token class-name">Token</span> <span class="token punctuation">{</span>
+  <span class="token comment">// add code here...</span>
+<span class="token punctuation">}</span></code></pre><p>Now, we add a constructor that takes a type and value and stores them:</p>
+<pre data-lang="js"><code><span class="token keyword">class</span> <span class="token class-name">Token</span> <span class="token punctuation">{</span>
+  <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token parameter">_type<span class="token punctuation">,</span> value</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>type <span class="token operator">=</span> _type<span class="token punctuation">;</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>value <span class="token operator">=</span> value<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  
+  <span class="token comment">// add code here...</span>
+<span class="token punctuation">}</span></code></pre><p>And finally, add a method called <code>toString()</code> that stringifies the token in the form of <code>&lt;TYPE:VALUE&gt;</code> and export the class:</p>
+<pre data-lang="js"><code><span class="token keyword">class</span> <span class="token class-name">Token</span> <span class="token punctuation">{</span>
+  <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token parameter">_type<span class="token punctuation">,</span> value</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>type <span class="token operator">=</span> _type<span class="token punctuation">;</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>value <span class="token operator">=</span> value<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  
+  <span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">&lt;</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span><span class="token keyword">this</span><span class="token punctuation">.</span>type<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">:</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span><span class="token keyword">this</span><span class="token punctuation">.</span>value<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+module<span class="token punctuation">.</span>exports <span class="token operator">=</span> Token<span class="token punctuation">;</span></code></pre><p>And that&#39;s our token class, done!</p>
+<h2 id="creating-the-actual-lexer">Creating the actual Lexer</h2>
+<blockquote>
+<p><em>This part might get a little bit complicated, but bear with me here.</em></p>
+</blockquote>
+<p>First, we create a new file in the <code>lexer</code> folder called <code>index.js</code>. This is where the main Lexer code will go. Into this file, paste the following code:</p>
+<pre data-lang="js"><code><span class="token keyword">const</span> token_types <span class="token operator">=</span> <span class="token punctuation">{</span>
+  number<span class="token operator">:</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">[0-9]+(?:\.[0-9]+)?</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">,</span>
+  plus<span class="token operator">:</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">\+</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">,</span>
+  minus<span class="token operator">:</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">\-</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">,</span>
+  times<span class="token punctuation">,</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">\*</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">,</span>
+  divide<span class="token operator">:</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">\/</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">,</span>
+  lparen<span class="token operator">:</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">\(</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">,</span>
+  rparen<span class="token operator">:</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">\)</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span></code></pre><p>Each entry in this object represents a token type. The key (left of the <code>:</code>) is the name of the type, the value (right of the <code>:</code>) is a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp">regex</a> that explains to the lexer how to check whether a piece of text is equivalent to that token type or not.</p>
+<p>Next, create a method called <code>createTokens</code> and export it so other files can access it. This method will run the lexer on a piece of code. (<strong>For now, our lexer will only be able to process simple mathematical expressions</strong>, but that will change later).</p>
+<pre data-lang="js"><code><span class="token keyword">const</span> token_types <span class="token operator">=</span> <span class="token punctuation">{</span>
+  number<span class="token operator">:</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">[0-9]+(?:\.[0-9]+)?</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">,</span>
+  plus<span class="token operator">:</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">\+</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">,</span>
+  minus<span class="token operator">:</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">\-</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">,</span>
+  times<span class="token punctuation">,</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">\*</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">,</span>
+  divide<span class="token operator">:</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">\/</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">,</span>
+  lparen<span class="token operator">:</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">\(</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">,</span>
+  rparen<span class="token operator">:</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">\)</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token keyword">function</span> <span class="token function">createTokens</span><span class="token punctuation">(</span><span class="token parameter">code</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">// add code here...</span>
+
+module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
+  createTokens
+<span class="token punctuation">}</span><span class="token punctuation">;</span></code></pre><p>Below the <code>createTokens</code> method, add an empty class called <code>Lexer</code>.</p>
+<pre data-lang="js"><code><span class="token keyword">const</span> token_types <span class="token operator">=</span> <span class="token punctuation">{</span>
+  number<span class="token operator">:</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">[0-9]+(?:\.[0-9]+)?</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">,</span>
+  plus<span class="token operator">:</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">\+</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">,</span>
+  minus<span class="token operator">:</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">\-</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">,</span>
+  times<span class="token punctuation">,</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">\*</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">,</span>
+  divide<span class="token operator">:</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">\/</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">,</span>
+  lparen<span class="token operator">:</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">\(</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">,</span>
+  rparen<span class="token operator">:</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">\)</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token keyword">function</span> <span class="token function">createTokens</span><span class="token punctuation">(</span><span class="token parameter">code</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">class</span> <span class="token class-name">Lexer</span> <span class="token punctuation">{</span>
+<span class="token punctuation">}</span>
+
+module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
+  createTokens
+<span class="token punctuation">}</span><span class="token punctuation">;</span></code></pre><p>In the Lexer class, add a constructor that takes in a string of code and a map of token types:</p>
+<pre data-lang="js"><code><span class="token keyword">const</span> token_types <span class="token operator">=</span> <span class="token punctuation">{</span>
+  number<span class="token operator">:</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">[0-9]+(?:\.[0-9]+)?</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">,</span>
+  plus<span class="token operator">:</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">\+</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">,</span>
+  minus<span class="token operator">:</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">\-</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">,</span>
+  times<span class="token punctuation">,</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">\*</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">,</span>
+  divide<span class="token operator">:</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">\/</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">,</span>
+  lparen<span class="token operator">:</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">\(</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">,</span>
+  rparen<span class="token operator">:</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">\)</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token keyword">function</span> <span class="token function">createTokens</span><span class="token punctuation">(</span><span class="token parameter">code</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">class</span> <span class="token class-name">Lexer</span> <span class="token punctuation">{</span>
+  <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token parameter">code<span class="token punctuation">,</span> types</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>types <span class="token operator">=</span> types<span class="token punctuation">;</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>code <span class="token operator">=</span> code<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
+  createTokens
+<span class="token punctuation">}</span><span class="token punctuation">;</span></code></pre><h3 id="representing-postitions">Representing postitions</h3>
+<p>This might not make sense now, but it will become important later to keep track of positions. For this, we will create a class called position. It stores a copy of the code, the current line, column and absolute index in the code. <strong>This class will be located in a file called <code>pos.js</code> in the project folder</strong></p>
+<pre data-lang="js"><code><span class="token keyword">class</span> <span class="token class-name">Pos</span> <span class="token punctuation">{</span>
+  <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token parameter">idx<span class="token punctuation">,</span> ln<span class="token punctuation">,</span> col<span class="token punctuation">,</span> code</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>idx <span class="token operator">=</span> idx<span class="token punctuation">;</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>ln <span class="token operator">=</span> ln<span class="token punctuation">;</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>col <span class="token operator">=</span> col<span class="token punctuation">;</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>code <span class="token operator">=</span> code<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  
+  <span class="token function">advance</span><span class="token punctuation">(</span><span class="token parameter">n</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">let</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token punctuation">(</span>n <span class="token operator">||</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span>idx<span class="token operator">++</span><span class="token punctuation">;</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span>col<span class="token operator">++</span><span class="token punctuation">;</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>code<span class="token punctuation">[</span>idx<span class="token punctuation">]</span> <span class="token operator">===</span> <span class="token string">'\n'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>col <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>ln<span class="token operator">++</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+  
+  <span class="token function">clone</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Pos</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>idx<span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>ln<span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>col<span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>code<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+module<span class="token punctuation">.</span>exports <span class="token operator">=</span> Pos<span class="token punctuation">;</span></code></pre><h3 id="back-to-the-lexer">Back to the lexer</h3>
+<p>In the <code>Lexer</code> constructor, initialize a position and add a method to advance by n characters:</p>
+<pre data-lang="js"><code><span class="token keyword">const</span> Pos <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'../pos'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> token_types <span class="token operator">=</span> <span class="token punctuation">{</span>
+  number<span class="token operator">:</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">[0-9]+(?:\.[0-9]+)?</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">,</span>
+  plus<span class="token operator">:</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">\+</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">,</span>
+  minus<span class="token operator">:</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">\-</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">,</span>
+  times<span class="token punctuation">,</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">\*</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">,</span>
+  divide<span class="token operator">:</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">\/</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">,</span>
+  lparen<span class="token operator">:</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">\(</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">,</span>
+  rparen<span class="token operator">:</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">\)</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token keyword">function</span> <span class="token function">createTokens</span><span class="token punctuation">(</span><span class="token parameter">code</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">class</span> <span class="token class-name">Lexer</span> <span class="token punctuation">{</span>
+  <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token parameter">code<span class="token punctuation">,</span> types</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>types <span class="token operator">=</span> types<span class="token punctuation">;</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>code <span class="token operator">=</span> code<span class="token punctuation">;</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>pos <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Pos</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> code<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>slice <span class="token operator">=</span> code<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  
+  <span class="token function">advance</span><span class="token punctuation">(</span><span class="token parameter">n</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>pos<span class="token punctuation">.</span><span class="token function">advance</span><span class="token punctuation">(</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>slice <span class="token operator">=</span> code<span class="token punctuation">.</span><span class="token function">slice</span><span class="token punctuation">(</span>pos<span class="token punctuation">.</span>idx<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
+  createTokens
+<span class="token punctuation">}</span><span class="token punctuation">;</span></code></pre><p>Now, in the <code>Lexer</code> class, add a method called <code>createTokens</code>. Inside it, intialize an empty array of tokens.</p>
+<pre data-lang="js"><code><span class="token comment">// ...</span>
+<span class="token keyword">class</span> <span class="token class-name">Lexer</span> <span class="token punctuation">{</span>
+  <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token parameter">code<span class="token punctuation">,</span> types</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>types <span class="token operator">=</span> types<span class="token punctuation">;</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>code <span class="token operator">=</span> code<span class="token punctuation">;</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>pos <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Pos</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> code<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>slice <span class="token operator">=</span> code<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  
+  <span class="token function">advance</span><span class="token punctuation">(</span><span class="token parameter">n</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>pos<span class="token punctuation">.</span><span class="token function">advance</span><span class="token punctuation">(</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>slice <span class="token operator">=</span> code<span class="token punctuation">.</span><span class="token function">slice</span><span class="token punctuation">(</span>pos<span class="token punctuation">.</span>idx<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  
+  <span class="token function">createTokens</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">const</span> tokens <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span class="token comment">// ...</span></code></pre><p>In this method, loop until <code>this.slice</code> is falsy, e.g. There is no more code left over to work with:</p>
+<pre data-lang="js"><code><span class="token comment">// ...</span>
+<span class="token keyword">class</span> <span class="token class-name">Lexer</span> <span class="token punctuation">{</span>
+  <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token parameter">code<span class="token punctuation">,</span> types</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>types <span class="token operator">=</span> types<span class="token punctuation">;</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>code <span class="token operator">=</span> code<span class="token punctuation">;</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>pos <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Pos</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> code<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>slice <span class="token operator">=</span> code<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  
+  <span class="token function">advance</span><span class="token punctuation">(</span><span class="token parameter">n</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>pos<span class="token punctuation">.</span><span class="token function">advance</span><span class="token punctuation">(</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>slice <span class="token operator">=</span> code<span class="token punctuation">.</span><span class="token function">slice</span><span class="token punctuation">(</span>pos<span class="token punctuation">.</span>idx<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  
+  <span class="token function">createTokens</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">const</span> tokens <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    
+    <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>slice<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">var</span> token <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+      
+      <span class="token comment">// add code here...</span>
+      
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>token <span class="token operator">===</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// This code is not valid. Throw an error</span>
+        <span class="token keyword">return</span> <span class="token punctuation">[</span><span class="token string">'ERROR'</span><span class="token punctuation">]</span> <span class="token comment">// We will change this later.</span>
+      <span class="token punctuation">}</span>
+      tokens<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>token<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">advance</span><span class="token punctuation">(</span>token<span class="token punctuation">.</span>length<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+    
+    <span class="token keyword">return</span> tokens<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span class="token comment">// ...</span></code></pre><p>In each iteration of this loop, we will iterate through the token types until we either find a token that matches the beginning of <code>this.slice</code> or run out of tokens, the latter of which means that the code is not valid and should result in an error.</p>
+<p>Inside the loop, just below <code>var token = null;</code>, add the following code (it does exactly what I described above):</p>
+<pre data-lang="js"><code><span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">let</span> _type <span class="token keyword">in</span> <span class="token keyword">this</span><span class="token punctuation">.</span>types<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> e <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>types<span class="token punctuation">[</span>_type<span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">exec</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>slice<span class="token punctuation">)</span> <span class="token comment">// Run the regex</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>e <span class="token operator">===</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token keyword">continue</span><span class="token punctuation">;</span> <span class="token comment">// Skip if no match exists</span>
+  
+  token <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Token</span><span class="token punctuation">(</span>_type<span class="token punctuation">,</span> e<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">break</span><span class="token punctuation">;</span> <span class="token comment">// We don't have to loop over all the others; we already have a match</span>
+<span class="token punctuation">}</span></code></pre><p>Also, at the top of the file, we need to import the <code>Token</code> class.</p>
+<pre data-lang="js"><code><span class="token keyword">const</span> Token <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'./token'</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre><p>The lexer file should now look like this:</p>
+<pre data-lang="js"><code><span class="token keyword">const</span> Pos <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'../pos'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> Token <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'./token'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> token_types <span class="token operator">=</span> <span class="token punctuation">{</span>
+  number<span class="token operator">:</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">[0-9]+(?:\.[0-9]+)?</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">,</span>
+  plus<span class="token operator">:</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">\+</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">,</span>
+  minus<span class="token operator">:</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">\-</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">,</span>
+  times<span class="token punctuation">,</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">\*</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">,</span>
+  divide<span class="token operator">:</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">\/</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">,</span>
+  lparen<span class="token operator">:</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">\(</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">,</span>
+  rparen<span class="token operator">:</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">\)</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token keyword">function</span> <span class="token function">createTokens</span><span class="token punctuation">(</span><span class="token parameter">code</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">class</span> <span class="token class-name">Lexer</span> <span class="token punctuation">{</span>
+  <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token parameter">code<span class="token punctuation">,</span> types</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>types <span class="token operator">=</span> types<span class="token punctuation">;</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>code <span class="token operator">=</span> code<span class="token punctuation">;</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>pos <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Pos</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> code<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>slice <span class="token operator">=</span> code<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  
+  <span class="token function">advance</span><span class="token punctuation">(</span><span class="token parameter">n</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>pos<span class="token punctuation">.</span><span class="token function">advance</span><span class="token punctuation">(</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>slice <span class="token operator">=</span> code<span class="token punctuation">.</span><span class="token function">slice</span><span class="token punctuation">(</span>pos<span class="token punctuation">.</span>idx<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  
+  <span class="token function">createTokens</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">const</span> tokens <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    
+    <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>slice<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">var</span> token <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+      
+      <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">let</span> _type <span class="token keyword">in</span> <span class="token keyword">this</span><span class="token punctuation">.</span>types<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">const</span> e <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>types<span class="token punctuation">[</span>_type<span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">exec</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>slice<span class="token punctuation">)</span> <span class="token comment">// Run the regex</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>e <span class="token operator">===</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token keyword">continue</span><span class="token punctuation">;</span> <span class="token comment">// Skip if no match exists</span>
+  
+        token <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Token</span><span class="token punctuation">(</span>_type<span class="token punctuation">,</span> e<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">break</span><span class="token punctuation">;</span> <span class="token comment">// We don't have to loop over all the others; we already have a match</span>
+      <span class="token punctuation">}</span>
+      
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>token <span class="token operator">===</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// This code is not valid. Throw an error</span>
+        <span class="token keyword">return</span> <span class="token punctuation">[</span><span class="token string">'ERROR'</span><span class="token punctuation">]</span> <span class="token comment">// We will change this later.</span>
+      <span class="token punctuation">}</span>
+      tokens<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>token<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">advance</span><span class="token punctuation">(</span>token<span class="token punctuation">.</span>length<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+    
+    <span class="token keyword">return</span> tokens<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
+  createTokens
+<span class="token punctuation">}</span><span class="token punctuation">;</span></code></pre><p>The lexer class is finished now, so let&#39;s finally implement the <code>createTokens</code> method (not the one in the <code>Lexer</code> class). In the method, we create a lexer class, and run it:</p>
+<pre data-lang="js"><code><span class="token keyword">function</span> <span class="token function">createTokens</span><span class="token punctuation">(</span><span class="token parameter">code</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> lexer <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Lexer</span><span class="token punctuation">(</span>code<span class="token punctuation">,</span> token_types<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">return</span> lexer<span class="token punctuation">.</span><span class="token function">createTokens</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre><h2 id="thats-it">That&#39;s it!</h2>
+<p>And that&#39;s it! We&#39;re finally done! Stay tuned for the next tutorial where we will learn how to create a parser for our code.</p>
+
+        </div>
+        <div class="col-right"></div>
+    </main>
+</body>
+
+</html>
