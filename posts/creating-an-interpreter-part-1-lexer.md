@@ -80,7 +80,7 @@ class Token {
 }
 ```
 
-And finally, add a method called `toString()` that stringifies the token in the form of `<TYPE:VALUE>`:
+And finally, add a method called `toString()` that stringifies the token in the form of `<TYPE:VALUE>` and export the class:
 ```js
 class Token {
   constructor(_type, value) {
@@ -92,6 +92,8 @@ class Token {
     return `<${this.type}:${this.value}>`;
   }
 }
+
+module.exports = Token;
 ```
 
 And that's our token class, done!
@@ -218,7 +220,7 @@ module.exports = Pos;
 ```
 
 ### Back to the lexer
-In the `Lexer` constructor, initialize a position:
+In the `Lexer` constructor, initialize a position and add a method to advance by n characters:
 ```js
 const Pos = require('../pos');
 
@@ -240,6 +242,12 @@ class Lexer {
     this.types = types;
     this.code = code;
     this.pos = new Pos(0, 0, 0, code);
+    this.slice = code;
+  }
+  
+  advance(n) {
+    this.pos.advance(n);
+    this.slice = code.slice(pos.idx);
   }
 }
 
@@ -247,3 +255,155 @@ module.exports = {
   createTokens
 };
 ```
+
+Now, in the `Lexer` class, add a method called `createTokens`. Inside it, intialize an empty array of tokens.
+```js
+// ...
+class Lexer {
+  constructor(code, types) {
+    this.types = types;
+    this.code = code;
+    this.pos = new Pos(0, 0, 0, code);
+    this.slice = code;
+  }
+  
+  advance(n) {
+    this.pos.advance(n);
+    this.slice = code.slice(pos.idx);
+  }
+  
+  createTokens() {
+    const tokens = [];
+  }
+}
+// ...
+```
+
+In this method, loop until `this.slice` is falsy, e.g. There is no more code left over to work with:
+```js
+// ...
+class Lexer {
+  constructor(code, types) {
+    this.types = types;
+    this.code = code;
+    this.pos = new Pos(0, 0, 0, code);
+    this.slice = code;
+  }
+  
+  advance(n) {
+    this.pos.advance(n);
+    this.slice = code.slice(pos.idx);
+  }
+  
+  createTokens() {
+    const tokens = [];
+    
+    while (this.slice) {
+      var token = null;
+      
+      // add code here...
+      
+      if (token === null) {
+        // This code is not valid. Throw an error
+        return ['ERROR'] // We will change this later.
+      }
+      tokens.push(token);
+      this.advance(token.length)
+    }
+    
+    return tokens;
+  }
+}
+// ...
+```
+
+In each iteration of this loop, we will iterate through the token types until we either find a token that matches the beginning of `this.slice` or run out of tokens, the latter of which means that the code is not valid and should result in an error.
+
+Inside the loop, just below `var token = null;`, add the following code (it does exactly what I described above):
+```js
+for (let _type in this.types) {
+  const e = this.types[_type].exec(this.slice) // Run the regex
+  if (e === null) continue; // Skip if no match exists
+  
+  token = new Token(_type, e[0]);
+  break; // We don't have to loop over all the others; we already have a match
+}
+```
+
+Also, at the top of the file, we need to import the `Token` class.
+```js
+const Token = require('./token');
+```
+
+The lexer file should now look like this:
+```js
+const Pos = require('../pos');
+const Token = require('./token');
+
+const token_types = {
+  number: /[0-9]+(?:\.[0-9]+)?/,
+  plus: /\+/,
+  minus: /\-/,
+  times, /\*/,
+  divide: /\//,
+  lparen: /\(/,
+  rparen: /\)/,
+};
+
+function createTokens(code) {
+}
+
+class Lexer {
+  constructor(code, types) {
+    this.types = types;
+    this.code = code;
+    this.pos = new Pos(0, 0, 0, code);
+    this.slice = code;
+  }
+  
+  advance(n) {
+    this.pos.advance(n);
+    this.slice = code.slice(pos.idx);
+  }
+  
+  createTokens() {
+    const tokens = [];
+    
+    while (this.slice) {
+      var token = null;
+      
+      for (let _type in this.types) {
+        const e = this.types[_type].exec(this.slice) // Run the regex
+        if (e === null) continue; // Skip if no match exists
+  
+        token = new Token(_type, e[0]);
+        break; // We don't have to loop over all the others; we already have a match
+      }
+      
+      if (token === null) {
+        // This code is not valid. Throw an error
+        return ['ERROR'] // We will change this later.
+      }
+      tokens.push(token);
+      this.advance(token.length)
+    }
+    
+    return tokens;
+  }
+}
+
+module.exports = {
+  createTokens
+};
+```
+
+The lexer class is finished now, so let's finally implement the `createTokens` method (not the one in the `Lexer` class). In the method, we create a lexer class, and run it:
+```js
+function createTokens(code) {
+  const lexer = new Lexer(code, token_types);
+  return lexer.createTokens();
+}
+```
+
+## That's it!
+And that's it! We're finally done! Stay tuned for the next tutorial where we will learn how to create a parser for our code.
