@@ -187,7 +187,7 @@ module.exports = {
 };
 ```
 
-## Representing postitions
+### Representing postitions
 This might not make sense now, but it will become important later to keep track of positions. For this, we will create a class called position. It stores a copy of the code, the current line, column and absolute index in the code. **This class will be located in a file called `pos.js` in the project folder**
 ```js
 class Pos {
@@ -213,5 +213,37 @@ class Pos {
     return new Pos(this.idx, this.ln, this.col, this.code);
   }
 }
+
+module.exports = Pos;
 ```
 
+### Back to the lexer
+In the `Lexer` constructor, initialize a position:
+```js
+const Pos = require('../pos');
+
+const token_types = {
+  number: /[0-9]+(?:\.[0-9]+)?/,
+  plus: /\+/,
+  minus: /\-/,
+  times, /\*/,
+  divide: /\//,
+  lparen: /\(/,
+  rparen: /\)/,
+};
+
+function createTokens(code) {
+}
+
+class Lexer {
+  constructor(code, types) {
+    this.types = types;
+    this.code = code;
+    this.pos = new Pos(0, 0, 0, code);
+  }
+}
+
+module.exports = {
+  createTokens
+};
+```
