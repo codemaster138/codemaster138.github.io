@@ -204,7 +204,7 @@ class Pos {
     for (let i = 0; i < (n || 1); i++) {
       this.idx++;
       this.col++;
-      if (this.code[idx] === '\n') {
+      if (this.code[this.idx] === '\n') {
         this.col = 0;
         this.ln++;
       }
@@ -247,7 +247,8 @@ class Lexer {
   
   advance(n) {
     this.pos.advance(n);
-    this.slice = code.slice(pos.idx);
+    this.slice = this.code.slice(this.pos.idx);
+    while ([' ', '\t', ' '].includes(this.slice[0])) this.advance(1);
   }
 }
 
@@ -269,7 +270,8 @@ class Lexer {
   
   advance(n) {
     this.pos.advance(n);
-    this.slice = code.slice(pos.idx);
+    this.slice = this.code.slice(this.pos.idx);
+    while ([' ', '\t', ' '].includes(this.slice[0])) this.advance(1);
   }
   
   createTokens() {
@@ -292,7 +294,8 @@ class Lexer {
   
   advance(n) {
     this.pos.advance(n);
-    this.slice = code.slice(pos.idx);
+    this.slice = this.code.slice(this.pos.idx);
+    while ([' ', '\t', ' '].includes(this.slice[0])) this.advance(1);
   }
   
   createTokens() {
@@ -308,7 +311,7 @@ class Lexer {
         return ['ERROR'] // We will change this later.
       }
       tokens.push(token);
-      this.advance(token.length)
+      this.advance(token.value.length)
     }
     
     return tokens;
@@ -363,7 +366,8 @@ class Lexer {
   
   advance(n) {
     this.pos.advance(n);
-    this.slice = code.slice(pos.idx);
+    this.slice = this.code.slice(this.pos.idx);
+    while ([' ', '\t', ' '].includes(this.slice[0])) this.advance(1);
   }
   
   createTokens() {
@@ -375,6 +379,7 @@ class Lexer {
       for (let _type in this.types) {
         const e = this.types[_type].exec(this.slice) // Run the regex
         if (e === null) continue; // Skip if no match exists
+        if (!(e.index === 0)) continue; // Skip if match is not from start of string
   
         token = new Token(_type, e[0]);
         break; // We don't have to loop over all the others; we already have a match
@@ -385,7 +390,7 @@ class Lexer {
         return ['ERROR'] // We will change this later.
       }
       tokens.push(token);
-      this.advance(token.length)
+      this.advance(token.value.length)
     }
     
     return tokens;
