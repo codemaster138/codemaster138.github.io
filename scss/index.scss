@@ -37,7 +37,11 @@ div.body {
     }
     
     a {
-        color: #388ceb;
+        color: #000;
+
+        &:hover {
+            text-decoration: none;
+        }
     }
     
     nav {
@@ -85,8 +89,9 @@ p {
     font-size: 18px;
     
     &.description {
-        font-size: 14px;
+        font-size: 18px;
         color: #b8b8b8;
+        margin-bottom: 0px;
     }
 }
 

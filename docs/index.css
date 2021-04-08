@@ -35,7 +35,10 @@ div.body h1.title {
   margin: 0;
 }
 div.body a {
-  color: #388ceb;
+  color: #000;
+}
+div.body a:hover {
+  text-decoration: none;
 }
 div.body nav {
   display: flex;
@@ -81,8 +84,9 @@ p {
   font-size: 18px;
 }
 p.description {
-  font-size: 14px;
+  font-size: 18px;
   color: #b8b8b8;
+  margin-bottom: 0px;
 }
 
 @media screen and (min-width: 900px) {

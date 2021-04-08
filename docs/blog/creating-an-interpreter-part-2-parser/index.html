@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+        Creating a Programming Language: Part 2 – The Parser | Jake&#39;s Blog
+    </title>
+    <link rel="stylesheet" href="/index.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css"
+        integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous"/>
+    <link rel="preload" as="style" onload="this.rel='stylesheet'"
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap"/>
+
+    <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+    
+    
+    
+</head>
+
+<body>
+    <header>
+        <a href="/">Jake Sarjeant</a>
+    </header>
+    <main>
+        <div class="body">
+            <nav>
+                <a href="/#more">⭠ Back Home</a>
+                <time>April 7, 2021</time>
+            </nav>
+            <h1 class="title">
+                Creating a Programming Language: Part 2 – The Parser
+            </h1>
+            <p class="description">
+                In this series of posts, I will walk you through creating your own programming language using JavaScript.
+            </p>
+            <img id="cover" src="/assets/parser-title.png" alt=""/>
+            <p>In my <a href="/blog/creating-an-interpreter-part-1-lexer">previous post</a>, I showed how to create your own <em>Lexical Analyzer</em> in JavaScript. In this follow-up post, I will show you how to create your own <em>Parser</em>. <strong>The code from this post will be dependent on the code from the previous post, so I recommend you read it if you haven&#39;t!</strong></p>
+<h2 id="but-what-is-a-parser">But what is a parser?</h2>
+<p>A parser is a part of every programming language, whether it is compiled or interpreted. It takes the flat array of tokens from the Lexical Analyzer (from here on out referred to as the Lexer), and returns a so called &quot;Abstract Syntax Tree&quot; (aka AST).</p>
+<h3 id="the-ast">The AST</h3>
+<p>The AST is composed of many nodes, each of which represents an operation, for example, here&#39;s the AST for <code>1 + 1</code>:
+<img src="/assets/ast-1.png" alt="AST for `1 + 1`"></p>
+<p>In the above image, we see a <em>Node</em> called &quot;Binary Operation&quot;. It&#39;s called this because it operates on exactly two values. It contains the <em>tokens</em> <code>&lt;number:1&gt;</code>, <code>&lt;plus:+&gt;</code>, and <code>&lt;number:1&gt;</code>.</p>
+<p>Here&#39;s a more complex scenario:
+<img src="/assets/ast-2.png" alt="AST for `2 + 3 * 4`"></p>
+<p>This AST represents the operation <code>2 + 3 * 4</code>. If you have ever seen an AST before, you will know that this image shows <code>3 * 4</code> taking precedence over <code>2 + ...</code>, but if this is your first time looking at an AST, it might seem strange. This because against all expectations, the AST is actually executed from the bottom up!</p>
+<p>Well, sorta. We first try to execute the top node. If any of its children are not tokens, but <em>nodes</em>, we execute those child nodes before returning from the top node. To wrap our head around this more easily, we can say that the tree is executed bottom up, because that&#39;s exactly the way it behaves.</p>
+<p>Now, I could torture you with more examples of syntax trees, but I think you probably get the picture by now.</p>
+<p>As for how the actual parsing process works, I will explain it as we go along with writing our parser.</p>
+
+        </div>
+        <div class="col-right"></div>
+    </main>
+</body>
+
+</html>

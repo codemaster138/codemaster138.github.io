@@ -2,10 +2,12 @@
 title: 'Creating a Programming Language: Part 1 – The Lexer'
 description: 'In this series of posts I will walk you through creating your own programming language using JavaScript.'
 time: 1614521938940
-cover: '/assets/D4459CA6-EEE7-48B0-9E93-80CF9CA98B37.jpeg'
+cover: '/assets/lexer-title.png'
 ---
 
 There are so many programming languages out there – hundreds, possibly thousands of different ways to write the same piece of code. Some are good for one thing, some are good for another, some are good for nothing at all. But have you ever wondered how those programming languages were made? That's what I'll teach you in this series of posts.
+
+> It should be noted that this not a great way to create a practical programming language. This series serves solely to demonstrate the concepts behind programming languages, but if you wish to build a programming language to actually use for your projects, I highly recommend you look into tools like [llvm](https://llvm.org/) and [yacc](https://en.wikipedia.org/wiki/Yacc)
 
 ## Compiler vs. Interpreter
 There are two mainstream ways to make programming languages: Compilers and Interpreters.
@@ -411,4 +413,6 @@ function createTokens(code) {
 ```
 
 ## That's it!
-And that's it! We're finally done! Stay tuned for the next tutorial where we will learn how to create a parser for our code.
+And that's it! We're finally done!
+
+You can take a look at [this post](/blog/creating-an-interpreter-part-2-parser) to learn how to build a parser.
