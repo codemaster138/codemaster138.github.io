@@ -5,6 +5,8 @@ time: 1617819268973
 cover: '/assets/parser-title.png'
 ---
 
+> This post is work-in-progress. It will be done soon.
+
 In my [previous post](/blog/creating-an-interpreter-part-1-lexer), I showed how to create your own *Lexical Analyzer* in JavaScript. In this follow-up post, I will show you how to create your own *Parser*. **The code from this post will be dependent on the code from the previous post, so I recommend you read it if you haven't!**
 
 ## But what is a parser?
