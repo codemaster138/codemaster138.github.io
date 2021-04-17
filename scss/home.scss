@@ -1,0 +1,131 @@
+/* Styling for home page */
+
+html, body {
+  margin: 0px;
+  width: 100vw;
+  overflow-x: 0;
+}
+
+header {
+  width: 100vw;
+  padding: 10px 80px;
+  box-sizing: border-box;
+
+  h2 {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
+    font-size: 24px;
+    color: #000;
+    margin: 0;
+  }
+}
+
+main {
+  width: 100vw;
+  padding: 80px;
+  padding-top: 20px;
+  box-sizing: border-box;
+  color: #000;
+  font-family: 'DM Sans', 'Roboto', 'DM Mono', sans-serif;
+
+  a.hero-post {
+    width: 100%;
+    display: block;
+    text-decoration: none;
+    color: #000;
+
+    img {
+      width: 100%;
+      height: auto;
+      margin: 20px 0;
+    }
+
+    div.hero-post--info {
+      width: 100%;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      flex-flow: row wrap;
+
+      p {
+        margin-top: 0px;
+        font-size: 18px;
+      }
+
+      h1 {
+        font-size: 48px;
+        font-weight: 700;
+        margin-bottom: 0px;
+        margin-top: 0px;
+      }
+
+      time {
+        font-size: 18px;
+        margin: 0px;
+        margin-bottom: 25px;
+      }
+    }
+  }
+
+  .more {
+    margin-top: 100px;
+
+    h1#more {
+      font-size: 65px;
+      margin: 0;
+      margin-bottom: 20px;
+    }
+
+    #more-list {
+      width: 100%;
+      display: grid;
+      grid-gap: 40px;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+
+      a {
+        color: #000;
+        display: block;
+        text-decoration: none;
+
+        img {
+          width: 100%;
+          display: inline-block;
+        }
+
+        h1 {
+          font-size: 36px;
+          margin: 0;
+        }
+
+        time {
+          font-size: 14px;
+          display: block;
+          margin-bottom: 25px;
+        }
+
+        p {
+          margin: 0;
+          font-size: 18px;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 950px) {
+  main {
+    a.hero-post {
+      .hero-post--info {
+        div {
+          width: calc(50% - 20px);
+        }
+
+        p {
+          margin: 0;
+          width: calc(50% - 20px);
+          margin-top: 12px;
+        }
+      }
+    }
+  }
+}

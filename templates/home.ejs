@@ -1,19 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <%
-      function formatDate(date) {
-        const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
-                        'August', 'September', 'October', 'November', 'December'];
-        return months[date.getMonth()] + ' ' + date.getDate() + ', ' + date.getFullYear();
-      }
-      
-      var postsList = posts.sort((a) => a.attributes.title === "Welcome to my new blog!" ? -1 : 0);
-    %>
+    <% function formatDate(date) { const months = ['January', 'February',
+    'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October',
+    'November', 'December']; return months[date.getMonth()] + ' ' +
+    date.getDate() + ', ' + date.getFullYear(); } %> <% var postsList =
+    Object.values(config.custom.posts).sort((a, b) => b.attributes.time - a.attributes.time); %>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Home | <%= posts.config.blogName %></title>
-    <link rel="stylesheet" href="/assets/index.css" />
+    <title>Home | <%= config.custom.title %></title>
+    <link rel="stylesheet" href="/style/home.css" />
     <link
       rel="preload"
       as="style"
@@ -40,15 +36,17 @@
   </head>
   <body>
     <header>
-      <h2><%= posts.config.ownerName %></h1>
+      <h2><%= config.custom.title %></h2>
     </header>
     <main>
-      <a id="hero-post" href="/blog/<%= postsList[0].path %>">
-        <img id="cover-0" src="<%=postsList[0].attributes.cover%>" alt=""/>
-        <div class="f">
+      <a class="hero-post" href="/blog/<%= postsList[0].file.withoutExtension %>">
+        <%- inert.getOptimizedImage(config, postsList[0].attributes.cover) || `<img id="cover-0" src="${postsList[0].attributes.cover}" alt="" />` %>
+        <div class="hero-post--info">
           <div>
             <h1><%= postsList[0].attributes.title %></h1>
-            <time><%= formatDate(new Date(postsList[0].attributes.time)) %></time>
+            <time
+              ><%= formatDate(new Date(postsList[0].attributes.time)) %></time
+            >
           </div>
           <p><%= postsList[0].attributes.description %></p>
         </div>
@@ -57,12 +55,12 @@
         <h1 id="more">More Stories</h1>
         <div id="more-list">
           <% postsList.slice(1).forEach((post) => { %>
-            <a class="post" href="/blog/<%= post.path %>">
-              <img src="<%= post.attributes.cover %>" alt=""/>
-              <h1><%= post.attributes.title %></h1>
-              <time><%= formatDate(new Date(post.attributes.time)) %></time>
-              <p><%= post.attributes.description%></p>
-            </a>
+          <a class="post" href="/blog/<%= post.file.withoutExtension %>">
+            <%- inert.getOptimizedImage(config, post.attributes.cover) || `<img id="cover-0" src="${post.attributes.cover}" alt="" />` %>
+            <h1><%= post.attributes.title %></h1>
+            <time><%= formatDate(new Date(post.attributes.time)) %></time>
+            <p><%= post.attributes.description%></p>
+          </a>
           <% }); %>
         </div>
       </div>

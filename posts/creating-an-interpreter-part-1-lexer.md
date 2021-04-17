@@ -3,6 +3,9 @@ title: 'Creating a Programming Language: Part 1 – The Lexer'
 description: 'In this series of posts I will walk you through creating your own programming language using JavaScript.'
 time: 1614521938940
 cover: '/assets/lexer-title.png'
+author: Jake Sarjeant
+tags:
+  - code
 ---
 
 There are so many programming languages out there – hundreds, possibly thousands of different ways to write the same piece of code. Some are good for one thing, some are good for another, some are good for nothing at all. But have you ever wondered how those programming languages were made? That's what I'll teach you in this series of posts.

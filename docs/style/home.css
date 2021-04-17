@@ -1,5 +1,4 @@
 /* Styling for home page */
-
 html, body {
   margin: 0px;
   width: 100vw;
@@ -8,12 +7,11 @@ html, body {
 
 header {
   width: 100vw;
-  padding: 10px 20px;
+  padding: 10px 80px;
   box-sizing: border-box;
 }
-
 header h2 {
-  font-family: 'DM Sans', sans-serif;
+  font-family: "DM Sans", sans-serif;
   font-weight: 500;
   font-size: 24px;
   color: #000;
@@ -22,105 +20,87 @@ header h2 {
 
 main {
   width: 100vw;
-  padding: 20px;
+  padding: 80px;
+  padding-top: 20px;
   box-sizing: border-box;
   color: #000;
-  font-family: 'DM Sans', 'Roboto', 'DM Mono', sans-serif;
+  font-family: "DM Sans", "Roboto", "DM Mono", sans-serif;
 }
-
-main a#hero-post {
+main a.hero-post {
   width: 100%;
   display: block;
   text-decoration: none;
   color: #000;
 }
-
-main a#hero-post div.f {
+main a.hero-post img {
+  width: 100%;
+  height: auto;
+  margin: 20px 0;
+}
+main a.hero-post div.hero-post--info {
   width: 100%;
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
   flex-flow: row wrap;
 }
-
-main a#hero-post .f div {
-  width: 100%;
+main a.hero-post div.hero-post--info p {
+  margin-top: 0px;
+  font-size: 18px;
 }
-
-main a#hero-post h1 {
+main a.hero-post div.hero-post--info h1 {
   font-size: 48px;
   font-weight: 700;
   margin-bottom: 0px;
   margin-top: 0px;
 }
-
-main a#hero-post time {
+main a.hero-post div.hero-post--info time {
   font-size: 18px;
   margin: 0px;
   margin-bottom: 25px;
 }
-
-main a#hero-post .f p {
-  margin-top: 0px;
-  font-size: 18px;
-}
-
-main a#hero-post img {
-  width: 100%;
-  height: auto;
-  margin: 20px 0;
-}
-
 main .more {
   margin-top: 100px;
 }
-
 main .more h1#more {
   font-size: 65px;
   margin: 0;
   margin-bottom: 20px;
 }
-
 main .more #more-list {
   width: 100%;
   display: grid;
   grid-gap: 40px;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
 }
-
 main .more #more-list a {
   color: #000;
   display: block;
   text-decoration: none;
 }
-
 main .more #more-list a img {
   width: 100%;
   display: inline-block;
 }
-
 main .more #more-list a h1 {
   font-size: 36px;
   margin: 0;
 }
-
 main .more #more-list a time {
   font-size: 14px;
   display: block;
   margin-bottom: 25px;
 }
-
 main .more #more-list a p {
   margin: 0;
   font-size: 18px;
 }
 
 @media screen and (min-width: 950px) {
-  main a#hero-post .f div {
+  main a.hero-post .hero-post--info div {
     width: calc(50% - 20px);
   }
-  
-  main a#hero-post .f p {
+  main a.hero-post .hero-post--info p {
     margin: 0;
     width: calc(50% - 20px);
     margin-top: 12px;

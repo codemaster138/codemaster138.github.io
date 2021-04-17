@@ -3,6 +3,9 @@ title: 'Creating a Programming Language: Part 2 – The Parser'
 description: 'In this series of posts, I will walk you through creating your own programming language using JavaScript.'
 time: 1617819268973
 cover: '/assets/parser-title.png'
+author: Jake Sarjeant
+tags:
+  - code
 ---
 
 > This post is work-in-progress. It will be done soon.
@@ -28,3 +31,6 @@ Well, sorta. We first try to execute the top node. If any of its children are no
 Now, I could torture you with more examples of syntax trees, but I think you probably get the picture by now.
 
 As for how the actual parsing process works, I will explain it as we go along with writing our parser.
+
+### To be continued...
+I don't have a lot of time for this project right now, so you'll have to wait before I share the code. Sorry 😕

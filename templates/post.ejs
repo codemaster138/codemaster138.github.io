@@ -1,51 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>
-        <%= post.attributes.title %> | <%=posts.config.blogName%>
-    </title>
-    <link rel="stylesheet" href="/index.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css"
-        integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous"/>
-    <link rel="preload" as="style" onload="this.rel='stylesheet'"
-        href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap"/>
+    <title><%= data.attributes.title %> | <%= config.custom.title %></title>
+    <link rel="stylesheet" href="/style/index.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css"
+      integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="preload"
+      as="style"
+      onload="this.rel='stylesheet'"
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap"
+    />
 
-    <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
-    <%const marked=require('marked')%>
-    <%const html=require('html-format')%>
-    <%
-        function formatDate(date) {
-            const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
-                            'August', 'September', 'October', 'November', 'December'];
-            return months[date.getMonth()] + ' ' + date.getDate() + ', ' + date.getFullYear();
-        }
-    %>
-</head>
+    <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon" />
+    <% function formatDate(date) { const months = ['January', 'February',
+    'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October',
+    'November', 'December']; return months[date.getMonth()] + ' ' +
+    date.getDate() + ', ' + date.getFullYear(); } %>
+  </head>
 
-<body>
+  <body>
     <header>
-        <a href="/">Jake Sarjeant</a>
+      <a href="/">Jake Sarjeant</a>
     </header>
     <main>
-        <div class="body">
-            <nav>
-                <a href="/#more">⭠ Back Home</a>
-                <time><%= formatDate(new Date(post.attributes.time))%></time>
-            </nav>
-            <h1 class="title">
-                <%= post.attributes.title %>
-            </h1>
-            <p class="description">
-                <%= post.attributes.description %>
-            </p>
-            <img id="cover" src="<%=post.attributes.cover%>" alt=""/>
-            <%- post.body %>
+      <div class="body">
+        <nav>
+          <a href="/#more">⭠ Back Home</a>
+          <time><%= formatDate(new Date(data.attributes.time))%></time>
+        </nav>
+        <div class="head">
+          <h1 class="title"><%= data.attributes.title %></h1>
+          <p class="description"><%= data.attributes.description %></p>
+          <%- data.attributes.cover && (inert.getOptimizedImage(config,
+          data.attributes.cover, "cover") || `<img
+            id="cover"
+            src="${data.attributes.cover}"
+            alt=""
+          />`) %>
         </div>
-        <div class="col-right"></div>
+        <div class="content"><%- data.body %></div>
+        <hr />
+        <% if (data.attributes.tags) { %>
+        <div class="tags">
+          <% data.attributes.tags.forEach(tag => { %>
+          <a
+            class="tag"
+            href="/"
+            title="This post was tagged “<%= (config.custom.tags[tag] || {}).display || 'unknown' %>”"
+            style="--fg: <%= (config.custom.tags[tag] || {}).color %>; --bg: <%= (config.custom.tags[tag] || {}).bg%>"
+            ><%= (config.custom.tags[tag] || {}).display || tag %></a
+          >
+          <% }); %>
+        </div>
+        <% } %>
+        <div class="author">
+          <div class="author-name">
+            <div
+              class="author-avatar"
+              style="
+                --url: url('<%= (config.custom.authors[data.attributes.author] || {}).avatar || '' %>');
+              "
+            ></div>
+            <div>
+              <h4 class="author-name--name">
+                <%= data.attributes.author || 'Unknown Author' %>
+              </h4>
+              <p class="author-name--description">
+                <%= (config.custom.authors[data.attributes.author]
+                || {}).description || 'Unknown' %>
+              </p>
+            </div>
+          </div>
+          <p class="author-description">
+            <%= (config.custom.authors[data.attributes.author] || {}).about
+            || 'Sadly, we don\'t know a lot about who wrote this 😕' %>
+          </p>
+        </div>
+      </div>
+      <div class="col-right"></div>
     </main>
-</body>
-
+  </body>
 </html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Handshake: What ist it? How does it work? | Jake Sarjeant</title>
+    <link rel="stylesheet" href="/style/index.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css"
+      integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="preload"
+      as="style"
+      onload="this.rel='stylesheet'"
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap"
+    />
+
+    <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon" />
+    
+  </head>
+
+  <body>
+    <header>
+      <a href="/">Jake Sarjeant</a>
+    </header>
+    <main>
+      <div class="body">
+        <nav>
+          <a href="/#more">⭠ Back Home</a>
+          <time>April 17, 2021</time>
+        </nav>
+        <div class="head">
+          <h1 class="title">Handshake: What ist it? How does it work?</h1>
+          <p class="description">In this post, I will explain handshake.org, the awesome new experimental decentralized alternative to the DNS root zone.</p>
+          <picture id="cover"><source srcset="/assets/optimized/webp/nodes_1_handshake_cover.webp 3036w, /assets/optimized/webp/nodes_1_handshake_cover-460w.webp 460w, /assets/optimized/webp/nodes_1_handshake_cover-720w.webp 720w, /assets/optimized/webp/nodes_1_handshake_cover-1080w.webp 1080w, /assets/optimized/webp/nodes_1_handshake_cover-2048w.webp 2048w"/><source srcset="/assets/optimized/nodes_1_handshake_cover-460w.png 460w, /assets/optimized/nodes_1_handshake_cover-720w.png 720w, /assets/optimized/nodes_1_handshake_cover-1080w.png 1080w, /assets/optimized/nodes_1_handshake_cover-2048w.png 2048w"/><img src="/assets/nodes_1_handshake_cover.png"/></picture>
+        </div>
+        <div class="content"><p>Not too long ago, I was looking through all the nerdy chat groups I'm in, and discovered a very interesting project – <a href="http://handshake.org">handshake.org</a>. I read through the website, and became immediately intrigued by its premise:</p>
+<blockquote>
+<p>Handshake is a decentralized, permissionless naming protocol where every peer is validating and in charge of managing the root DNS naming zone with the goal of creating an alternative to existing Certificate Authorities and naming systems.</p>
+</blockquote>
+<p>But what exactly is it? Why is it important? And also, how does it work 🤔?</p>
+<p>In this post, I will try to break down the motivation behind creating <a href="http://handshake.org">handshake.org</a>, and also try to explain how it works behind the scenes.</p>
+<h2>What problem does handshake solve?</h2>
+<p>Currently, all names on the internet are controlled by central authorities. For example, the TLD (top-level domain name) <code>.com</code> is controlled by the company Verisign. If Verisign, or, even worse, the US goverment wants to take away someone's domain, they can do so with ease.</p>
+<p>TL;DR, Companies like Verisign and their respective goverments monopolize the domain market and stand in the way of freedom of speech on the internet.</p>
+<p><strong>This is often reffered to as “the treachery of the internet”:</strong></p>
+<p>When the internet was first introduced, it promised us a free way to communicate with others and share our oppinions. Instead, the internet has, for most people, done the opposite: It has become the only accessible channel of communication where one can be heard, and if one's oppinion isn't in canon with that of their local goverment or the enterprises controlling the media channels, they have no voice.</p>
+<p>Lately, this problem has become more and more pronouced. One especially big event was the <em>parler shutdown</em>. Completely regardless of political view, I think this does not set a good precedent, and it also goes to show how much power companies like Amazon, Goolge and Verisign have over the internet.</p>
+<h2>How does handshake solve the problem?</h2>
+<p>One word: <em>decentralization</em>. This one word is the key to freedom on the internet. (This part might get a little nerdy 😂)</p>
+<p>Handshake is, actually, a blockchain. In fact, it is <em>two</em> blockchains: One for handshake's own currency, <em>&quot;HNS&quot;</em>, and one for handshake domains. So, in a way, handshake domains are also a form of cryptocurrency.</p>
+<p>When someone wants to buy a domain, they first by some HNS. Then, they find a handshake domain name that is not registered yet, and start an auction. Other people can also bid on the handshake domain name. The highest bidder wins the auction and pays the <em>second highest</em> bid (This is called a vickrey auction, you can read more about it <a href="https://en.wikipedia.org/wiki/vickrey_auction">here</a>)</p>
+</div>
+        <hr />
+        
+        <div class="tags">
+          
+          <a
+            class="tag"
+            href="/"
+            title="This post was tagged “Code 👨‍💻”"
+            style="--fg: #26d43a; --bg: #2acc3d25"
+            >Code 👨‍💻</a
+          >
+          
+          <a
+            class="tag"
+            href="/"
+            title="This post was tagged “Decentralization 🤯”"
+            style="--fg: #2dc9b4; --bg: #2dc9b425"
+            >Decentralization 🤯</a
+          >
+          
+          <a
+            class="tag"
+            href="/"
+            title="This post was tagged “Blockchain ⛓”"
+            style="--fg: #d8a117; --bg: #d8a11525"
+            >Blockchain ⛓</a
+          >
+          
+        </div>
+        
+        <div class="author">
+          <div class="author-name">
+            <div
+              class="author-avatar"
+              style="
+                --url: url('/assets/avatar.png');
+              "
+            ></div>
+            <div>
+              <h4 class="author-name--name">
+                Jake Sarjeant
+              </h4>
+              <p class="author-name--description">
+                Owns this blog
+              </p>
+            </div>
+          </div>
+          <p class="author-description">
+            Hi! I&#39;m Jake. I&#39;m a web developer 👨‍💻, web designer 🎨, and I&#39;m also a space enthusiast 🚀🛰.
+                Recently, I have also gained interest in decentralization, cryptocurrency, etc.,
+                so you can also look forward to seeing some more of that!
+          </p>
+        </div>
+      </div>
+      <div class="col-right"></div>
+    </main>
+  </body>
+</html>
