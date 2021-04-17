@@ -18,8 +18,8 @@ const config = {
         description:
           "Owns this blog",
         about: `Hi! I'm Jake. I'm a web developer 👨‍💻, web designer 🎨, and I'm also a space enthusiast 🚀🛰.
-                Recently, I have also gained interest in decentralization, cryptocurrency, etc.,
-                so you can also look forward to seeing some more of that!`,
+                I am also quite interested in decentralization, cryptocurrency and blockchain, and I hope
+                to be able to write more about those topics in the near future.`,
         avatar: "/assets/avatar.png",
       },
     },
