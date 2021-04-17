@@ -74,6 +74,33 @@
       "default": []
     }
   },
+  "assets/blockchain_block.png": {
+    "hash": "ff009991999100ff",
+    "srcsets": {
+      "webp": [
+        "/assets/optimized/webp/blockchain_block.webp 3036w",
+        "/assets/optimized/webp/blockchain_block-460w.webp 460w",
+        "/assets/optimized/webp/blockchain_block-720w.webp 720w",
+        "/assets/optimized/webp/blockchain_block-1080w.webp 1080w",
+        "/assets/optimized/webp/blockchain_block-2048w.webp 2048w"
+      ],
+      "default": [
+        "/assets/optimized/blockchain_block-460w.png 460w",
+        "/assets/optimized/blockchain_block-720w.png 720w",
+        "/assets/optimized/blockchain_block-1080w.png 1080w",
+        "/assets/optimized/blockchain_block-2048w.png 2048w"
+      ]
+    }
+  },
+  "assets/default_avatar.png": {
+    "hash": "ffc3cb81c1c3c3ff",
+    "srcsets": {
+      "webp": [
+        "/assets/optimized/webp/default_avatar.webp 100w"
+      ],
+      "default": []
+    }
+  },
   "assets/lexer-title.png": {
     "hash": "00fe7e7e78707838",
     "srcsets": {
@@ -108,6 +135,24 @@
       ]
     }
   },
+  "assets/nodes_2_blockchain_basics_cover.png": {
+    "hash": "ff9f8f8187839fff",
+    "srcsets": {
+      "webp": [
+        "/assets/optimized/webp/nodes_2_blockchain_basics_cover.webp 3036w",
+        "/assets/optimized/webp/nodes_2_blockchain_basics_cover-460w.webp 460w",
+        "/assets/optimized/webp/nodes_2_blockchain_basics_cover-720w.webp 720w",
+        "/assets/optimized/webp/nodes_2_blockchain_basics_cover-1080w.webp 1080w",
+        "/assets/optimized/webp/nodes_2_blockchain_basics_cover-2048w.webp 2048w"
+      ],
+      "default": [
+        "/assets/optimized/nodes_2_blockchain_basics_cover-460w.png 460w",
+        "/assets/optimized/nodes_2_blockchain_basics_cover-720w.png 720w",
+        "/assets/optimized/nodes_2_blockchain_basics_cover-1080w.png 1080w",
+        "/assets/optimized/nodes_2_blockchain_basics_cover-2048w.png 2048w"
+      ]
+    }
+  },
   "assets/parser-title.png": {
     "hash": "00fe7e7e78707838",
     "srcsets": {
@@ -122,15 +167,6 @@
         "/assets/optimized/parser-title-720w.png 720w",
         "/assets/optimized/parser-title-1080w.png 1080w"
       ]
-    }
-  },
-  "assets/default_avatar.png": {
-    "hash": "ffc3cb81c1c3c3ff",
-    "srcsets": {
-      "webp": [
-        "/assets/optimized/webp/default_avatar.webp 100w"
-      ],
-      "default": []
     }
   }
 }

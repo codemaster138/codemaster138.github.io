@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blockchain: The Basics | Jake Sarjeant</title>
+    <link rel="stylesheet" href="/style/index.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css"
+      integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="preload"
+      as="style"
+      onload="this.rel='stylesheet'"
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap"
+    />
+
+    <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon" />
+    
+  </head>
+
+  <body>
+    <header>
+      <a href="/">Jake Sarjeant</a>
+    </header>
+    <main>
+      <div class="body">
+        <nav>
+          <a href="/#more">⭠ Back Home</a>
+          <time>April 17, 2021</time>
+        </nav>
+        <div class="head">
+          <h1 class="title">Blockchain: The Basics</h1>
+          <p class="description">In this post, I will try to break down the basics of what blockchains are, and how they work. This post lays the basis for many posts to come in my series “Nodes: The magic of the decentralized web”</p>
+          <picture id="cover"><source srcset="/assets/optimized/webp/nodes_2_blockchain_basics_cover.webp 3036w, /assets/optimized/webp/nodes_2_blockchain_basics_cover-460w.webp 460w, /assets/optimized/webp/nodes_2_blockchain_basics_cover-720w.webp 720w, /assets/optimized/webp/nodes_2_blockchain_basics_cover-1080w.webp 1080w, /assets/optimized/webp/nodes_2_blockchain_basics_cover-2048w.webp 2048w"/><source srcset="/assets/optimized/nodes_2_blockchain_basics_cover-460w.png 460w, /assets/optimized/nodes_2_blockchain_basics_cover-720w.png 720w, /assets/optimized/nodes_2_blockchain_basics_cover-1080w.png 1080w, /assets/optimized/nodes_2_blockchain_basics_cover-2048w.png 2048w"/><img src="/assets/nodes_2_blockchain_basics_cover.png"/></picture>
+        </div>
+        <div class="content"><p>In the world of decentralization and cryptocurrency, there's no word you'll hear more often than blockchain. Litterally none. So, it falls into the category of things commonly considered &quot;good ideas&quot;, to learn what a blockchain is and how it works.</p>
+<p>In this post, I will break doen on a basic level, how a blockchain works, and hopefully, by the time you're done reading this post, you'll have a high-level understanding of how a blockhain works.</p>
+<h2>Blocks</h2>
+<p>As the name implies, a <em>block</em>-<em>chain</em> is a <em>chain</em> of <em>blocks</em>. Each block is this chain is composed of a few things:</p>
+<ol>
+<li><strong>Some data to store in the block:</strong> Often this contains transaction details, like the source, destination and magnitude (amount of currency) of a transaction.</li>
+<li><strong>A hash:</strong> The hash is a unique piece of data that is valid for only the exact contents of the block. If the block's conentents change, that hash must change too.</li>
+<li><strong>Previous block's hash:</strong> The hash from the previous block. This is what forms the chain between the blocks.</li>
+</ol>
+<p>Here's a more visual representation:
+<picture><source srcset="/assets/optimized/webp/blockchain_block.webp 3036w, /assets/optimized/webp/blockchain_block-460w.webp 460w, /assets/optimized/webp/blockchain_block-720w.webp 720w, /assets/optimized/webp/blockchain_block-1080w.webp 1080w, /assets/optimized/webp/blockchain_block-2048w.webp 2048w"/><source srcset="/assets/optimized/blockchain_block-460w.png 460w, /assets/optimized/blockchain_block-720w.png 720w, /assets/optimized/blockchain_block-1080w.png 1080w, /assets/optimized/blockchain_block-2048w.png 2048w"/><img src="/assets/blockchain_block.png"/></picture></p>
+<p>As you can see, each block stores some data, in this case the transaction details and two hashes. It's own hash and the previous block's hash.</p>
+<p>The first block in the blockchain has no previous block hash. This block is called the genesis block.</p>
+<h2>How does it protect from tampering with transactions?</h2>
+<p>How can we make sure that hackers can't tamper with transactions and funnel all the money to themselves? To understand this, me must first establish how a hacker would tamper with a transaction:</p>
+<ol>
+<li>Find the transaction to tamper with</li>
+<li>Change transaction details</li>
+</ol>
+<p>However, now the block is invalid, because the block's hash no longer matches up with it's contents. So, the hacker must do another thing:</p>
+<ol start="3">
+<li>Calculate and update hash</li>
+</ol>
+<p>To make this harder to do, we use a system called <em>“Proof of work”</em>, or PoW for short. In the BitCoin blockchain, this complex mathematical process takes about 10 minutes to complete each time we add a block to the blockchain or change a block in the blockchain.</p>
+<p>Now, the hacker faces another problem: Each block carries the hash of the previous block. But, because our tampered block's hash changed, every block after it now has an incorrect hash, and is therefore invalid. The only way to solve this is to calculate the PoW for every single following block, and at 10 minutes per block, we can assume that this is, for all intents and purposes, impossible.</p>
+<h2>Another layer of security: Decentralization</h2>
+<p>Because the blockchain is a decentralized system, there is no central place for the hacker to tamper with transactions. Each &quot;node&quot; in the BitCoin network stores its own copy of the blockchain. So, to tamper with a block and succeed, the hacker would have to take over more than <em>50%</em> of the entire BitCoin network, which is also, for all intents and purposes, impossible.</p>
+</div>
+        <hr />
+        
+        <div class="tags">
+          
+          <a
+            class="tag"
+            href="/tags/code"
+            title="This post was tagged “Code 👨‍💻”"
+            style="--fg: #26d43a; --bg: #2acc3d25"
+            >Code 👨‍💻</a
+          >
+          
+          <a
+            class="tag"
+            href="/tags/decentralization"
+            title="This post was tagged “Decentralization 🤯”"
+            style="--fg: #2dc9b4; --bg: #2dc9b425"
+            >Decentralization 🤯</a
+          >
+          
+          <a
+            class="tag"
+            href="/tags/blockchain"
+            title="This post was tagged “Blockchain ⛓”"
+            style="--fg: #d8a117; --bg: #d8a11525"
+            >Blockchain ⛓</a
+          >
+          
+        </div>
+        
+        <div class="author">
+          <h3 class="written-by">Written by</h3>
+          <div class="author-name">
+            <div
+              class="author-avatar"
+              style="
+                --url: url('/assets/avatar.png');
+              "
+            ></div>
+            <div>
+              <h4 class="author-name--name">
+                Jake Sarjeant
+              </h4>
+              <p class="author-name--description">
+                Owns this blog
+              </p>
+            </div>
+          </div>
+          <p class="author-description">
+            Hi! I&#39;m Jake. I&#39;m a web developer 👨‍💻, web designer 🎨, and space enthusiast 🚀🛰. I am also
+                quite interested in decentralization, cryptocurrency and blockchain, and I hope to be able
+                to write more about those topics in the near future.
+          </p>
+          
+        </div>
+      </div>
+      <div class="col-right"></div>
+    </main>
+  </body>
+</html>

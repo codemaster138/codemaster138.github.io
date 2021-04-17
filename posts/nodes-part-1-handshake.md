@@ -1,5 +1,5 @@
 ---
-title: "Handshake: What ist it? How does it work?"
+title: "Handshake: What is it? How does it work?"
 description: In this post, I will explain handshake.org, the awesome new experimental decentralized alternative to the DNS root zone.
 time: 1618665404547
 cover: /assets/nodes_1_handshake_cover.png
@@ -34,6 +34,6 @@ One word: *decentralization*. This one word is the key to freedom on the interne
 
 Handshake is, actually, a blockchain. In fact, it is *two* blockchains: One for handshake's own currency, *"HNS"*, and one for handshake domains. So, in a way, handshake domains are also a form of cryptocurrency.
 
-When someone wants to buy a domain, they first by some HNS. Then, they find a handshake domain name that is not registered yet, and start an auction. Other people can also bid on the handshake domain name. The highest bidder wins the auction and pays the *second highest* bid (This is called a vickrey auction, you can read more about it [here](https://en.wikipedia.org/wiki/vickrey_auction))
+When someone wants to buy a domain, they first buy some HNS. Then, they find a handshake domain name that is not registered yet, and start an auction. Other people can also bid on the handshake domain name. The highest bidder wins the auction and pays the *second highest* bid (This is called a vickrey auction, you can read more about it [here](https://en.wikipedia.org/wiki/vickrey_auction))
 
 After the auction is closed, the winner receives the handshake domain name. No one can take it away from them, because it is on a blockchain. The only way to lose a domain name is to forget to renew it.
