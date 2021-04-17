@@ -1,2 +1,2 @@
 # Blog
-My personal blog
+My personal blog (website served from the "docs" folder)
