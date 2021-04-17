@@ -25,7 +25,7 @@ TL;DR, Companies like Verisign and their respective goverments monopolize the do
 
 **This is often reffered to as “the treachery of the internet”:**
 
-When the internet was first introduced, it promised us a free way to communicate with others and share our oppinions. Instead, the internet has, for most people, done the opposite: It has become the only accessible channel of communication where one can be heard, and if one's oppinion isn't in canon with that of their local goverment or the enterprises controlling the media channels, they have no voice.
+When the internet was first introduced, it promised us a free way to communicate with others and share our oppinions. Instead, the internet has, for most people, done the opposite: It has become the only accessible channel of communication where one can be heard, and if one's oppinion isn't in canon with that of one's respective local goverment or the enterprises controlling the media channels, they have no voice.
 
 Lately, this problem has become more and more pronouced. One especially big event was the *parler shutdown*. Completely regardless of political view, I think this does not set a good precedent, and it also goes to show how much power companies like Amazon, Goolge and Verisign have over the internet.
 
