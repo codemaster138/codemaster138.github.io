@@ -17,9 +17,9 @@ const config = {
       "Jake Sarjeant": {
         description:
           "Owns this blog",
-        about: `Hi! I'm Jake. I'm a web developer 👨‍💻, web designer 🎨, and I'm also a space enthusiast 🚀🛰.
-                I am also quite interested in decentralization, cryptocurrency and blockchain, and I hope
-                to be able to write more about those topics in the near future.`,
+        about: `Hi! I'm Jake. I'm a web developer 👨‍💻, web designer 🎨, and space enthusiast 🚀🛰. I am also
+                quite interested in decentralization, cryptocurrency and blockchain, and I hope to be able
+                to write more about those topics in the near future.`,
         avatar: "/assets/avatar.png",
       },
     },
@@ -61,7 +61,8 @@ const config = {
       }
     },
 
-    posts: {} // Will be automatically populated
+    posts: {}, // Will be automatically populated
+    by_tag: {} // Also automatically populated
   },
   build: {
     globals: [require, inert],
@@ -79,6 +80,7 @@ const config = {
 
     outDirs: {
       output: "docs",
+      tags: ":output:/tags",
       sassOutput: ":output:/style",
       assets: ":output:/assets",
       optimizedAssets: ":assets:/optimized",
@@ -87,8 +89,15 @@ const config = {
 
     rootFile: "templates/home.ejs",
     slashPipeline: [
+      halt({ tag: null }),
       singleHTMLBuild(),
-      writeFile(":output:/index.html")
+      writeFile(":output:/index.html"),
+      halt(),
+      (config, file) => {
+        Object.keys(config.custom.by_tag).forEach(tag => {
+          writeFile(`:tags:/${tag}/index.html`)(config, file, singleHTMLBuild()(config, file, { tag: tag }));
+        });
+      }
     ],
 
     folders: [
@@ -124,6 +133,12 @@ const config = {
             (config, file, data) => {
               data.file = file;
               config.custom.posts[file.basename] = data;
+              if (data.attributes.tags) {
+                data.attributes.tags.forEach(tag => {
+                  if (!config.custom.by_tag[tag]) config.custom.by_tag[tag] = [];
+                  config.custom.by_tag[tag].push(data);
+                });
+              }
               return data;
             },
             htmlBuild("post"),

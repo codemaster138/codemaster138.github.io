@@ -52,7 +52,7 @@
           <% data.attributes.tags.forEach(tag => { %>
           <a
             class="tag"
-            href="/"
+            href="/tags/<%= tag %>"
             title="This post was tagged “<%= (config.custom.tags[tag] || {}).display || 'unknown' %>”"
             style="--fg: <%= (config.custom.tags[tag] || {}).color %>; --bg: <%= (config.custom.tags[tag] || {}).bg%>"
             ><%= (config.custom.tags[tag] || {}).display || tag %></a
@@ -61,11 +61,12 @@
         </div>
         <% } %>
         <div class="author">
+          <h3 class="written-by">Written by</h3>
           <div class="author-name">
             <div
               class="author-avatar"
               style="
-                --url: url('<%= (config.custom.authors[data.attributes.author] || {}).avatar || '' %>');
+                --url: url('<%= (config.custom.authors[data.attributes.author] || {}).avatar || '/assets/default_avatar.png' %>');
               "
             ></div>
             <div>
@@ -82,6 +83,32 @@
             <%= (config.custom.authors[data.attributes.author] || {}).about
             || 'Sadly, we don\'t know a lot about who wrote this 😕' %>
           </p>
+          <% if (data.attributes.coauthors) { %>
+            <h3 class="coauthored-by">Co-authored by</h3>
+            <% data.attributes.coauthors.forEach(coauthor => { %>
+              <div class="author-name">
+                <div
+                  class="author-avatar"
+                  style="
+                    --url: url('<%= (config.custom.authors[coauthor] || {}).avatar || '/assets/default_avatar.png' %>');
+                  "
+                ></div>
+                <div>
+                  <h4 class="author-name--name">
+                    <%= coauthor || 'Unknown Author' %>
+                  </h4>
+                  <p class="author-name--description">
+                    <%= (config.custom.authors[coauthor]
+                    || {}).description || 'Unknown' %>
+                  </p>
+                </div>
+              </div>
+              <p class="author-description">
+                <%= (config.custom.authors[coauthor] || {}).about
+                || 'Sadly, we don\'t know a lot about who co-wrote this 😕' %>
+              </p>
+            <% }); %>
+          <% } %>
         </div>
       </div>
       <div class="col-right"></div>

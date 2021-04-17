@@ -123,5 +123,14 @@
         "/assets/optimized/parser-title-1080w.png 1080w"
       ]
     }
+  },
+  "assets/default_avatar.png": {
+    "hash": "ffc3cb81c1c3c3ff",
+    "srcsets": {
+      "webp": [
+        "/assets/optimized/webp/default_avatar.webp 100w"
+      ],
+      "default": []
+    }
   }
 }

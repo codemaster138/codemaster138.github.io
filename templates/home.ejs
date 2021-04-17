@@ -5,10 +5,15 @@
     'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October',
     'November', 'December']; return months[date.getMonth()] + ' ' +
     date.getDate() + ', ' + date.getFullYear(); } %> <% var postsList =
-    Object.values(config.custom.posts).sort((a, b) => b.attributes.time - a.attributes.time); %>
+    Object.values(data.tag ? config.custom.by_tag[data.tag] :
+    config.custom.posts).sort((a, b) => b.attributes.time - a.attributes.time);
+    %>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Home | <%= config.custom.title %></title>
+    <title>
+      <%= data.tag ? `Posts tagged "${data.tag}"` : 'Home' %> | <%=
+      config.custom.title %>
+    </title>
     <link rel="stylesheet" href="/style/home.css" />
     <link
       rel="preload"
@@ -36,11 +41,27 @@
   </head>
   <body>
     <header>
-      <h2><%= config.custom.title %></h2>
+      <a class="headline" href="/"><%= config.custom.title %></a>
+      <% if (data.tag) {%>
+      <a
+        href="/tags/<%= data.tag %>"
+        class="tag"
+        style="
+          --fg: <%= (config.custom.tags[data.tag] || {}) .color ||  '#888888' %>;
+          --bg: <%= (config.custom.tags[data.tag] || {}) .bg ||  '#88888825' %>;
+        "
+        ><%= (config.custom.tags[data.tag] || {}).display || data.tag %></a
+      >
+      <% } %>
     </header>
     <main>
-      <a class="hero-post" href="/blog/<%= postsList[0].file.withoutExtension %>">
-        <%- inert.getOptimizedImage(config, postsList[0].attributes.cover) || `<img id="cover-0" src="${postsList[0].attributes.cover}" alt="" />` %>
+      <a
+        class="hero-post"
+        href="/blog/<%= postsList[0].file.withoutExtension %>"
+      >
+        <%- inert.getOptimizedImage(config, postsList[0].attributes.cover)
+        || `<img id="cover-0" src="${postsList[0].attributes.cover}" alt="" />`
+        %>
         <div class="hero-post--info">
           <div>
             <h1><%= postsList[0].attributes.title %></h1>
@@ -51,12 +72,17 @@
           <p><%= postsList[0].attributes.description %></p>
         </div>
       </a>
+      <% if (postsList.length > 1) { %>
       <div class="more">
         <h1 id="more">More Stories</h1>
         <div id="more-list">
           <% postsList.slice(1).forEach((post) => { %>
           <a class="post" href="/blog/<%= post.file.withoutExtension %>">
-            <%- inert.getOptimizedImage(config, post.attributes.cover) || `<img id="cover-0" src="${post.attributes.cover}" alt="" />` %>
+            <%- inert.getOptimizedImage(config, post.attributes.cover) || `<img
+              id="cover-0"
+              src="${post.attributes.cover}"
+              alt=""
+            />` %>
             <h1><%= post.attributes.title %></h1>
             <time><%= formatDate(new Date(post.attributes.time)) %></time>
             <p><%= post.attributes.description%></p>
@@ -64,6 +90,7 @@
           <% }); %>
         </div>
       </div>
+      <% } %>
     </main>
   </body>
 </html>

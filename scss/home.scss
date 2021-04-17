@@ -10,14 +10,35 @@ header {
   width: 100vw;
   padding: 10px 80px;
   box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-flow: row wrap;
 
-  h2 {
+  a.headline {
     font-family: 'DM Sans', sans-serif;
     font-weight: 500;
     font-size: 24px;
     color: #000;
     margin: 0;
+    display: inline-block;
+    text-decoration: none;
   }
+}
+
+a.tag {
+  font-family: 'DM Sans', sans-serif;
+  --bg: #1d32d325;
+  --fg: #1d32d3;
+  display: inline-block;
+
+  color: var(--fg);
+  background: var(--bg);
+  text-decoration: none;
+  font-size: 13px;
+  text-transform: uppercase;
+  padding: 8px 20px;
+  border-radius: 5px;
 }
 
 main {
