@@ -139,6 +139,7 @@ p {
     a.tag {
         --bg: #1d32d325;
         --fg: #1d32d3;
+        display: inline-block;
 
         color: var(--fg);
         background: var(--bg);
