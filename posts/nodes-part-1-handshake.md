@@ -10,7 +10,7 @@ tags:
   - blockchain
 ---
 
-Not too long ago, I was looking through all the nerdy chat groups I'm in, and discovered a very interesting project – handshake.org. I read through the website, and became immediately intrigued by its premise:
+Not too long ago, I was looking through all the nerdy chat groups I'm in and discovered a very interesting project – handshake.org. When I read through the website, I became immediately intrigued by its premise:
 
 > Handshake is a decentralized, permissionless naming protocol where every peer is validating and in charge of managing the root DNS naming zone with the goal of creating an alternative to existing Certificate Authorities and naming systems.
 
@@ -23,11 +23,11 @@ Currently, all names on the internet are controlled by central authorities. For 
 
 TL;DR, Companies like Verisign and their respective goverments monopolize the domain market and stand in the way of freedom of speech on the internet.
 
-**This is often reffered to as “the treachery of the internet”:**
+**This is often referred to as “the treachery of the internet”:**
 
 When the internet was first introduced, it promised us a free way to communicate with others and share our oppinions. Instead, the internet has, for most people, done the opposite: It has become the only accessible channel of communication where one can be heard, and if one's oppinion isn't in canon with that of one's respective local goverment or the enterprises controlling the media channels, they have no voice.
 
-Lately, this problem has become more and more pronouced. One especially big event was the *parler shutdown*. Completely regardless of political view, I think this does not set a good precedent, and it also goes to show how much power companies like Amazon, Goolge and Verisign have over the internet.
+Lately, this problem has become more and more pronouced. One especially big event was the *parler shutdown*. Completely regardless of political view, I think this does not set a good precedent, and it also goes to show how much power companies like Amazon, Google and Verisign have over the internet.
 
 ## How does handshake solve the problem?
 One word: *decentralization*. This one word is the key to freedom on the internet. (This part might get a little nerdy 😂)
