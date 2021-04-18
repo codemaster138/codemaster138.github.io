@@ -8,7 +8,7 @@ html, body {
 
 header {
   width: 100vw;
-  padding: 10px 80px;
+  padding: 10px clamp(20px, 4vw, 80px);
   box-sizing: border-box;
   display: flex;
   align-items: center;
@@ -43,7 +43,7 @@ a.tag {
 
 main {
   width: 100vw;
-  padding: 80px;
+  padding: clamp(20px, 4vw, 80px);
   padding-top: 20px;
   box-sizing: border-box;
   color: #000;
