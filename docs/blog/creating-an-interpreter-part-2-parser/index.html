@@ -41,9 +41,9 @@
 <p>This post is work-in-progress. It will be done soon.</p>
 </blockquote>
 <p>In my <a href="/blog/creating-an-interpreter-part-1-lexer">previous post</a>, I showed how to create your own <em>Lexical Analyzer</em> in JavaScript. In this follow-up post, I will show you how to create your own <em>Parser</em>. <strong>The code from this post will be dependent on the code from the previous post, so I recommend you read it if you haven't!</strong></p>
-<h2>But what is a parser?</h2>
+<h2 id="but-what-is-a-parser">But what is a parser?</h2>
 <p>A parser is a part of every programming language, whether it is compiled or interpreted. It takes the flat array of tokens from the Lexical Analyzer (from here on out referred to as the Lexer), and returns a so called &quot;Abstract Syntax Tree&quot; (aka AST).</p>
-<h3>The AST</h3>
+<h3 id="the-ast">The AST</h3>
 <p>The AST is composed of many nodes, each of which represents an operation, for example, here's the AST for <code>1 + 1</code>:
 <picture><source srcset="/assets/optimized/webp/ast-1.webp 1832w, /assets/optimized/webp/ast-1-460w.webp 460w, /assets/optimized/webp/ast-1-720w.webp 720w, /assets/optimized/webp/ast-1-1080w.webp 1080w"/><source srcset="/assets/optimized/ast-1-460w.png 460w, /assets/optimized/ast-1-720w.png 720w, /assets/optimized/ast-1-1080w.png 1080w"/><img src="/assets/ast-1.png"/></picture></p>
 <p>In the above image, we see a <em>Node</em> called &quot;Binary Operation&quot;. It's called this because it operates on exactly two values. It contains the <em>tokens</em> <code>&lt;number:1&gt;</code>, <code>&lt;plus:+&gt;</code>, and <code>&lt;number:1&gt;</code>.</p>
@@ -53,7 +53,7 @@
 <p>Well, sorta. We first try to execute the top node. If any of its children are not tokens, but <em>nodes</em>, we execute those child nodes before returning from the top node. To wrap our head around this more easily, we can say that the tree is executed bottom up, because that's exactly the way it behaves.</p>
 <p>Now, I could torture you with more examples of syntax trees, but I think you probably get the picture by now.</p>
 <p>As for how the actual parsing process works, I will explain it as we go along with writing our parser.</p>
-<h3>To be continued...</h3>
+<h3 id="to-be-continued">To be continued...</h3>
 <p>I don't have a lot of time for this project right now, so you'll have to wait before I share the code. Sorry 😕</p>
 </div>
         <hr />

@@ -136,9 +136,10 @@
     }
   },
   "assets/nodes_2_blockchain_basics_cover.png": {
-    "hash": "ff9f8f8187839fff",
+    "hash": "ffffffffffffffff",
     "srcsets": {
       "webp": [
+        "/assets/optimized/webp/nodes_2_blockchain_basics_cover.webp 367w",
         "/assets/optimized/webp/nodes_2_blockchain_basics_cover.webp 3036w",
         "/assets/optimized/webp/nodes_2_blockchain_basics_cover-460w.webp 460w",
         "/assets/optimized/webp/nodes_2_blockchain_basics_cover-720w.webp 720w",
@@ -150,6 +151,24 @@
         "/assets/optimized/nodes_2_blockchain_basics_cover-720w.png 720w",
         "/assets/optimized/nodes_2_blockchain_basics_cover-1080w.png 1080w",
         "/assets/optimized/nodes_2_blockchain_basics_cover-2048w.png 2048w"
+      ]
+    }
+  },
+  "assets/nodes_3_skynet_cover.png": {
+    "hash": "ff9f8f8183939fff",
+    "srcsets": {
+      "webp": [
+        "/assets/optimized/webp/nodes_3_skynet_cover.webp 3036w",
+        "/assets/optimized/webp/nodes_3_skynet_cover-460w.webp 460w",
+        "/assets/optimized/webp/nodes_3_skynet_cover-720w.webp 720w",
+        "/assets/optimized/webp/nodes_3_skynet_cover-1080w.webp 1080w",
+        "/assets/optimized/webp/nodes_3_skynet_cover-2048w.webp 2048w"
+      ],
+      "default": [
+        "/assets/optimized/nodes_3_skynet_cover-460w.png 460w",
+        "/assets/optimized/nodes_3_skynet_cover-720w.png 720w",
+        "/assets/optimized/nodes_3_skynet_cover-1080w.png 1080w",
+        "/assets/optimized/nodes_3_skynet_cover-2048w.png 2048w"
       ]
     }
   },

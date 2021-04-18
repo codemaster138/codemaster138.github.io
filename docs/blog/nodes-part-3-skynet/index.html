@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Storing files on the decentralized web: Skynet | Jake Sarjeant</title>
+    <link rel="stylesheet" href="/style/index.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css"
+      integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="preload"
+      as="style"
+      onload="this.rel='stylesheet'"
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap"
+    />
+
+    <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon" />
+    
+  </head>
+
+  <body>
+    <header>
+      <a href="/">Jake Sarjeant</a>
+    </header>
+    <main>
+      <div class="body">
+        <nav>
+          <a href="/#more">⭠ Back Home</a>
+          <time>April 18, 2021</time>
+        </nav>
+        <div class="head">
+          <h1 class="title">Storing files on the decentralized web: Skynet</h1>
+          <p class="description">In this post, I will explain how the SkyNet network allows you to store files on the decentralized web</p>
+          <picture id="cover"><source srcset="/assets/optimized/webp/nodes_3_skynet_cover.webp 3036w, /assets/optimized/webp/nodes_3_skynet_cover-460w.webp 460w, /assets/optimized/webp/nodes_3_skynet_cover-720w.webp 720w, /assets/optimized/webp/nodes_3_skynet_cover-1080w.webp 1080w, /assets/optimized/webp/nodes_3_skynet_cover-2048w.webp 2048w"/><source srcset="/assets/optimized/nodes_3_skynet_cover-460w.png 460w, /assets/optimized/nodes_3_skynet_cover-720w.png 720w, /assets/optimized/nodes_3_skynet_cover-1080w.png 1080w, /assets/optimized/nodes_3_skynet_cover-2048w.png 2048w"/><img src="/assets/nodes_3_skynet_cover.png"/></picture>
+        </div>
+        <div class="content"><p>The decentralized web is an amazing place. There's cryptocurrencies, there's <a href="/blog/nodes-part-1-handshake">decentralized domain name systems</a> and so many more amazing things. But how do we store files on the decentralized web? Certainly not through centralized enterprise server farms, but then how?</p>
+<p>The answer to this question is: <a href="https://siasky.net">Skynet</a>. Skynet is a decentralized, distributed network of nodes that allows you to store files in a decentralized manner. How does it work? How can I start using it? That's exactly what we'll explore in this post!</p>
+<h2 id="a-high-level-overview">A high-level overview</h2>
+<p>First, I want to establish a basic, high-level understanding of how Skynet works. To do this, we'll use an example:</p>
+<p>Someone, let's call them <em>Bob</em>, has a file he wants to make available through the skynet network. So he goes to a skynet <a href="#portals">portal</a>. On this portal, he can upload his file. This file is uploaded to at least 30 nodes in the skynet network, and assigned an address called a <a href="#skylinks">&quot;skylink&quot;</a>.</p>
+<p>When Bob wants to share his file, he shares the skylink that the network assigned to his file. Now someone else, let's call this person <em>Alice</em>, wants to download the file. Using any skynet <a href="#portals">portal</a>, she can request the file with that skylink. This portal will send a request to a node in the network, which will either respond with the file, if it has the file on hand, or request the file from another node. Eventually, this process hits a node that has the file, and the file is returned from node to node until it reaches the portal.</p>
+<p>Now that we know how the skynet operates on a basic level, we can look into it in more detail.</p>
+<h2 id="skylinks">Skylinks</h2>
+<p>As you now know from the previous section, each file on the skynet network is identified by a long string of random-looking letters and numbers called a skylink. This skylink is unique to one, and only one file. But how does it work, and why don't we just use plain text file names instead?</p>
+<p>First, a primer on addressing:</p>
+<h3 id="location-based-addressing">Location-based addressing</h3>
+<p>This is probably the type of addressing you're most familiar with. A location-based address, as the name implies, points to the location of a file. It is how files are addressed on the centralized web, and it's also how local files on your computer are addressed.</p>
+<p>This approach is more easily comprehensible by humans, and it works really well on the centralized internet, but on decentralized networks, it starts to break down.</p>
+<p>You see, because files are stored on multiple nodes at once and may switch from one node to another at any given point in time, we cannot establish a universal location of said file. Instead, we must address it differently:</p>
+<h3 id="content-based-addressing">Content-based addressing</h3>
+<p>In this addressing scheme, we address files not based on their location in the network, but instead based on their content. For the reasons described above, this addressing scheme is the one that makes the most sense in a decentralized network.</p>
+<p>When a file is requested using a content-based address, we can bounce the request from node to node until one of the nodes discovers a file, the contents of which match up with the given address.</p>
+<p>So, a skylink is nothing else than a content-based address pointing to the content of the file.</p>
+<h4 id="generating-content-based-addresses">Generating content-based addresses</h4>
+<p>If a content-based address contained the full content of the file, there would be no point in storing the file on the skynet. So how do we establish a content-based address for our file?</p>
+<p>To do this, we use hashes. A hash is function that takes in a file and returns a short string. This string will change drastically when the tiniest change is made to the input value. For example the hash of &quot;hello&quot; would in no way resemble the hash of &quot;hell0&quot;. Hashing methods are used to store passwords, and they also happen to be a perfect fit for content-based addressing. There are many, many different hash functions out there, and I am not exactly sure which one uses, but some very popular ones are <a href="https://en.wikipedia.org/wiki/SHA-2">SHA-256 and SHA-512</a>.</p>
+<h2 id="portals">Portals</h2>
+<p>The easiest way to access files on the skynet is through a skynet portal. A portal can be operated by anyone. In fact, check out <a href="https://support.siasky.net/key-concepts/skynet-portals/using-a-sia-node-as-a-portal">this documentation</a> to host your own portal.</p>
+<p>A portal is basically a glorified sia node that provides some sort of interface through which users can upload and download files from/to skynet.</p>
+<p>A portal operates exactly like I described above in the <a href="#a-high-level-overview">basic example</a>.</p>
+<h3 id="further-reading">Further reading</h3>
+<p>I hope this post helped you understand the basics of skynet, but if you wish to learn more, you should check out the following sites:</p>
+<ul>
+<li><a href="https://siasky.net">Sia Skynet Portal Homepage</a></li>
+<li><a href="https://support.siasky.net/">Skynet documentation</a></li>
+</ul>
+</div>
+        <hr />
+        
+        <div class="tags">
+          
+          <a
+            class="tag"
+            href="/tags/code"
+            title="This post was tagged “Code 👨‍💻”"
+            style="--fg: #26d43a; --bg: #2acc3d25"
+            >Code 👨‍💻</a
+          >
+          
+          <a
+            class="tag"
+            href="/tags/decentralization"
+            title="This post was tagged “Decentralization 🤯”"
+            style="--fg: #2dc9b4; --bg: #2dc9b425"
+            >Decentralization 🤯</a
+          >
+          
+          <a
+            class="tag"
+            href="/tags/blockchain"
+            title="This post was tagged “Blockchain ⛓”"
+            style="--fg: #d8a117; --bg: #d8a11525"
+            >Blockchain ⛓</a
+          >
+          
+          <a
+            class="tag"
+            href="/tags/skynet"
+            title="This post was tagged “Skynet ☁️”"
+            style="--fg: #00C65E; --bg: #00C65E25"
+            >Skynet ☁️</a
+          >
+          
+        </div>
+        
+        <div class="author">
+          <h3 class="written-by">Written by</h3>
+          <div class="author-name">
+            <div
+              class="author-avatar"
+              style="
+                --url: url('/assets/avatar.png');
+              "
+            ></div>
+            <div>
+              <h4 class="author-name--name">
+                Jake Sarjeant
+              </h4>
+              <p class="author-name--description">
+                Owns this blog
+              </p>
+            </div>
+          </div>
+          <p class="author-description">
+            Hi! I&#39;m Jake. I&#39;m a web developer 👨‍💻, web designer 🎨, and space enthusiast 🚀🛰. I am also
+                quite interested in decentralization, cryptocurrency and blockchain, and I hope to be able
+                to write more about those topics in the near future.
+          </p>
+          
+        </div>
+        <hr/>
+      </div>
+      <div class="col-right"></div>
+    </main>
+  </body>
+</html>

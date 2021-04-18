@@ -41,19 +41,19 @@
 <blockquote>
 <p>It should be noted that this not a great way to create a practical programming language. This series serves solely to demonstrate the concepts behind programming languages, but if you wish to build a programming language to actually use for your projects, I highly recommend you look into tools like <a href="https://llvm.org/">llvm</a> and <a href="https://en.wikipedia.org/wiki/Yacc">yacc</a></p>
 </blockquote>
-<h2>Compiler vs. Interpreter</h2>
+<h2 id="compiler-vs-interpreter">Compiler vs. Interpreter</h2>
 <p>There are two mainstream ways to make programming languages: Compilers and Interpreters.</p>
 <p>A compiler compiles a program ahead of time so that the computer can run it on it's own. An example of a compiled language would be C.</p>
 <p>An interpreter executes a program on the fly. Examples of this are javascript and python. For the sake of simplicity, this series will focus only on making an interpreted language.</p>
-<h2>Parts of an interpreter</h2>
+<h2 id="parts-of-an-interpreter">Parts of an interpreter</h2>
 <p>When you run your program, the interpreter doesn't execute it right away. There are a few things the interpreter does to prepare the program for execution. Let's talk about those:</p>
-<h3>1. The Lexer</h3>
+<h3 id="1-the-lexer">1. The Lexer</h3>
 <p>The lexer will be the focus of this tutorial. It takes your code and converts it into a list of something called &quot;tokens&quot;. These tokens each have a type and a value.</p>
-<h3>2. The Parser</h3>
+<h3 id="2-the-parser">2. The Parser</h3>
 <p>The parser takes the tokens and creates something called an <em>&quot;Abstract Syntax Tree&quot;</em>, or <em>&quot;AST&quot;</em>. The AST tells the interpreter what tokens belong together, and how. We'll discuss this in more detail in the next post.</p>
-<h3>Execution</h3>
+<h3 id="execution">Execution</h3>
 <p>Once all these steps have run, the code will be executed. How exactly this works will also receive a dedicated post</p>
-<h2>Setting up our workspace</h2>
+<h2 id="setting-up-our-workspace">Setting up our workspace</h2>
 <p>For this project, create a new folder whereever you store your projects. I have a folder called <code>projects</code> on my desktop. I called my project folder <code>my-programming-language</code>. Open your folder in VSCode or whatever IDE you use. Open up the integrated terminal.</p>
 <p>In the terminal type the following commands:</p>
 <pre class="lang-bash"><code><span class="token function">npm</span> init -y
@@ -79,7 +79,7 @@
 <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <p>This program will infinitely prompt you for a command, run the lexer and print the results. <strong>However, this will not work at all until we start coding our lexer</strong>, so don't be surprised if you receive an error.</p>
-<h2>The Token class</h2>
+<h2 id="the-token-class">The Token class</h2>
 <p>Now, let's start working on our lexer. First, create a new folder in your project called <code>lexer</code>. In that folder, create a new file, <code>token.js</code></p>
 <p>In this file, create an empty class called <code>Token</code>:</p>
 <pre class="lang-js"><code><span class="token keyword">class</span> <span class="token class-name">Token</span> <span class="token punctuation">{</span>
@@ -111,7 +111,7 @@
 module<span class="token punctuation">.</span><span class="token property-access">exports</span> <span class="token operator">=</span> <span class="token maybe-class-name">Token</span><span class="token punctuation">;</span>
 </code></pre>
 <p>And that's our token class, done!</p>
-<h2>Creating the actual Lexer</h2>
+<h2 id="creating-the-actual-lexer">Creating the actual Lexer</h2>
 <blockquote>
 <p><em>This part might get a little bit complicated, but bear with me here.</em></p>
 </blockquote>
@@ -193,7 +193,7 @@ module<span class="token punctuation">.</span><span class="token property-access
   createTokens
 <span class="token punctuation">}</span><span class="token punctuation">;</span>
 </code></pre>
-<h3>Representing postitions</h3>
+<h3 id="representing-postitions">Representing postitions</h3>
 <p>This might not make sense now, but it will become important later to keep track of positions. For this, we will create a class called position. It stores a copy of the code, the current line, column and absolute index in the code. <strong>This class will be located in a file called <code>pos.js</code> in the project folder</strong></p>
 <pre class="lang-js"><code><span class="token keyword">class</span> <span class="token class-name">Pos</span> <span class="token punctuation">{</span>
   <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token parameter">idx<span class="token punctuation">,</span> ln<span class="token punctuation">,</span> col<span class="token punctuation">,</span> code</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
@@ -221,7 +221,7 @@ module<span class="token punctuation">.</span><span class="token property-access
 
 module<span class="token punctuation">.</span><span class="token property-access">exports</span> <span class="token operator">=</span> <span class="token maybe-class-name">Pos</span><span class="token punctuation">;</span>
 </code></pre>
-<h3>Back to the lexer</h3>
+<h3 id="back-to-the-lexer">Back to the lexer</h3>
 <p>In the <code>Lexer</code> constructor, initialize a position and add a method to advance by n characters:</p>
 <pre class="lang-js"><code><span class="token keyword">const</span> <span class="token maybe-class-name">Pos</span> <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'../pos'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
@@ -397,7 +397,7 @@ module<span class="token punctuation">.</span><span class="token property-access
   <span class="token keyword control-flow">return</span> lexer<span class="token punctuation">.</span><span class="token method function property-access">createTokens</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<h2>That's it!</h2>
+<h2 id="thats-it">That's it!</h2>
 <p>And that's it! We're finally done!</p>
 <p>You can take a look at <a href="/blog/creating-an-interpreter-part-2-parser">this post</a> to learn how to build a parser.</p>
 </div>
