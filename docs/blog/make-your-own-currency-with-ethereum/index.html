@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Make your own basic currency with smart contracts! | Jake Sarjeant</title>
+    <link rel="stylesheet" href="/style/index.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css"
+      integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="preload"
+      as="style"
+      onload="this.rel='stylesheet'"
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap"
+    />
+
+    <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon" />
+    
+  </head>
+
+  <body>
+    <header>
+      <a href="/">Jake Sarjeant</a>
+    </header>
+    <main>
+      <div class="body">
+        <nav>
+          <a href="/#more">⭠ Back Home</a>
+          <time>April 20, 2021</time>
+        </nav>
+        <div class="head">
+          <h1 class="title">Make your own basic currency with smart contracts!</h1>
+          <p class="description">There&#39;s lots of cryptocurrencies out there, but did you know it&#39;s ridiculously easy to make your own?</p>
+          <picture id="cover"><source srcset="/assets/optimized/webp/smart-contract-currency-cover.webp 3036w, /assets/optimized/webp/smart-contract-currency-cover-460w.webp 460w, /assets/optimized/webp/smart-contract-currency-cover-720w.webp 720w, /assets/optimized/webp/smart-contract-currency-cover-1080w.webp 1080w, /assets/optimized/webp/smart-contract-currency-cover-2048w.webp 2048w"/><source srcset="/assets/optimized/smart-contract-currency-cover-460w.png 460w, /assets/optimized/smart-contract-currency-cover-720w.png 720w, /assets/optimized/smart-contract-currency-cover-1080w.png 1080w, /assets/optimized/smart-contract-currency-cover-2048w.png 2048w"/><img src="/assets/smart-contract-currency-cover.png"/></picture>
+        </div>
+        <div class="content"><p>There's lots of cryptocurrencies out there, but did you know it's ridiculously easy to make your own? In this post, I'll show you how to do so with <em>smart contracts</em>.</p>
+<p>With this post, I want to introduce you to the world of smart contracts and show you how to write your own very first contract.</p>
+<h2 id="but-what-em-is-em-a-smart-contract">But what <em>is</em> a smart contract?</h2>
+<p>Smart contracts are a pretty expansive and complicated topic, but all you need to know is that a smart contract is just a program that runs inside a blockchain. In the case of this tutorial, the Ethereum blockhain.</p>
+<h2 id="creating-your-first-smart-contract">Creating your first smart contract</h2>
+<p>Before we start modelling complex data structures in out smart contracts, let's start with something basic. Many tutorials would build a &quot;Hello World&quot; contract now, but I think that since most people reading this are familiar with the basic concepts of programming, so we'll be creating our own simple cryptocurrency.</p>
+<blockquote>
+<p><strong>Note:</strong> The currency we'll be creating is not standard-compliant and will not be able to interact with other tokens. Also, I can't guarantee that it's secure.</p>
+</blockquote>
+<h3 id="installing-the-tools">Installing the tools</h3>
+<p>There's a couple things you'll need, so let's go over those real quick:</p>
+<h4 id="node-js-amp-npm">NodeJS &amp; NPM</h4>
+<p>Follow the install instructions on <a href="https://nodejs.org/">https://nodejs.org/</a>. To verify that it works, run the following two commands:</p>
+<pre class="lang-bash"><code>node -v <span class="token comment"># Should return (for example) v14.15.4</span>
+<span class="token function">npm</span> -v <span class="token comment"># Should return (for example) v7.9.0</span>
+</code></pre>
+<h4 id="sol-c">SolC</h4>
+<p>On the ethereum blockchain, smart contracts are written using a programming language called <code>Solidity</code>. To use it we'll need its compiler, <code>solc</code>.</p>
+<pre class="lang-bash"><code><span class="token function">npm</span> i -g solc
+</code></pre>
+<p>If this throws an error, try</p>
+<pre class="lang-bash"><code><span class="token function">sudo</span> <span class="token function">npm</span> i -g solc
+</code></pre>
+<h4 id="truffle">Truffle</h4>
+<p>To make our life a bit easier, we'll be using the <a href="https://trufflesuite.com/">Truffle</a> framework. Install it using:</p>
+<pre class="lang-bash"><code><span class="token function">npm</span> i -g truffle
+</code></pre>
+<h4 id="ganache">Ganache</h4>
+<p>Ganache is a one-click blockchain to help you test your smart contracts. Follow the install instructions on <a href="https://www.trufflesuite.com/ganache/">https://www.trufflesuite.com/ganache/</a>, open the app and click &quot;Quick Start&quot; to set up your blockchain.</p>
+<h3 id="setting-up-your-project">Setting up your project</h3>
+<p>Create and open your project folder in VSCode. In the terminal, run the following command:</p>
+<pre class="lang-bash"><code>truffle init
+</code></pre>
+<p>This will create an empty truffle project in your project directory.</p>
+<p>You should see the following folder structure:</p>
+<pre class="lang-txt"><code>Project Root
+ ├── contracts
+ │   └── Migrations.sol
+ ├── migrations
+ │   └── 1_initial_migration.js
+ ├── test
+ │   └── .gitkeep
+ └── truffle-config.js
+</code></pre>
+<p>Most of these files are of no interest right now, except for the configuration file. Delete it's contents and replace them with the following:</p>
+<pre class="lang-js"><code>module<span class="token punctuation">.</span><span class="token property-access">exports</span> <span class="token operator">=</span> <span class="token punctuation">{</span>
+  networks<span class="token operator">:</span> <span class="token punctuation">{</span>
+    development<span class="token operator">:</span> <span class="token punctuation">{</span>
+      host<span class="token operator">:</span> <span class="token string">"127.0.0.1"</span><span class="token punctuation">,</span>
+      port<span class="token operator">:</span> <span class="token number">7545</span><span class="token punctuation">,</span>
+      network_id<span class="token operator">:</span> <span class="token string">"5777"</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  compilers<span class="token operator">:</span> <span class="token punctuation">{</span>
+    solc<span class="token operator">:</span> <span class="token punctuation">{</span>
+      version<span class="token operator">:</span> <span class="token string">"^0.6"</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<p>In the Ganache app, at the top you should see a bar with a bunch of data and statistics. The only thing that you need there are the <code>Network ID</code> and <code>RPC Server</code> fields. Replace the network ID in the configuration above with the netwotk ID from Ganache, then replace the port with the part <em>after</em> the colon in the <code>RPC Server</code> field:</p>
+<p><img src="/assets/Screenshot%202021-04-28%20at%2013.06.27.png" alt="Ganache App Topbar"></p>
+<h3 id="writing-the-actual-contract">Writing the actual contract</h3>
+<p>That was quite a lot of set-up, but now we can finally begin to write our first smart contract! Smart contracts on the ethereum blockchain are written in a language called <code>Soldity</code>. It was purpose-built for making smart contracts.</p>
+<p>Create a file in the <code>contracts</code> folder called <code>MyCoin.sol</code>, or whatever you want to call your cryptocurrency.</p>
+<p>The first line in every Solidity program should define what versions of Soldity the contract requires to run. It looks like this:</p>
+<pre class="lang-sol"><code><span class="token comment">// SPDX-License-Identifier: MIT</span>
+<span class="token keyword">pragma</span> <span class="token keyword">solidity</span> <span class="token operator">>=</span><span class="token version number">0.6.0</span> <span class="token operator">&lt;</span><span class="token version number">0.9.0</span><span class="token punctuation">;</span>
+<span class="token keyword">pragma</span> experimental ABIEncoderV2<span class="token punctuation">;</span>
+</code></pre>
+<p>As you can see, our program will be running in any version of solidity between version 0.6.0 and 0.9.0. The Comment at the top is not necessarily required, but many IDEs will complain if it's missing.</p>
+<p>In Solidity, we write &quot;contracts&quot; like we would write classes in any other language. Let's create an empty contract inside our file:</p>
+<pre class="lang-sol"><code><span class="token comment">// SPDX-License-Identifier: MIT</span>
+<span class="token keyword">pragma</span> <span class="token keyword">solidity</span> <span class="token operator">>=</span><span class="token version number">0.6.0</span> <span class="token operator">&lt;</span><span class="token version number">0.9.0</span><span class="token punctuation">;</span>
+<span class="token keyword">pragma</span> experimental ABIEncoderV2<span class="token punctuation">;</span>
+
+<span class="token keyword">contract</span> <span class="token class-name">MyCoin</span> <span class="token punctuation">{</span>
+  <span class="token comment">// ... add code here</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>Our contract will allow users to do a couple of things: A user can transfer coins to another user, and view the balance of any user. Just to make the whole thing easier to wrap your head around, users will be able to buy new coins with Ethereum, thereby creating more coins and sell their coins for ethereum again, thereby removing coins from the system.</p>
+<p>To store this data, we'll need a couple of variables. The first one is a <code>mapping</code> containing the balances of different users, where each user's Ethereum address points to their balance. The seconde one is a variable containing the total amount of coins in the system.</p>
+<p>Let's declare those:</p>
+<pre class="lang-sol"><code><span class="token comment">// SPDX-License-Identifier: MIT</span>
+<span class="token keyword">pragma</span> <span class="token keyword">solidity</span> <span class="token operator">>=</span><span class="token version number">0.6.0</span> <span class="token operator">&lt;</span><span class="token version number">0.9.0</span><span class="token punctuation">;</span>
+<span class="token keyword">pragma</span> experimental ABIEncoderV2<span class="token punctuation">;</span>
+
+<span class="token keyword">contract</span> <span class="token class-name">MyCoin</span> <span class="token punctuation">{</span>
+  <span class="token keyword">mapping</span><span class="token punctuation">(</span><span class="token builtin">address</span> <span class="token operator">=></span> Balance<span class="token punctuation">)</span> <span class="token keyword">private</span> balances<span class="token punctuation">;</span>
+  <span class="token builtin">uint256</span> <span class="token keyword">private</span> totalCoins <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+
+  <span class="token comment">// ... add code here</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>The syntax for declaring these may seem a bit strange, but you'll get used to it. Here's the syntax for declaring a field:</p>
+<pre class="lang-sol"><code><span class="token operator">&lt;</span>type<span class="token operator">></span> <span class="token operator">&lt;</span>access<span class="token operator">-</span><span class="token keyword">modifier</span><span class="token operator">></span> <span class="token operator">&lt;</span>variable<span class="token operator">-</span>name<span class="token operator">></span><span class="token punctuation">;</span>
+</code></pre>
+<p>The syntax for mapping types:</p>
+<pre class="lang-sol"><code><span class="token keyword">mapping</span><span class="token punctuation">(</span><span class="token operator">&lt;</span>index<span class="token operator">-</span>type<span class="token operator">></span> <span class="token operator">=></span> <span class="token operator">&lt;</span>value<span class="token operator">-</span>type<span class="token operator">></span><span class="token punctuation">)</span>
+</code></pre>
+<p>Now, we need to delcare the <code>Balance</code> type used in our mapping:</p>
+<pre class="lang-sol"><code><span class="token comment">// SPDX-License-Identifier: MIT</span>
+<span class="token keyword">pragma</span> <span class="token keyword">solidity</span> <span class="token operator">>=</span><span class="token version number">0.6.0</span> <span class="token operator">&lt;</span><span class="token version number">0.9.0</span><span class="token punctuation">;</span>
+<span class="token keyword">pragma</span> experimental ABIEncoderV2<span class="token punctuation">;</span>
+
+<span class="token keyword">contract</span> <span class="token class-name">MyCoin</span> <span class="token punctuation">{</span>
+  <span class="token keyword">struct</span> <span class="token class-name">Balance</span> <span class="token punctuation">{</span>
+    <span class="token builtin">address</span> <span class="token keyword">payable</span> owner<span class="token punctuation">;</span>
+    <span class="token builtin">uint256</span> amount<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token keyword">mapping</span><span class="token punctuation">(</span><span class="token builtin">address</span> <span class="token operator">=></span> Balance<span class="token punctuation">)</span> <span class="token keyword">private</span> balances<span class="token punctuation">;</span>
+  <span class="token builtin">uint256</span> <span class="token keyword">private</span> totalCoins <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+
+  <span class="token comment">// ... add code here</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>As you can see, each Balance holds two fields: The owner's address and the amount of coins they own. The difference between the <code>address</code> and <code>address payable</code> types is that only the latter one can receive ETH payments.</p>
+<p>Now, let's add some getter methods. A getter method allows anyone to read a private value from the contract. This is useful if you want to allow reading, but not writing a certain value, for example totalCoins.</p>
+<pre class="lang-sol"><code><span class="token comment">// SPDX-License-Identifier: MIT</span>
+<span class="token keyword">pragma</span> <span class="token keyword">solidity</span> <span class="token operator">>=</span><span class="token version number">0.6.0</span> <span class="token operator">&lt;</span><span class="token version number">0.9.0</span><span class="token punctuation">;</span>
+<span class="token keyword">pragma</span> experimental ABIEncoderV2<span class="token punctuation">;</span>
+
+<span class="token keyword">contract</span> <span class="token class-name">MyCoin</span> <span class="token punctuation">{</span>
+  <span class="token keyword">struct</span> <span class="token class-name">Balance</span> <span class="token punctuation">{</span>
+    <span class="token builtin">address</span> <span class="token keyword">payable</span> owner<span class="token punctuation">;</span>
+    <span class="token builtin">uint256</span> amount<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token keyword">mapping</span><span class="token punctuation">(</span><span class="token builtin">address</span> <span class="token operator">=></span> Balance<span class="token punctuation">)</span> <span class="token keyword">private</span> balances<span class="token punctuation">;</span>
+  <span class="token builtin">uint256</span> <span class="token keyword">private</span> totalCoins <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+
+  <span class="token comment">/**
+   * @dev Get total amount of coins
+   */</span>
+  <span class="token keyword">function</span> <span class="token function">getTotalCoins</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">public</span> <span class="token keyword">view</span> <span class="token keyword">returns</span><span class="token punctuation">(</span><span class="token builtin">uint256</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> totalCoins<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>Also, we'll add a method to get a user's balance:</p>
+<pre class="lang-sol"><code><span class="token comment">// SPDX-License-Identifier: MIT</span>
+<span class="token keyword">pragma</span> <span class="token keyword">solidity</span> <span class="token operator">>=</span><span class="token version number">0.6.0</span> <span class="token operator">&lt;</span><span class="token version number">0.9.0</span><span class="token punctuation">;</span>
+<span class="token keyword">pragma</span> experimental ABIEncoderV2<span class="token punctuation">;</span>
+
+<span class="token keyword">contract</span> <span class="token class-name">MyCoin</span> <span class="token punctuation">{</span>
+  <span class="token keyword">struct</span> <span class="token class-name">Balance</span> <span class="token punctuation">{</span>
+    <span class="token builtin">address</span> <span class="token keyword">payable</span> owner<span class="token punctuation">;</span>
+    <span class="token builtin">uint256</span> amount<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token keyword">mapping</span><span class="token punctuation">(</span><span class="token builtin">address</span> <span class="token operator">=></span> Balance<span class="token punctuation">)</span> <span class="token keyword">private</span> balances<span class="token punctuation">;</span>
+  <span class="token builtin">uint256</span> <span class="token keyword">private</span> totalCoins <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+
+  <span class="token comment">/**
+   * @dev Get total amount of coins
+   */</span>
+  <span class="token keyword">function</span> <span class="token function">getTotalCoins</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">public</span> <span class="token keyword">view</span> <span class="token keyword">returns</span><span class="token punctuation">(</span><span class="token builtin">uint256</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> totalCoins<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token comment">/**
+   * @dev Get balance
+   */</span>
+  <span class="token keyword">function</span> <span class="token function">getBalance</span><span class="token punctuation">(</span><span class="token builtin">address</span> _address<span class="token punctuation">)</span> <span class="token keyword">public</span> <span class="token keyword">view</span> <span class="token keyword">returns</span><span class="token punctuation">(</span>Balance <span class="token keyword">memory</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> balances<span class="token punctuation">[</span>_address<span class="token punctuation">]</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>Now, let's finally add a method for users to buy our currency. I'v decided to pin the value of the currency at 2.5 microether (2,500,000,000,000 wei). To allow users to buy things from smart contracts, Solidity provides us with the <code>payable</code> modifier. If we mark a method as payable, a user can send ether to this method. We can use the <code>msg.sender</code> and <code>msg.value</code> fileds to detect the address of the sender and amount of ether sent.</p>
+<pre class="lang-sol"><code><span class="token comment">// SPDX-License-Identifier: MIT</span>
+<span class="token keyword">pragma</span> <span class="token keyword">solidity</span> <span class="token operator">>=</span><span class="token version number">0.6.0</span> <span class="token operator">&lt;</span><span class="token version number">0.9.0</span><span class="token punctuation">;</span>
+<span class="token keyword">pragma</span> experimental ABIEncoderV2<span class="token punctuation">;</span>
+
+<span class="token keyword">contract</span> <span class="token class-name">MyCoin</span> <span class="token punctuation">{</span>
+  <span class="token keyword">struct</span> <span class="token class-name">Balance</span> <span class="token punctuation">{</span>
+    <span class="token builtin">address</span> <span class="token keyword">payable</span> owner<span class="token punctuation">;</span>
+    <span class="token builtin">uint256</span> amount<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token keyword">mapping</span><span class="token punctuation">(</span><span class="token builtin">address</span> <span class="token operator">=></span> Balance<span class="token punctuation">)</span> <span class="token keyword">private</span> balances<span class="token punctuation">;</span>
+  <span class="token builtin">uint256</span> <span class="token keyword">private</span> totalCoins <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+  <span class="token comment">// 1 MyCoin = &lt;converionRate> wei</span>
+  <span class="token builtin">uint256</span> conversionRate <span class="token operator">=</span> <span class="token number">2500000000000</span><span class="token punctuation">;</span>
+
+  <span class="token comment">/**
+   * @dev Get total amount of coins
+   */</span>
+  <span class="token keyword">function</span> <span class="token function">getTotalCoins</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">public</span> <span class="token keyword">view</span> <span class="token keyword">returns</span><span class="token punctuation">(</span><span class="token builtin">uint256</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> totalCoins<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token comment">/**
+   * @dev Get balance
+   */</span>
+  <span class="token keyword">function</span> <span class="token function">getBalance</span><span class="token punctuation">(</span><span class="token builtin">address</span> _address<span class="token punctuation">)</span> <span class="token keyword">public</span> <span class="token keyword">view</span> <span class="token keyword">returns</span><span class="token punctuation">(</span>Balance <span class="token keyword">memory</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> balances<span class="token punctuation">[</span>_address<span class="token punctuation">]</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token comment">/**
+   * @dev Buy MyCoin
+   */</span>
+  <span class="token keyword">function</span> <span class="token function">buyMyCoin</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">external</span> <span class="token keyword">payable</span> <span class="token punctuation">{</span>
+    <span class="token keyword">require</span><span class="token punctuation">(</span>msg<span class="token punctuation">.</span>value <span class="token operator">></span> <span class="token number">1</span> gwei<span class="token punctuation">,</span> <span class="token string">"Minimum transaction is 1 gwei"</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// Not very much</span>
+
+    <span class="token builtin">uint256</span> amount <span class="token operator">=</span> <span class="token function">convert</span><span class="token punctuation">(</span>msg<span class="token punctuation">.</span>value<span class="token punctuation">,</span> conversionRate<span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    balances<span class="token punctuation">[</span>msg<span class="token punctuation">.</span>sender<span class="token punctuation">]</span><span class="token punctuation">.</span>owner <span class="token operator">=</span> <span class="token keyword">payable</span><span class="token punctuation">(</span>msg<span class="token punctuation">.</span>sender<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    balances<span class="token punctuation">[</span>msg<span class="token punctuation">.</span>sender<span class="token punctuation">]</span><span class="token punctuation">.</span>amount <span class="token operator">+=</span> amount<span class="token punctuation">;</span>
+
+    totalCoins <span class="token operator">+=</span> amount<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token comment">/**
+   * @dev Convert currencies
+   */</span>
+  <span class="token keyword">function</span> <span class="token function">convert</span><span class="token punctuation">(</span><span class="token builtin">uint256</span> amount<span class="token punctuation">,</span> <span class="token builtin">uint256</span> conversion_rate<span class="token punctuation">,</span> <span class="token builtin">bool</span> <span class="token keyword">from</span><span class="token punctuation">)</span> <span class="token keyword">public</span> <span class="token keyword">pure</span> <span class="token keyword">returns</span><span class="token punctuation">(</span><span class="token builtin">uint256</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token keyword">from</span> <span class="token operator">?</span> amount <span class="token operator">/</span> conversion_rate <span class="token punctuation">:</span> amount <span class="token operator">*</span> conversion_rate<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>There's quite a lot of changes here, so I'll just give you the gist:</p>
+<ul>
+<li><code>convert</code> is a simple function that takes an amount and conversion rate and converts between two currencies.</li>
+<li>The new <code>conversion_rate</code> field is the conversion rate from MyCoin to <code>wei</code>. 1 wei is 1 quintillionth of an ether, and is the unit used for <code>msg.value</code>.</li>
+<li><code>buyMyCoin</code> is a payable method that buy some MyCoin</li>
+</ul>
+<p>Another obviously important thing to do is to allow the user to transfer money to other users. To do this, we'll add a method called <code>transfer</code> that transfers tokens and and event called <code>Transfer</code>. Events allow nodes to listen for transactions and react to them.</p>
+<pre class="lang-sol"><code><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token keyword">contract</span> <span class="token class-name">MyCoin</span> <span class="token punctuation">{</span>
+  <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+  <span class="token keyword">event</span> <span class="token function">Transfer</span><span class="token punctuation">(</span><span class="token builtin">address</span> <span class="token keyword">from</span><span class="token punctuation">,</span> <span class="token builtin">address</span> to<span class="token punctuation">,</span> <span class="token builtin">uint256</span> amount<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>Method to transfer tokens:</p>
+<pre class="lang-sol"><code><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token keyword">contract</span> <span class="token class-name">MyCoin</span> <span class="token punctuation">{</span>
+  <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+  <span class="token comment">/**
+   * @dev Transfer MyCoin
+   */</span>
+  <span class="token keyword">function</span> <span class="token function">transferMyCoin</span><span class="token punctuation">(</span><span class="token builtin">address</span> <span class="token keyword">payable</span> to<span class="token punctuation">,</span> <span class="token builtin">uint256</span> amount<span class="token punctuation">)</span> <span class="token keyword">external</span> <span class="token keyword">returns</span><span class="token punctuation">(</span><span class="token builtin">bool</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">require</span><span class="token punctuation">(</span>balances<span class="token punctuation">[</span>msg<span class="token punctuation">.</span>sender<span class="token punctuation">]</span><span class="token punctuation">.</span>amount <span class="token operator">>=</span> amount<span class="token punctuation">,</span> <span class="token string">"Cannot overdraw MyCoin. (You don't have enough money for this transaction)"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    balances<span class="token punctuation">[</span>msg<span class="token punctuation">.</span>sender<span class="token punctuation">]</span><span class="token punctuation">.</span>amount <span class="token operator">-=</span> amount<span class="token punctuation">;</span>
+    balances<span class="token punctuation">[</span>to<span class="token punctuation">]</span><span class="token punctuation">.</span>amount <span class="token operator">+=</span> amount<span class="token punctuation">;</span>
+    <span class="token keyword">emit</span> <span class="token function">Transfer</span><span class="token punctuation">(</span>msg<span class="token punctuation">.</span>sender<span class="token punctuation">,</span> to<span class="token punctuation">,</span> amount<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>Now, our cryptocurrency is fully useable, but it's kind of a one-way money sink, and most peoply don't like that in a currency. So, we'll add a way to sell these tokens for regular boring ethereum:</p>
+<pre class="lang-sol"><code><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token keyword">contract</span> <span class="token class-name">MyCoin</span> <span class="token punctuation">{</span>
+  <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+  <span class="token comment">/**
+   * @dev Withdraw MyCoin tokens
+   */</span>
+  <span class="token keyword">function</span> <span class="token function">withdrawMyCoin</span><span class="token punctuation">(</span><span class="token builtin">uint256</span> amount<span class="token punctuation">)</span> <span class="token keyword">external</span> <span class="token keyword">returns</span> <span class="token punctuation">(</span><span class="token builtin">bool</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">require</span><span class="token punctuation">(</span>balances<span class="token punctuation">[</span>msg<span class="token punctuation">.</span>sender<span class="token punctuation">]</span><span class="token punctuation">.</span>amount <span class="token operator">>=</span> amount<span class="token punctuation">,</span> <span class="token string">"Cannot overdraw MyCoin. (You don't have enough money for this transaction)"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    balances<span class="token punctuation">[</span>msg<span class="token punctuation">.</span>sender<span class="token punctuation">]</span><span class="token punctuation">.</span>amount <span class="token operator">-=</span> amount<span class="token punctuation">;</span>
+    balances<span class="token punctuation">[</span>msg<span class="token punctuation">.</span>sender<span class="token punctuation">]</span><span class="token punctuation">.</span>owner<span class="token punctuation">.</span><span class="token function">transfer</span><span class="token punctuation">(</span><span class="token function">convert</span><span class="token punctuation">(</span>amount<span class="token punctuation">,</span> conversionRate<span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>And, our currency is done! To recap, here's what it should look like now:</p>
+<pre class="lang-sol"><code><span class="token comment">// SPDX-License-Identifier: MIT</span>
+<span class="token keyword">pragma</span> <span class="token keyword">solidity</span> <span class="token operator">>=</span><span class="token version number">0.6.0</span> <span class="token operator">&lt;</span><span class="token version number">0.9.0</span><span class="token punctuation">;</span>
+<span class="token keyword">pragma</span> experimental ABIEncoderV2<span class="token punctuation">;</span>
+
+<span class="token keyword">contract</span> <span class="token class-name">MyCoin</span> <span class="token punctuation">{</span>
+  <span class="token keyword">struct</span> <span class="token class-name">Balance</span> <span class="token punctuation">{</span>
+    <span class="token builtin">address</span> <span class="token keyword">payable</span> owner<span class="token punctuation">;</span>
+    <span class="token builtin">uint256</span> amount<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token keyword">mapping</span><span class="token punctuation">(</span><span class="token builtin">address</span> <span class="token operator">=></span> Balance<span class="token punctuation">)</span> <span class="token keyword">private</span> balances<span class="token punctuation">;</span>
+  <span class="token builtin">uint256</span> <span class="token keyword">private</span> totalCoins <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+  <span class="token comment">// 1 MyCoin = &lt;converionRate> wei</span>
+  <span class="token builtin">uint256</span> conversionRate <span class="token operator">=</span> <span class="token number">2500000000000</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">event</span> <span class="token function">Transfer</span><span class="token punctuation">(</span><span class="token builtin">address</span> <span class="token keyword">from</span><span class="token punctuation">,</span> <span class="token builtin">address</span> to<span class="token punctuation">,</span> <span class="token builtin">uint256</span> amount<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token comment">/**
+   * @dev Get total amount of coins
+   */</span>
+  <span class="token keyword">function</span> <span class="token function">getTotalCoins</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">public</span> <span class="token keyword">view</span> <span class="token keyword">returns</span><span class="token punctuation">(</span><span class="token builtin">uint256</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> totalCoins<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token comment">/**
+   * @dev Get balance
+   */</span>
+  <span class="token keyword">function</span> <span class="token function">getBalance</span><span class="token punctuation">(</span><span class="token builtin">address</span> _address<span class="token punctuation">)</span> <span class="token keyword">public</span> <span class="token keyword">view</span> <span class="token keyword">returns</span><span class="token punctuation">(</span>Balance <span class="token keyword">memory</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> balances<span class="token punctuation">[</span>_address<span class="token punctuation">]</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token comment">/**
+   * @dev Buy MyCoin
+   */</span>
+  <span class="token keyword">function</span> <span class="token function">buyMyCoin</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">external</span> <span class="token keyword">payable</span> <span class="token punctuation">{</span>
+    <span class="token keyword">require</span><span class="token punctuation">(</span>msg<span class="token punctuation">.</span>value <span class="token operator">></span> <span class="token number">1</span> gwei<span class="token punctuation">,</span> <span class="token string">"Minimum transaction is 1 gwei"</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// Not very much</span>
+
+    <span class="token builtin">uint256</span> amount <span class="token operator">=</span> <span class="token function">convert</span><span class="token punctuation">(</span>msg<span class="token punctuation">.</span>value<span class="token punctuation">,</span> conversionRate<span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    balances<span class="token punctuation">[</span>msg<span class="token punctuation">.</span>sender<span class="token punctuation">]</span><span class="token punctuation">.</span>owner <span class="token operator">=</span> <span class="token keyword">payable</span><span class="token punctuation">(</span>msg<span class="token punctuation">.</span>sender<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    balances<span class="token punctuation">[</span>msg<span class="token punctuation">.</span>sender<span class="token punctuation">]</span><span class="token punctuation">.</span>amount <span class="token operator">+=</span> amount<span class="token punctuation">;</span>
+
+    totalCoins <span class="token operator">+=</span> amount<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token comment">/**
+   * @dev Transfer MyCoin
+   */</span>
+  <span class="token keyword">function</span> <span class="token function">transferMyCoin</span><span class="token punctuation">(</span><span class="token builtin">address</span> <span class="token keyword">payable</span> to<span class="token punctuation">,</span> <span class="token builtin">uint256</span> amount<span class="token punctuation">)</span> <span class="token keyword">external</span> <span class="token keyword">returns</span><span class="token punctuation">(</span><span class="token builtin">bool</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">require</span><span class="token punctuation">(</span>balances<span class="token punctuation">[</span>msg<span class="token punctuation">.</span>sender<span class="token punctuation">]</span><span class="token punctuation">.</span>amount <span class="token operator">>=</span> amount<span class="token punctuation">,</span> <span class="token string">"Cannot overdraw MyCoin. (You don't have enough money for this transaction)"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    balances<span class="token punctuation">[</span>msg<span class="token punctuation">.</span>sender<span class="token punctuation">]</span><span class="token punctuation">.</span>amount <span class="token operator">-=</span> amount<span class="token punctuation">;</span>
+    balances<span class="token punctuation">[</span>to<span class="token punctuation">]</span><span class="token punctuation">.</span>amount <span class="token operator">+=</span> amount<span class="token punctuation">;</span>
+    <span class="token keyword">emit</span> <span class="token function">Transfer</span><span class="token punctuation">(</span>msg<span class="token punctuation">.</span>sender<span class="token punctuation">,</span> to<span class="token punctuation">,</span> amount<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token comment">/**
+   * @dev Withdraw MyCoin tokens
+   */</span>
+  <span class="token keyword">function</span> <span class="token function">withdrawMyCoin</span><span class="token punctuation">(</span><span class="token builtin">uint256</span> amount<span class="token punctuation">)</span> <span class="token keyword">external</span> <span class="token keyword">returns</span> <span class="token punctuation">(</span><span class="token builtin">bool</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">require</span><span class="token punctuation">(</span>balances<span class="token punctuation">[</span>msg<span class="token punctuation">.</span>sender<span class="token punctuation">]</span><span class="token punctuation">.</span>amount <span class="token operator">>=</span> amount<span class="token punctuation">,</span> <span class="token string">"Cannot overdraw MyCoin. (You don't have enough money for this transaction)"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    balances<span class="token punctuation">[</span>msg<span class="token punctuation">.</span>sender<span class="token punctuation">]</span><span class="token punctuation">.</span>amount <span class="token operator">-=</span> amount<span class="token punctuation">;</span>
+    balances<span class="token punctuation">[</span>msg<span class="token punctuation">.</span>sender<span class="token punctuation">]</span><span class="token punctuation">.</span>owner<span class="token punctuation">.</span><span class="token function">transfer</span><span class="token punctuation">(</span><span class="token function">convert</span><span class="token punctuation">(</span>amount<span class="token punctuation">,</span> conversionRate<span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token comment">/**
+   * @dev Convert currencies
+   */</span>
+  <span class="token keyword">function</span> <span class="token function">convert</span><span class="token punctuation">(</span><span class="token builtin">uint256</span> amount<span class="token punctuation">,</span> <span class="token builtin">uint256</span> conversion_rate<span class="token punctuation">,</span> <span class="token builtin">bool</span> <span class="token keyword">from</span><span class="token punctuation">)</span> <span class="token keyword">public</span> <span class="token keyword">pure</span> <span class="token keyword">returns</span><span class="token punctuation">(</span><span class="token builtin">uint256</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token keyword">from</span> <span class="token operator">?</span> amount <span class="token operator">/</span> conversion_rate <span class="token punctuation">:</span> amount <span class="token operator">*</span> conversion_rate<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h2 id="deploying-your-currency">Deploying your currency</h2>
+<p>Now, if you wanted to deploy your currency to the actual mainnet, you'd need to cough up some real ether (Ethereum's Currency), but there's other ways to deploy if you're just testing.</p>
+<p>As a first test, we'll deploy out currency to Ganache. Ganache is local blockchain simulation that runs on your computer. If you followed the <a href="#installing-the-tools">tool setup instructions</a>, you should already have a Ganache blockchain running on your computer.</p>
+<p>To deploy our contract, we'll need a so-called &quot;deployer&quot; script. Place it in the <code>migrations</code> folder and call it <code>2_deploy_contract.js</code>. Paste the following code:</p>
+<pre class="lang-js"><code><span class="token keyword">const</span> <span class="token maybe-class-name">MyCoin</span> <span class="token operator">=</span> artifacts<span class="token punctuation">.</span><span class="token method function property-access">require</span><span class="token punctuation">(</span><span class="token string">"MyCoin"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+module<span class="token punctuation">.</span><span class="token method-variable function-variable method function property-access">exports</span> <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">deployer</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  deployer<span class="token punctuation">.</span><span class="token method function property-access">deploy</span><span class="token punctuation">(</span><span class="token maybe-class-name">MyCoin</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<p>In your terminal, run:</p>
+<pre class="lang-bash"><code>truffle migrate --network development
+</code></pre>
+<p>You should see something like this:</p>
+<pre class="lang-txt"><code>2_deploy_contract.js
+====================
+
+   Replacing 'MyCoin'
+   ------------------
+   > transaction hash:    0xcb93681fa381d7a8c4032f30f0932e9cc639558687d20e6ea07b16f7a33f8ad3
+   > Blocks: 0            Seconds: 0
+   > contract address:    0xce4410b8C5d31706ED113B2Ac5caA3Db67441c0b
+   > block number:        78
+   > block timestamp:     1619763192
+   > account:             0x2d0616BF48214513f70236D59000F1b4f395a2Fd
+   > balance:             99.458752342
+   > gas used:            694430 (0xa989e)
+   > gas price:           20 gwei
+   > value sent:          0 ETH
+   > total cost:          0.0138886 ETH
+
+
+   > Saving migration to chain.
+   > Saving artifacts
+   -------------------------------------
+   > Total cost:           0.0138886 ETH
+
+
+Summary
+=======
+> Total deployments:   2
+> Final cost:          0.01772746 ETH
+</code></pre>
+<p>This command might take a moment to run, but when it's done, you'll have your very own cryptocurrency token!</p>
+<h2 id="to-be-continued">To be continued...</h2>
+<p>Stay tuned for my next post, where I'll show you how to interact with your currency!</p>
+</div>
+        <hr />
+        
+        <div class="tags">
+          
+          <a
+            class="tag"
+            href="/tags/code"
+            title="This post was tagged “Code 👨‍💻”"
+            style="--fg: #26d43a; --bg: #2acc3d25"
+            >Code 👨‍💻</a
+          >
+          
+          <a
+            class="tag"
+            href="/tags/blockchain"
+            title="This post was tagged “Blockchain ⛓”"
+            style="--fg: #d8a117; --bg: #d8a11525"
+            >Blockchain ⛓</a
+          >
+          
+        </div>
+        
+        <div class="author">
+          <h3 class="written-by">Written by</h3>
+          <div class="author-name">
+            <div
+              class="author-avatar"
+              style="
+                --url: url('/assets/avatar.png');
+              "
+            ></div>
+            <div>
+              <h4 class="author-name--name">
+                Jake Sarjeant
+              </h4>
+              <p class="author-name--description">
+                Owns this blog
+              </p>
+            </div>
+          </div>
+          <p class="author-description">
+            Hi! I&#39;m Jake. I&#39;m a web developer 👨‍💻, web designer 🎨, and space enthusiast 🚀🛰. I am also
+                quite interested in decentralization, cryptocurrency and blockchain, and I hope to be able
+                to write more about those topics in the near future.
+          </p>
+          
+        </div>
+        <hr/>
+      </div>
+      <div class="col-right"></div>
+    </main>
+  </body>
+</html>

@@ -31,6 +31,24 @@
       ]
     }
   },
+  "assets/Screenshot 2021-04-28 at 13.06.27.png": {
+    "hash": "03f8fa0200f7f700",
+    "srcsets": {
+      "webp": [
+        "/assets/optimized/webp/Screenshot 2021-04-28 at 13.06.27.webp 2880w",
+        "/assets/optimized/webp/Screenshot 2021-04-28 at 13.06.27-460w.webp 460w",
+        "/assets/optimized/webp/Screenshot 2021-04-28 at 13.06.27-720w.webp 720w",
+        "/assets/optimized/webp/Screenshot 2021-04-28 at 13.06.27-1080w.webp 1080w",
+        "/assets/optimized/webp/Screenshot 2021-04-28 at 13.06.27-2048w.webp 2048w"
+      ],
+      "default": [
+        "/assets/optimized/Screenshot 2021-04-28 at 13.06.27-460w.png 460w",
+        "/assets/optimized/Screenshot 2021-04-28 at 13.06.27-720w.png 720w",
+        "/assets/optimized/Screenshot 2021-04-28 at 13.06.27-1080w.png 1080w",
+        "/assets/optimized/Screenshot 2021-04-28 at 13.06.27-2048w.png 2048w"
+      ]
+    }
+  },
   "assets/ast-1.png": {
     "hash": "ffffc3c3bf00ffff",
     "srcsets": {
@@ -184,6 +202,24 @@
         "/assets/optimized/parser-title-460w.png 460w",
         "/assets/optimized/parser-title-720w.png 720w",
         "/assets/optimized/parser-title-1080w.png 1080w"
+      ]
+    }
+  },
+  "assets/smart-contract-currency-cover.png": {
+    "hash": "ff9f978183939fff",
+    "srcsets": {
+      "webp": [
+        "/assets/optimized/webp/smart-contract-currency-cover.webp 3036w",
+        "/assets/optimized/webp/smart-contract-currency-cover-460w.webp 460w",
+        "/assets/optimized/webp/smart-contract-currency-cover-720w.webp 720w",
+        "/assets/optimized/webp/smart-contract-currency-cover-1080w.webp 1080w",
+        "/assets/optimized/webp/smart-contract-currency-cover-2048w.webp 2048w"
+      ],
+      "default": [
+        "/assets/optimized/smart-contract-currency-cover-460w.png 460w",
+        "/assets/optimized/smart-contract-currency-cover-720w.png 720w",
+        "/assets/optimized/smart-contract-currency-cover-1080w.png 1080w",
+        "/assets/optimized/smart-contract-currency-cover-2048w.png 2048w"
       ]
     }
   }
