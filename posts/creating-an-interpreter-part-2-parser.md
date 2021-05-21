@@ -2,7 +2,7 @@
 title: 'Creating a Programming Language: Part 2 – The Parser'
 description: 'In this series of posts, I will walk you through creating your own programming language using JavaScript.'
 time: 1617819268973
-cover: '/assets/parser-title.png'
+cover: '/assets/covers/parser-title.png'
 author: Jake Sarjeant
 tags:
   - code
@@ -17,12 +17,12 @@ A parser is a part of every programming language, whether it is compiled or inte
 
 ### The AST
 The AST is composed of many nodes, each of which represents an operation, for example, here's the AST for `1 + 1`:
-![AST for `1 + 1`](/assets/ast-1.png)
+![AST for `1 + 1`](/assets/images/ast-1.png)
 
 In the above image, we see a *Node* called "Binary Operation". It's called this because it operates on exactly two values. It contains the *tokens* `<number:1>`, `<plus:+>`, and `<number:1>`.
 
 Here's a more complex scenario:
-![AST for `2 + 3 * 4`](/assets/ast-2.png)
+![AST for `2 + 3 * 4`](/assets/images/ast-2.png)
 
 This AST represents the operation `2 + 3 * 4`. If you have ever seen an AST before, you will know that this image shows `3 * 4` taking precedence over `2 + ...`, but if this is your first time looking at an AST, it might seem strange. This because against all expectations, the AST is actually executed from the bottom up!
 

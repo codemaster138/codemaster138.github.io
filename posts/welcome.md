@@ -1,6 +1,6 @@
 ---
 title: 'Welcome to my new blog!'
-cover: '/assets/8030C188-AE2A-47C6-8E73-EBC7FBE7BEC3.jpg'
+cover: '/assets/covers/8030C188-AE2A-47C6-8E73-EBC7FBE7BEC3.jpg'
 time: 1614333226019
 description: "In this post, I outline, who I am, what this blog is about and what kind of content you'll find here."
 author: Jake Sarjeant

@@ -19,7 +19,7 @@ const config = {
         about: `Hi! I'm Jake. I'm a web developer 👨‍💻, web designer 🎨, and space enthusiast 🚀🛰. I am also
                 quite interested in decentralization, cryptocurrency and blockchain, and I hope to be able
                 to write more about those topics in the near future.`,
-        avatar: "/assets/avatar.png",
+        avatar: "/assets/avatars/avatar.png",
       },
     },
     tags: {

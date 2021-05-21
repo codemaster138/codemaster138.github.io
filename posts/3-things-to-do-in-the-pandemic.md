@@ -2,7 +2,7 @@
 title: '3 Things to do in the pandemic'
 description: "In this post, you'll find 3 things to do with your time during the COVID-19 pandemic as a developer."
 time: 1614516858354
-cover: '/assets/59049871-C532-45FD-B585-758CEB9C0429.jpeg'
+cover: '/assets/covers/59049871-C532-45FD-B585-758CEB9C0429.jpeg'
 author: Jake Sarjeant
 tags:
   - pandemic

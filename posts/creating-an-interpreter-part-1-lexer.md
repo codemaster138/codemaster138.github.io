@@ -2,7 +2,7 @@
 title: 'Creating a Programming Language: Part 1 – The Lexer'
 description: 'In this series of posts I will walk you through creating your own programming language using JavaScript.'
 time: 1614521938940
-cover: '/assets/lexer-title.png'
+cover: '/assets/covers/lexer-title.png'
 author: Jake Sarjeant
 tags:
   - code

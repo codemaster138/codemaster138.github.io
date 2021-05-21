@@ -2,7 +2,7 @@
 title: "Storing files on the decentralized web: Skynet"
 description: In this post, I will explain how the SkyNet network allows you to store files on the decentralized web
 time: 1618771025799
-cover: /assets/nodes_3_skynet_cover.png
+cover: /assets/covers/nodes_3_skynet_cover.png
 author: Jake Sarjeant
 tags:
   - code

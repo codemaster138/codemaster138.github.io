@@ -2,7 +2,7 @@
 title: Make your own basic currency with smart contracts!
 description: There's lots of cryptocurrencies out there, but did you know it's ridiculously easy to make your own?
 time: 1618902918388
-cover: /assets/smart-contract-currency-cover.png
+cover: /assets/covers/smart-contract-currency-cover.png
 author: Jake Sarjeant
 tags:
   - code
@@ -106,7 +106,7 @@ module.exports = {
 
 In the Ganache app, at the top you should see a bar with a bunch of data and statistics. The only thing that you need there are the `Network ID` and `RPC Server` fields. Replace the network ID in the configuration above with the netwotk ID from Ganache, then replace the port with the part _after_ the colon in the `RPC Server` field:
 
-![Ganache App Topbar](/assets/Screenshot%202021-04-28%20at%2013.06.27.png)
+![Ganache App Topbar](/assets/images/Screenshot%202021-04-28%20at%2013.06.27.png)
 
 ### Writing the actual contract
 

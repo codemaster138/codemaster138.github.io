@@ -2,7 +2,7 @@
 title: "Blockchain: The Basics"
 description: "In this post, I will try to break down the basics of what blockchains are, and how they work. This post lays the basis for many posts to come in my series “Nodes: The magic of the decentralized web”"
 time: 1618674689841
-cover: /assets/nodes_2_blockchain_basics_cover.png
+cover: /assets/covers/nodes_2_blockchain_basics_cover.png
 author: Jake Sarjeant
 tags:
   - code
@@ -22,7 +22,7 @@ As the name implies, a *block*-*chain* is a *chain* of *blocks*. Each block is t
 3. **Previous block's hash:** The hash from the previous block. This is what forms the chain between the blocks.
 
 Here's a more visual representation:
-![A block on a blockchain](/assets/blockchain_block.png)
+![A block on a blockchain](/assets/images/blockchain_block.png)
 
 As you can see, each block stores some data, in this case the transaction details and two hashes. It's own hash and the previous block's hash.
 

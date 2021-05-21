@@ -1,7 +1,7 @@
 ---
 title: What does the future hold for crypto?
 description: 'My personal oppinions and thoughts on the future of cryptocurrency and decentralization. Disclaimer: This is not, and should not be treated as financial advice.'
-cover: '/assets/future-of-crypto.png'
+cover: '/assets/covers/future-of-crypto.png'
 time: 1621462207352
 author: Jake Sarjeant
 tags:

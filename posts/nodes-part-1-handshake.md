@@ -2,7 +2,7 @@
 title: "Handshake: What is it? How does it work?"
 description: In this post, I will explain handshake.org, the awesome new experimental decentralized alternative to the DNS root zone.
 time: 1618665404547
-cover: /assets/nodes_1_handshake_cover.png
+cover: /assets/covers/nodes_1_handshake_cover.png
 author: Jake Sarjeant
 tags:
   - code
