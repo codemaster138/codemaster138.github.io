@@ -97,6 +97,8 @@ Write your post where it says “post content here...” and save it in a markdo
 
 The way I've set it up, every post needs a cover image. Create or download an image for the cover and drop it into the `assets` folder. Then set the `cover` field in the post to match the cover image.
 
+> **Note:** My blog template automatically generates a sitemap. If you want google to crawl correctly, there's one thing to pay attention to: If you modify a post you've already published, add a field called `lastmod` right under `time` and set it to a brand-new timestamp. Otherwise, google will not crawl your updated page.
+
 ### Building the Site
 
 Right now, you have images, tags and a markdown post. That's a great way to manage your posts, but it's not quite a website. To turn it into one, open your terminal and run

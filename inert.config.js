@@ -10,8 +10,13 @@ const {
   halt,
 } = inert;
 
+const path = require('path');
+const { SitemapStream, streamToPromise } = require('sitemap');
+const { Readable } = require('stream');
+
 const config = {
   custom: {
+    hostname: 'https://codemaster138.github.io',
     title: "Jake Sarjeant",
     authors: {
       "Jake Sarjeant": {
@@ -126,6 +131,36 @@ const config = {
           );
         });
       },
+      async (config, file) => {
+        // Build SiteMap
+        var links = [{
+          url: '/',
+          changefreq: 'weekly',
+          priority: 0.6,
+          lastmod: new Date().toISOString()
+        }];
+        Object.keys(config.custom.posts).forEach(post => {
+          links.push({
+            url: `/blog/${path.basename(post, '.md')}`,
+            changefreq: 'monthly',
+            priority: 0.8,
+            lastmod: new Date(config.custom.posts[post].attributes.lastmod || config.custom.posts[post].attributes.time).toISOString()
+          });
+        });
+        Object.keys(config.custom.by_tag).forEach(tag => {
+          links.push({
+            url: `/tags/${tag}`,
+            changefreq: 'weekly',
+            priority: 0.5,
+            lastmod: new Date().toISOString()
+          });
+        });
+
+        // Compile into XML and save
+        const stream = new SitemapStream({ hostname: config.custom.hostname });
+        const data = await streamToPromise(Readable.from(links).pipe(stream));
+        writeFile(`:output:/sitemap.xml`)(config, file, data.toString());
+      }
     ],
 
     folders: [
