@@ -3,6 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="In this series of posts, I will walk you through creating your own programming language using JavaScript." />
+    <meta name="author" content="Jake Sarjeant" />
+    <meta name="keywords" content="code"/>
     <title>Creating a Programming Language: Part 2 – The Parser | Jake Sarjeant</title>
     <link rel="stylesheet" href="/style/index.css" />
     <link
@@ -51,7 +54,7 @@
         <div class="head">
           <h1 class="title">Creating a Programming Language: Part 2 – The Parser</h1>
           <p class="description">In this series of posts, I will walk you through creating your own programming language using JavaScript.</p>
-          <picture id="cover"><source srcset="/assets/optimized/webp/covers/parser-title.webp 1316w, /assets/optimized/webp/covers/parser-title-460w.webp 460w, /assets/optimized/webp/covers/parser-title-720w.webp 720w, /assets/optimized/webp/covers/parser-title-1080w.webp 1080w"/><source srcset="/assets/optimized/covers/parser-title-460w.png 460w, /assets/optimized/covers/parser-title-720w.png 720w, /assets/optimized/covers/parser-title-1080w.png 1080w"/><img src="/assets/covers/parser-title.png"/></picture>
+          <picture><source srcset="/assets/optimized/webp/covers/parser-title.webp 1316w, /assets/optimized/webp/covers/parser-title-460w.webp 460w, /assets/optimized/webp/covers/parser-title-720w.webp 720w, /assets/optimized/webp/covers/parser-title-1080w.webp 1080w"/><source srcset="/assets/optimized/covers/parser-title-460w.png 460w, /assets/optimized/covers/parser-title-720w.png 720w, /assets/optimized/covers/parser-title-1080w.png 1080w"/><img src="/assets/covers/parser-title.png" alt="cover"/></picture>
         </div>
         <div class="content"><blockquote>
 <p>This post is work-in-progress. It will be done soon.</p>
@@ -61,10 +64,10 @@
 <p>A parser is a part of every programming language, whether it is compiled or interpreted. It takes the flat array of tokens from the Lexical Analyzer (from here on out referred to as the Lexer), and returns a so called &quot;Abstract Syntax Tree&quot; (aka AST).</p>
 <h3 id="the-ast">The AST</h3>
 <p>The AST is composed of many nodes, each of which represents an operation, for example, here's the AST for <code>1 + 1</code>:
-<picture><source srcset="/assets/optimized/webp/images/ast-1.webp 1832w, /assets/optimized/webp/images/ast-1-460w.webp 460w, /assets/optimized/webp/images/ast-1-720w.webp 720w, /assets/optimized/webp/images/ast-1-1080w.webp 1080w"/><source srcset="/assets/optimized/images/ast-1-460w.png 460w, /assets/optimized/images/ast-1-720w.png 720w, /assets/optimized/images/ast-1-1080w.png 1080w"/><img src="/assets/images/ast-1.png"/></picture></p>
+<picture><source srcset="/assets/optimized/webp/images/ast-1.webp 1832w, /assets/optimized/webp/images/ast-1-460w.webp 460w, /assets/optimized/webp/images/ast-1-720w.webp 720w, /assets/optimized/webp/images/ast-1-1080w.webp 1080w"/><source srcset="/assets/optimized/images/ast-1-460w.png 460w, /assets/optimized/images/ast-1-720w.png 720w, /assets/optimized/images/ast-1-1080w.png 1080w"/><img src="/assets/images/ast-1.png" alt="AST for "/></picture></p>
 <p>In the above image, we see a <em>Node</em> called &quot;Binary Operation&quot;. It's called this because it operates on exactly two values. It contains the <em>tokens</em> <code>&lt;number:1&gt;</code>, <code>&lt;plus:+&gt;</code>, and <code>&lt;number:1&gt;</code>.</p>
 <p>Here's a more complex scenario:
-<picture><source srcset="/assets/optimized/webp/images/ast-2.webp 2532w, /assets/optimized/webp/images/ast-2-460w.webp 460w, /assets/optimized/webp/images/ast-2-720w.webp 720w, /assets/optimized/webp/images/ast-2-1080w.webp 1080w, /assets/optimized/webp/images/ast-2-2048w.webp 2048w"/><source srcset="/assets/optimized/images/ast-2-460w.png 460w, /assets/optimized/images/ast-2-720w.png 720w, /assets/optimized/images/ast-2-1080w.png 1080w, /assets/optimized/images/ast-2-2048w.png 2048w"/><img src="/assets/images/ast-2.png"/></picture></p>
+<picture><source srcset="/assets/optimized/webp/images/ast-2.webp 2532w, /assets/optimized/webp/images/ast-2-460w.webp 460w, /assets/optimized/webp/images/ast-2-720w.webp 720w, /assets/optimized/webp/images/ast-2-1080w.webp 1080w, /assets/optimized/webp/images/ast-2-2048w.webp 2048w"/><source srcset="/assets/optimized/images/ast-2-460w.png 460w, /assets/optimized/images/ast-2-720w.png 720w, /assets/optimized/images/ast-2-1080w.png 1080w, /assets/optimized/images/ast-2-2048w.png 2048w"/><img src="/assets/images/ast-2.png" alt="AST for "/></picture></p>
 <p>This AST represents the operation <code>2 + 3 * 4</code>. If you have ever seen an AST before, you will know that this image shows <code>3 * 4</code> taking precedence over <code>2 + ...</code>, but if this is your first time looking at an AST, it might seem strange. This because against all expectations, the AST is actually executed from the bottom up!</p>
 <p>Well, sorta. We first try to execute the top node. If any of its children are not tokens, but <em>nodes</em>, we execute those child nodes before returning from the top node. To wrap our head around this more easily, we can say that the tree is executed bottom up, because that's exactly the way it behaves.</p>
 <p>Now, I could torture you with more examples of syntax trees, but I think you probably get the picture by now.</p>

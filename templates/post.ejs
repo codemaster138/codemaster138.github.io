@@ -3,6 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="<%= data.attributes.description %>" />
+    <meta name="author" content="<%= data.attributes.author %>" />
+    <meta name="keywords" content="<%= data.attributes.tags.join(', ')%>"/>
     <title><%= data.attributes.title %> | <%= config.custom.title %></title>
     <link rel="stylesheet" href="/style/index.css" />
     <link

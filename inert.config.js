@@ -18,6 +18,7 @@ const config = {
   custom: {
     hostname: 'https://codemaster138.github.io',
     title: "Jake Sarjeant",
+    description: "A blog about technology, space, cryptocurrency and many more topics",
     authors: {
       "Jake Sarjeant": {
         description: "Owns this blog",
