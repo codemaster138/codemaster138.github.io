@@ -73,7 +73,7 @@ const config = {
     donations: [
       {
         // BitCoin Donations
-        symbol: '₿',
+        symbol: '₿TC',
         text: '14kB52DWbsRS3nYYooe8P24veuYTjXE9h9',
         link: 'https://blockchain.com/btc/address/14kB52DWbsRS3nYYooe8P24veuYTjXE9h9',
         color: '#f2a900',
@@ -81,12 +81,20 @@ const config = {
       },
       {
         // DogeCoin Donations
-        symbol: 'Ð',
+        symbol: 'ÐOGE',
         text: 'DB51McxHZTKzmn8QQHQJgDSMDwbiTNYDAD',
         link: 'https://blockchair.com/dogecoin/address/DB51McxHZTKzmn8QQHQJgDSMDwbiTNYDAD',
         color: '#cbaf59',
         bg: '#cbaf5925'
       },
+      {
+        // ZCash
+        symbol: 'ZEC',
+        text: 't1Y56nzdFwHedBcyRHcJe6x4i7cc7gRBusi',
+        link: 'https://blockchair.com/zcash/address/t1Y56nzdFwHedBcyRHcJe6x4i7cc7gRBusi',
+        color: '#f9bb01',
+        bg: '#f9bb0125'
+      }
       // Add other donation methods here (Patreon, CoFi, etc.)
     ],
 
