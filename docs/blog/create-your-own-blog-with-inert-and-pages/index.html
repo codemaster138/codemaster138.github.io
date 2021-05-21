@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>How to create your own blog with inert &amp; github pages | Jake Sarjeant</title>
+    <link rel="stylesheet" href="/style/index.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css"
+      integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="preload"
+      as="style"
+      onload="this.rel='stylesheet'"
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap"
+    />
+    <link
+      rel="preload"
+      as="style"
+      onload="this.rel='stylesheet'"
+      href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap"
+    />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap"
+      />
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap"
+      />
+    </noscript>
+
+    <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon" />
+    
+  </head>
+
+  <body>
+    <header>
+      <a href="/">Jake Sarjeant</a>
+    </header>
+    <main>
+      <div class="body">
+        <nav>
+          <a href="/#more">⭠ Back Home</a>
+          <time>May 21, 2021</time>
+        </nav>
+        <div class="head">
+          <h1 class="title">How to create your own blog with inert &amp; github pages</h1>
+          <p class="description">In this tutorial, I&#39;ll show you how my blog works and how you can make your own blog just like it. We&#39;ll use inert to generate a static site and github pages to get completely free hosting!</p>
+          <picture id="cover"><source srcset="/assets/optimized/webp/covers/create-your-blog.webp 3036w, /assets/optimized/webp/covers/create-your-blog-460w.webp 460w, /assets/optimized/webp/covers/create-your-blog-720w.webp 720w, /assets/optimized/webp/covers/create-your-blog-1080w.webp 1080w, /assets/optimized/webp/covers/create-your-blog-2048w.webp 2048w"/><source srcset="/assets/optimized/covers/create-your-blog-460w.png 460w, /assets/optimized/covers/create-your-blog-720w.png 720w, /assets/optimized/covers/create-your-blog-1080w.png 1080w, /assets/optimized/covers/create-your-blog-2048w.png 2048w"/><img src="/assets/covers/create-your-blog.png"/></picture>
+        </div>
+        <div class="content"><p>Blogging is a great way to share your thoughts and knowledge with the world. You're reading this, so clearly that worked. But the options for how you can create your blog are virtually unlimited and finding the right tool for the job can be overwhelming.</p>
+<p>That's why I created Inert. It's a dead-simple HTML, CSS &amp; JS based static site generator. Write posts in markdown, get a website. But there's more than that. Everything, and by that I mean literally everything can be customized. You're not forced to have a website that looks like the default template for the tool you use.</p>
+<p>Also, Inert was built to work for way more than just blogs. You can build a documentation site, a portfolio, and much much more.</p>
+<h2 id="setting-up-the-tools">Setting up the tools</h2>
+<p>You won't need many tools for this, but a couple of things are necessary. First, you'll need to install <a href="https://nodejs.org/">node.js</a>.</p>
+<p>Once you're done, install the <a href="https://npmjs.com/package/inert">inert</a> package:</p>
+<pre class="lang-bash"><code><span class="token function">npm</span> i -g inert-ssg
+</code></pre>
+<p>If this doesn't work, make sure node.js is installed correctly and <a href="https://github.com/codemaster138/inert/issues/new">create an issue</a> to let me know about it.</p>
+<h2 id="creating-your-project">Creating your project</h2>
+<p>You can create an inert project with the <code>inert init</code> command. However, this is an extremely bare-bones template, so I recommend you use my blog as a template instead. You can use any GitHub repository as a template:</p>
+<pre class="lang-bash"><code>inert init --template<span class="token operator">=</span>codemaster138/codemaster138.github.io
+</code></pre>
+<h3 id="customizing">Customizing</h3>
+<p>You should now have an exact copy of my blog's source code (including posts). The first thing you'll want to do is delete <strong>everything</strong> in the <code>posts</code> and <code>assets</code> directories.</p>
+<blockquote>
+<p><strong>Important:</strong> just after downloading, you must delete the <code>docs</code> directory. This is so that posts from my blog don't show up on yours. You won't have to delete the folder again later, though. Just make sure you do it just after downloading.</p>
+</blockquote>
+<p>Now, the blog currently has my name all over it, so let's change that to yours. Open the <code>inert.config.js</code> file and search for this:</p>
+<pre class="lang-js"><code><span class="token spread operator">...</span>
+  <span class="token punctuation">{</span>
+    title<span class="token operator">:</span> <span class="token string">"Jake Sarjeant"</span><span class="token punctuation">,</span>
+    authors<span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token string">"Jake Sarjeant"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        description<span class="token operator">:</span> <span class="token string">"Owns this blog"</span><span class="token punctuation">,</span>
+        about<span class="token operator">:</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">Hi! I'm Jake. I'm a web developer 👨‍💻, web designer 🎨, and space enthusiast 🚀🛰. I am also
+                quite interested in decentralization, cryptocurrency and blockchain, and I hope to be able
+                to write more about those topics in the near future.</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span>
+        avatar<span class="token operator">:</span> <span class="token string">"/assets/avatars/avatar.png"</span><span class="token punctuation">,</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token punctuation">}</span>
+<span class="token spread operator">...</span>
+</code></pre>
+<p>Change the title, description and author name to fit your blog. Now, place your avatar in the <code>assets</code> folder and replace the <code>avatar</code> key with <code>/assets/{your-avatar-path}</code>.</p>
+<p>Depending on the topics of your blog, you might also want to adjust the tags. I think the <code>tags</code> section (should be just underneath the section I showed above) should be fairly self-explanatory. For reference: the key is used to reference the tag in markdown files, no one will ever see it. Instead, they will see the <code>display</code> name in <code>color</code> on <code>bg (background)</code>. Every tag you want to use in your posts has to be configured here.</p>
+<p>You may also notice the donation links at the bottom of every post. You can customize these with your own donation methods, or remove them entirely. If you scroll down a bit, you'll find a field called <code>donations</code> white a list of donation methods. What the properties of a donation do is fairly self explanatory. You can change the BitCoin and DogeCoin addresses to your addresses, or remove them and add other donation methods. If you don't want the donations section to appear at all, remove the <code>donations</code> field. You can always change it later.</p>
+<h3 id="writing-your-first-post">Writing your first post</h3>
+<p>The most important thing about a blog is the posts. Let's write one! Every post looks like this:</p>
+<pre class="lang-md"><code><span class="token front-matter-block"><span class="token punctuation">---</span>
+<span class="token font-matter yaml language-yaml"><span class="token key atrule">title</span><span class="token punctuation">:</span> <span class="token string">'Your post title'</span>
+<span class="token key atrule">description</span><span class="token punctuation">:</span> <span class="token string">'Description'</span>
+<span class="token key atrule">time</span><span class="token punctuation">:</span> Millisecond UNIX timestamp of when you wrote this post
+<span class="token key atrule">cover</span><span class="token punctuation">:</span> <span class="token string">'/assets/{cover-image}'</span>
+<span class="token key atrule">author</span><span class="token punctuation">:</span> <span class="token string">'Your Name'</span>
+<span class="token key atrule">tags</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> tag_1
+  <span class="token punctuation">-</span> tag_2
+  <span class="token punctuation">-</span> tag_3</span>
+<span class="token punctuation">---</span></span>
+
+post content here...
+</code></pre>
+<p>Most of these should be obvious, so I'll only go over the ones that aren't:</p>
+<ul>
+<li><code>time</code>: In your terminal, run <code>node -e &quot;console.log(Date.now())&quot;</code>. This will give you what's called a <code>timestamp</code>. It saves that date and time when your post was written. You should create a new one each time you write a post.</li>
+<li><code>author</code>: When we updated the configuration, we changed the <code>authors</code> object. Each key there corresponds to one author. If you set the <strong>key</strong> to &quot;Jeff&quot;, put &quot;Jeff&quot; here, if you set the key to &quot;Joe&quot;, put &quot;Joe&quot; here. Remeber, you have to use the <strong>key</strong>.</li>
+<li><code>tags</code>: A list of keys from the <code>tags</code> section</li>
+</ul>
+<blockquote>
+<p><strong>Note:</strong> Some of these features (tags, authors, covers) may not work in other templates. They are custom features I built for my blog.</p>
+</blockquote>
+<p>Write your post where it says “post content here...” and save it in a markdown file called <code>mypost.md</code>, or whatever you want to call your post, in the <code>posts</code> folder.</p>
+<p>The way I've set it up, every post needs a cover image. Create or download an image for the cover and drop it into the <code>assets</code> folder. Then set the <code>cover</code> field in the post to match the cover image.</p>
+<h3 id="building-the-site">Building the Site</h3>
+<p>Right now, you have images, tags and a markdown post. That's a great way to manage your posts, but it's not quite a website. To turn it into one, open your terminal and run</p>
+<pre class="lang-bash"><code>inert build
+</code></pre>
+<p>Depending on how many and how large your cover images are, this might take a while the first time you run it. That's because it creates optimized versions (Essentially you don't need a 1024px image on a smartphone, so Inert scales the images down for you). It also creates copies of the images that it converts to webp, because it's a way more compact format.</p>
+<p>Inert keeps track of which images it has alread optimized, and it won't optimize an image again if it doesn't have to, so subsequent runs should be way faster.</p>
+<p>Once the command is done, you should see that the <code>docs</code> folder that I told you to delete earlier is back now. This folder contains the compiled files. It is called <code>docs</code> because for some reason GitHub pages requires the folder to be called that. As I said earlier, you don't have to delete the folder again, unless you want to get rid of a post that you want to un-publish.</p>
+<p>To see what the website looks like, open your terminal and install <code>serve</code>. It's a little server for testing projects like this:</p>
+<pre class="lang-bash"><code><span class="token function">npm</span> i -g serve
+</code></pre>
+<p>Now, run</p>
+<pre class="lang-bash"><code>serve docs
+</code></pre>
+<p>You can now view your blog under the url <code>http://localhost:5000</code>. Once you're ready to publish your blog, go to GitHub and create a new repository called <code>{your-github-username}.github.io</code>. If you already have a repository called that, delete it and create a new one.</p>
+<blockquote>
+<p><strong>Note:</strong> When creating a new repository, make sure NOT to enable &quot;add a license&quot; &quot;add a gitignore&quot; or &quot;add a README&quot;.</p>
+</blockquote>
+<p>In your terminal, run:</p>
+<pre class="lang-bash"><code><span class="token function">git</span> init
+<span class="token function">git</span> <span class="token function">add</span> <span class="token builtin class-name">.</span>
+<span class="token function">git</span> commit -m <span class="token string">"publish posts"</span>
+
+<span class="token function">git</span> remote <span class="token function">add</span> origin https://github.com/<span class="token punctuation">{</span>your-username<span class="token punctuation">}</span>/<span class="token punctuation">{</span>your-username<span class="token punctuation">}</span>.github.io.git
+<span class="token function">git</span> push -u origin master
+</code></pre>
+<p>If you add or change a post and want to publish the changes, make sure to run <code>inert build</code>. Once it's finished, you can publish your changes using:</p>
+<pre class="lang-bash"><code><span class="token function">git</span> <span class="token function">add</span> <span class="token builtin class-name">.</span>
+<span class="token function">git</span> commit -m <span class="token string">"publish posts"</span>
+<span class="token function">git</span> push
+</code></pre>
+<h2 id="configuring-git-hub-pages">Configuring GitHub pages</h2>
+<p>The very last step is to make sure that GitHub pages servers from the right folder. In your browser, open github and navigate to your repository. Switch to the settings tab. On the left, you should see a tab labeled “Pages”. Click on it.</p>
+<p><picture><source srcset="/assets/optimized/webp/images/gh-pages-tab.webp 688w, /assets/optimized/webp/images/gh-pages-tab-460w.webp 460w, /assets/optimized/webp/images/gh-pages-tab.webp 2632w, /assets/optimized/webp/images/gh-pages-tab-460w.webp 460w, /assets/optimized/webp/images/gh-pages-tab-720w.webp 720w, /assets/optimized/webp/images/gh-pages-tab-1080w.webp 1080w, /assets/optimized/webp/images/gh-pages-tab-2048w.webp 2048w, /assets/optimized/webp/images/gh-pages-tab.webp 2632w, /assets/optimized/webp/images/gh-pages-tab-460w.webp 460w, /assets/optimized/webp/images/gh-pages-tab-720w.webp 720w, /assets/optimized/webp/images/gh-pages-tab-1080w.webp 1080w, /assets/optimized/webp/images/gh-pages-tab-2048w.webp 2048w, /assets/optimized/webp/images/gh-pages-tab.webp 2632w, /assets/optimized/webp/images/gh-pages-tab-460w.webp 460w, /assets/optimized/webp/images/gh-pages-tab-720w.webp 720w, /assets/optimized/webp/images/gh-pages-tab-1080w.webp 1080w, /assets/optimized/webp/images/gh-pages-tab-2048w.webp 2048w, /assets/optimized/webp/images/gh-pages-tab.webp 2632w, /assets/optimized/webp/images/gh-pages-tab-460w.webp 460w, /assets/optimized/webp/images/gh-pages-tab-720w.webp 720w, /assets/optimized/webp/images/gh-pages-tab-1080w.webp 1080w, /assets/optimized/webp/images/gh-pages-tab-2048w.webp 2048w, /assets/optimized/webp/images/gh-pages-tab.webp 2632w, /assets/optimized/webp/images/gh-pages-tab-460w.webp 460w, /assets/optimized/webp/images/gh-pages-tab-720w.webp 720w, /assets/optimized/webp/images/gh-pages-tab-1080w.webp 1080w, /assets/optimized/webp/images/gh-pages-tab-2048w.webp 2048w, /assets/optimized/webp/images/gh-pages-tab.webp 2632w, /assets/optimized/webp/images/gh-pages-tab-460w.webp 460w, /assets/optimized/webp/images/gh-pages-tab-720w.webp 720w, /assets/optimized/webp/images/gh-pages-tab-1080w.webp 1080w, /assets/optimized/webp/images/gh-pages-tab-2048w.webp 2048w, /assets/optimized/webp/images/gh-pages-tab.webp 2632w, /assets/optimized/webp/images/gh-pages-tab-460w.webp 460w, /assets/optimized/webp/images/gh-pages-tab-720w.webp 720w, /assets/optimized/webp/images/gh-pages-tab-1080w.webp 1080w, /assets/optimized/webp/images/gh-pages-tab-2048w.webp 2048w, /assets/optimized/webp/images/gh-pages-tab.webp 2632w, /assets/optimized/webp/images/gh-pages-tab-460w.webp 460w, /assets/optimized/webp/images/gh-pages-tab-720w.webp 720w, /assets/optimized/webp/images/gh-pages-tab-1080w.webp 1080w, /assets/optimized/webp/images/gh-pages-tab-2048w.webp 2048w, /assets/optimized/webp/images/gh-pages-tab.webp 2632w, /assets/optimized/webp/images/gh-pages-tab-460w.webp 460w, /assets/optimized/webp/images/gh-pages-tab-720w.webp 720w, /assets/optimized/webp/images/gh-pages-tab-1080w.webp 1080w, /assets/optimized/webp/images/gh-pages-tab-2048w.webp 2048w, /assets/optimized/webp/images/gh-pages-tab.webp 2632w, /assets/optimized/webp/images/gh-pages-tab-460w.webp 460w, /assets/optimized/webp/images/gh-pages-tab-720w.webp 720w, /assets/optimized/webp/images/gh-pages-tab-1080w.webp 1080w, /assets/optimized/webp/images/gh-pages-tab-2048w.webp 2048w, /assets/optimized/webp/images/gh-pages-tab.webp 2632w, /assets/optimized/webp/images/gh-pages-tab-460w.webp 460w, /assets/optimized/webp/images/gh-pages-tab-720w.webp 720w, /assets/optimized/webp/images/gh-pages-tab-1080w.webp 1080w, /assets/optimized/webp/images/gh-pages-tab-2048w.webp 2048w, /assets/optimized/webp/images/gh-pages-tab.webp 2632w, /assets/optimized/webp/images/gh-pages-tab-460w.webp 460w, /assets/optimized/webp/images/gh-pages-tab-720w.webp 720w, /assets/optimized/webp/images/gh-pages-tab-1080w.webp 1080w, /assets/optimized/webp/images/gh-pages-tab-2048w.webp 2048w, /assets/optimized/webp/images/gh-pages-tab.webp 2632w, /assets/optimized/webp/images/gh-pages-tab-460w.webp 460w, /assets/optimized/webp/images/gh-pages-tab-720w.webp 720w, /assets/optimized/webp/images/gh-pages-tab-1080w.webp 1080w, /assets/optimized/webp/images/gh-pages-tab-2048w.webp 2048w, /assets/optimized/webp/images/gh-pages-tab.webp 2632w, /assets/optimized/webp/images/gh-pages-tab-460w.webp 460w, /assets/optimized/webp/images/gh-pages-tab-720w.webp 720w, /assets/optimized/webp/images/gh-pages-tab-1080w.webp 1080w, /assets/optimized/webp/images/gh-pages-tab-2048w.webp 2048w, /assets/optimized/webp/images/gh-pages-tab.webp 2632w, /assets/optimized/webp/images/gh-pages-tab-460w.webp 460w, /assets/optimized/webp/images/gh-pages-tab-720w.webp 720w, /assets/optimized/webp/images/gh-pages-tab-1080w.webp 1080w, /assets/optimized/webp/images/gh-pages-tab-2048w.webp 2048w, /assets/optimized/webp/images/gh-pages-tab.webp 2632w, /assets/optimized/webp/images/gh-pages-tab-460w.webp 460w, /assets/optimized/webp/images/gh-pages-tab-720w.webp 720w, /assets/optimized/webp/images/gh-pages-tab-1080w.webp 1080w, /assets/optimized/webp/images/gh-pages-tab-2048w.webp 2048w, /assets/optimized/webp/images/gh-pages-tab.webp 2632w, /assets/optimized/webp/images/gh-pages-tab-460w.webp 460w, /assets/optimized/webp/images/gh-pages-tab-720w.webp 720w, /assets/optimized/webp/images/gh-pages-tab-1080w.webp 1080w, /assets/optimized/webp/images/gh-pages-tab-2048w.webp 2048w"/><source srcset="/assets/optimized/images/gh-pages-tab-460w.png 460w, /assets/optimized/images/gh-pages-tab-460w.png 460w, /assets/optimized/images/gh-pages-tab-720w.png 720w, /assets/optimized/images/gh-pages-tab-1080w.png 1080w, /assets/optimized/images/gh-pages-tab-2048w.png 2048w, /assets/optimized/images/gh-pages-tab-460w.png 460w, /assets/optimized/images/gh-pages-tab-720w.png 720w, /assets/optimized/images/gh-pages-tab-1080w.png 1080w, /assets/optimized/images/gh-pages-tab-2048w.png 2048w, /assets/optimized/images/gh-pages-tab-460w.png 460w, /assets/optimized/images/gh-pages-tab-720w.png 720w, /assets/optimized/images/gh-pages-tab-1080w.png 1080w, /assets/optimized/images/gh-pages-tab-2048w.png 2048w, /assets/optimized/images/gh-pages-tab-460w.png 460w, /assets/optimized/images/gh-pages-tab-720w.png 720w, /assets/optimized/images/gh-pages-tab-1080w.png 1080w, /assets/optimized/images/gh-pages-tab-2048w.png 2048w, /assets/optimized/images/gh-pages-tab-460w.png 460w, /assets/optimized/images/gh-pages-tab-720w.png 720w, /assets/optimized/images/gh-pages-tab-1080w.png 1080w, /assets/optimized/images/gh-pages-tab-2048w.png 2048w, /assets/optimized/images/gh-pages-tab-460w.png 460w, /assets/optimized/images/gh-pages-tab-720w.png 720w, /assets/optimized/images/gh-pages-tab-1080w.png 1080w, /assets/optimized/images/gh-pages-tab-2048w.png 2048w, /assets/optimized/images/gh-pages-tab-460w.png 460w, /assets/optimized/images/gh-pages-tab-720w.png 720w, /assets/optimized/images/gh-pages-tab-1080w.png 1080w, /assets/optimized/images/gh-pages-tab-2048w.png 2048w, /assets/optimized/images/gh-pages-tab-460w.png 460w, /assets/optimized/images/gh-pages-tab-720w.png 720w, /assets/optimized/images/gh-pages-tab-1080w.png 1080w, /assets/optimized/images/gh-pages-tab-2048w.png 2048w, /assets/optimized/images/gh-pages-tab-460w.png 460w, /assets/optimized/images/gh-pages-tab-720w.png 720w, /assets/optimized/images/gh-pages-tab-1080w.png 1080w, /assets/optimized/images/gh-pages-tab-2048w.png 2048w, /assets/optimized/images/gh-pages-tab-460w.png 460w, /assets/optimized/images/gh-pages-tab-720w.png 720w, /assets/optimized/images/gh-pages-tab-1080w.png 1080w, /assets/optimized/images/gh-pages-tab-2048w.png 2048w, /assets/optimized/images/gh-pages-tab-460w.png 460w, /assets/optimized/images/gh-pages-tab-720w.png 720w, /assets/optimized/images/gh-pages-tab-1080w.png 1080w, /assets/optimized/images/gh-pages-tab-2048w.png 2048w, /assets/optimized/images/gh-pages-tab-460w.png 460w, /assets/optimized/images/gh-pages-tab-720w.png 720w, /assets/optimized/images/gh-pages-tab-1080w.png 1080w, /assets/optimized/images/gh-pages-tab-2048w.png 2048w, /assets/optimized/images/gh-pages-tab-460w.png 460w, /assets/optimized/images/gh-pages-tab-720w.png 720w, /assets/optimized/images/gh-pages-tab-1080w.png 1080w, /assets/optimized/images/gh-pages-tab-2048w.png 2048w, /assets/optimized/images/gh-pages-tab-460w.png 460w, /assets/optimized/images/gh-pages-tab-720w.png 720w, /assets/optimized/images/gh-pages-tab-1080w.png 1080w, /assets/optimized/images/gh-pages-tab-2048w.png 2048w, /assets/optimized/images/gh-pages-tab-460w.png 460w, /assets/optimized/images/gh-pages-tab-720w.png 720w, /assets/optimized/images/gh-pages-tab-1080w.png 1080w, /assets/optimized/images/gh-pages-tab-2048w.png 2048w, /assets/optimized/images/gh-pages-tab-460w.png 460w, /assets/optimized/images/gh-pages-tab-720w.png 720w, /assets/optimized/images/gh-pages-tab-1080w.png 1080w, /assets/optimized/images/gh-pages-tab-2048w.png 2048w, /assets/optimized/images/gh-pages-tab-460w.png 460w, /assets/optimized/images/gh-pages-tab-720w.png 720w, /assets/optimized/images/gh-pages-tab-1080w.png 1080w, /assets/optimized/images/gh-pages-tab-2048w.png 2048w"/><img src="/assets/images/gh-pages-tab.png"/></picture></p>
+<p>Under “Source”, select “master”. Now, a new dropdown should pop up. Change it to “/docs” and hit save.</p>
+<p><picture><source srcset="/assets/optimized/webp/images/gh-pages-source.webp 1476w, /assets/optimized/webp/images/gh-pages-source-460w.webp 460w, /assets/optimized/webp/images/gh-pages-source-720w.webp 720w, /assets/optimized/webp/images/gh-pages-source-1080w.webp 1080w"/><source srcset="/assets/optimized/images/gh-pages-source-460w.png 460w, /assets/optimized/images/gh-pages-source-720w.png 720w, /assets/optimized/images/gh-pages-source-1080w.png 1080w"/><img src="/assets/images/gh-pages-source.png"/></picture></p>
+<h2 id="conclusion">Conclusion</h2>
+<p>Congrats! You now have your very own static blog! I hope you learned something! Check back in next month for lots more posts on programming, cryptocurrency and much more.</p>
+</div>
+        <hr />
+        
+        <div class="tags">
+          
+          <a
+            class="tag"
+            href="/tags/code"
+            title="This post was tagged “Code 👨‍💻”"
+            style="--fg: #26d43a; --bg: #2acc3d25"
+            >Code 👨‍💻</a
+          >
+          
+          <a
+            class="tag"
+            href="/tags/meta"
+            title="This post was tagged “Meta”"
+            style="--fg: #888888; --bg: #88888825"
+            >Meta</a
+          >
+          
+        </div>
+        
+        <div class="author">
+          <h3 class="written-by">Written by</h3>
+          <div class="author-name">
+            <div
+              class="author-avatar"
+              style="
+                --url: url('/assets/avatars/avatar.png');
+              "
+            ></div>
+            <div>
+              <h4 class="author-name--name">
+                Jake Sarjeant
+              </h4>
+              <p class="author-name--description">
+                Owns this blog
+              </p>
+            </div>
+          </div>
+          <p class="author-description">
+            Hi! I&#39;m Jake. I&#39;m a web developer 👨‍💻, web designer 🎨, and space enthusiast 🚀🛰. I am also
+                quite interested in decentralization, cryptocurrency and blockchain, and I hope to be able
+                to write more about those topics in the near future.
+          </p>
+          
+        </div>
+        <hr/>
+        
+          <div class="donations">
+            <h3>Support me</h3>
+            <p>If you enjoy my posts and are interested in supporting my work, I accept dontations via the following channels:</p>
+            <div class="donation-methods tags">
+              
+                <a
+                  class="tag"
+                  href="https://blockchain.com/btc/address/14kB52DWbsRS3nYYooe8P24veuYTjXE9h9"
+                  style="--fg: #f2a900; --bg: #f2a90025; text-transform: unset !important;"
+                ><span style="font-family: 'Fira Code', 'DM Mono', Consolas, monospace">₿ 14kB52DWbsRS3nYYooe8P24veuYTjXE9h9</span></a>
+              
+                <a
+                  class="tag"
+                  href="https://blockchair.com/dogecoin/address/DB51McxHZTKzmn8QQHQJgDSMDwbiTNYDAD"
+                  style="--fg: #cbaf59; --bg: #cbaf5925; text-transform: unset !important;"
+                ><span style="font-family: 'Fira Code', 'DM Mono', Consolas, monospace">Ð DB51McxHZTKzmn8QQHQJgDSMDwbiTNYDAD</span></a>
+              
+            </div>
+          </div>
+        
+      </div>
+      <div class="col-right"></div>
+    </main>
+  </body>
+</html>

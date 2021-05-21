@@ -17,6 +17,22 @@
       onload="this.rel='stylesheet'"
       href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap"
     />
+    <link
+      rel="preload"
+      as="style"
+      onload="this.rel='stylesheet'"
+      href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap"
+    />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap"
+      />
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap"
+      />
+    </noscript>
 
     <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon" />
     <% function formatDate(date) { const months = ['January', 'February',
@@ -111,6 +127,21 @@
           <% } %>
         </div>
         <hr/>
+        <% if (config.custom.donations && Array.isArray(config.custom.donations)) { %>
+          <div class="donations">
+            <h3>Support me</h3>
+            <p>If you enjoy my posts and are interested in supporting my work, I accept dontations via the following channels:</p>
+            <div class="donation-methods tags">
+              <% for (const donation of config.custom.donations) { %>
+                <a
+                  class="tag"
+                  href="<%= donation.link %>"
+                  style="--fg: <%= donation.color %>; --bg: <%= donation.bg %>; text-transform: unset !important;"
+                ><span style="font-family: 'Fira Code', 'DM Mono', Consolas, monospace"><%= donation.symbol %> <%= donation.text %></span></a>
+              <% } %>
+            </div>
+          </div>
+        <% } %>
       </div>
       <div class="col-right"></div>
     </main>

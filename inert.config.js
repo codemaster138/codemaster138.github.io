@@ -65,6 +65,26 @@ const config = {
       },
     },
 
+    donations: [
+      {
+        // BitCoin Donations
+        symbol: '₿',
+        text: '14kB52DWbsRS3nYYooe8P24veuYTjXE9h9',
+        link: 'https://blockchain.com/btc/address/14kB52DWbsRS3nYYooe8P24veuYTjXE9h9',
+        color: '#f2a900',
+        bg: '#f2a90025',
+      },
+      {
+        // DogeCoin Donations
+        symbol: 'Ð',
+        text: 'DB51McxHZTKzmn8QQHQJgDSMDwbiTNYDAD',
+        link: 'https://blockchair.com/dogecoin/address/DB51McxHZTKzmn8QQHQJgDSMDwbiTNYDAD',
+        color: '#cbaf59',
+        bg: '#cbaf5925'
+      },
+      // Add other donation methods here (Patreon, CoFi, etc.)
+    ],
+
     posts: {}, // Will be automatically populated
     by_tag: {}, // Also automatically populated
   },
