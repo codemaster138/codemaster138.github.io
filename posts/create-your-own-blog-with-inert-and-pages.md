@@ -11,7 +11,11 @@ tags:
 
 Blogging is a great way to share your thoughts and knowledge with the world. You're reading this, so clearly that worked. But the options for how you can create your blog are virtually unlimited and finding the right tool for the job can be overwhelming.
 
-That's why I created Inert. It's a dead-simple HTML, CSS & JS based static site generator. Write posts in markdown, get a website. But there's more than that. Everything, and by that I mean literally everything can be customized. You're not forced to have a website that looks like the default template for the tool you use.
+That's why I created Inert. It's a dead-simple HTML, CSS & JS based static site generator. Write posts in markdown, get a website. But there's more than that. Everything, and by that I mean literally everything can be customized. You're not forced to have a website that looks like the default template for the tool you use. Probably the most important reason to use inert is the insane performance. Here's an audit for my blog:
+
+![Lighthouse performance audit for this page](/assets/images/lighthouse-perf.png)
+
+As you can see, eventhough my extensions _negatively_ influenced the page load performance, it still scores 100%.
 
 Also, Inert was built to work for way more than just blogs. You can build a documentation site, a portfolio, and much much more.
 

@@ -292,5 +292,23 @@
         "/assets/optimized/images/gh-pages-tab-2048w.png 2048w"
       ]
     }
+  },
+  "assets/images/lighthouse-perf.png": {
+    "hash": "b274185d1db82df1e7e6951808be39501e9032f1",
+    "srcsets": {
+      "webp": [
+        "/assets/optimized/webp/images/lighthouse-perf.webp 2880w",
+        "/assets/optimized/webp/images/lighthouse-perf-460w.webp 460w",
+        "/assets/optimized/webp/images/lighthouse-perf-720w.webp 720w",
+        "/assets/optimized/webp/images/lighthouse-perf-1080w.webp 1080w",
+        "/assets/optimized/webp/images/lighthouse-perf-2048w.webp 2048w"
+      ],
+      "default": [
+        "/assets/optimized/images/lighthouse-perf-460w.png 460w",
+        "/assets/optimized/images/lighthouse-perf-720w.png 720w",
+        "/assets/optimized/images/lighthouse-perf-1080w.png 1080w",
+        "/assets/optimized/images/lighthouse-perf-2048w.png 2048w"
+      ]
+    }
   }
 }
