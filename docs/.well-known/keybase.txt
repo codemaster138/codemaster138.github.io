@@ -1,0 +1,56 @@
+==================================================================
+https://keybase.io/jakesarjeant
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of https://codemaster138.github.io
+  * I am jakesarjeant (https://keybase.io/jakesarjeant) on keybase.
+  * I have a public key ASDVydmVKLhYfYma_yb8SJy1wowTdasQEVOSP1ZWX6Jwawo
+
+To do so, I am signing this object:
+
+{
+  "body": {
+    "key": {
+      "eldest_kid": "0120d5c9d99528b8587d899aff26fc489cb5c28c1375ab101153923f56565fa2706b0a",
+      "host": "keybase.io",
+      "kid": "0120d5c9d99528b8587d899aff26fc489cb5c28c1375ab101153923f56565fa2706b0a",
+      "uid": "f8b7c49c1ed6bb2b10e43f4676f0db19",
+      "username": "jakesarjeant"
+    },
+    "merkle_root": {
+      "ctime": 1621702458,
+      "hash": "e0ad8d38e83a180bb99ce55e41dac0c5a3f09243299f72eeb56d769810ef2184b3b6d869ffa0ac188e3954564e420209469ba880fdab108589489daef28d3fa5",
+      "hash_meta": "723f8c259fee117cda44aca7f16a21917976f814a901ae67b2a30ac3e7086247",
+      "seqno": 20016513
+    },
+    "service": {
+      "entropy": "HP9VI+iK2CCu63V6X/QD+Mcm",
+      "hostname": "codemaster138.github.io",
+      "protocol": "https:"
+    },
+    "type": "web_service_binding",
+    "version": 2
+  },
+  "client": {
+    "name": "keybase.io go client",
+    "version": "5.6.2"
+  },
+  "ctime": 1621702475,
+  "expire_in": 504576000,
+  "prev": "0e59a95c7fc7dfbd4e3ee5dc5a547d93086fc0f2a8908d4b5f3504a7f20d5254",
+  "seqno": 26,
+  "tag": "signature"
+}
+
+which yields the signature:
+
+hKRib2R5hqhkZXRhY2hlZMOpaGFzaF90eXBlCqNrZXnEIwEg1cnZlSi4WH2Jmv8m/EictcKME3WrEBFTkj9WVl+icGsKp3BheWxvYWTESpcCGsQgDlmpXH/H371OPuXcWlR9kwhvwPKokI1LXzUEp/INUlTEIMA3QFBwZA5QSdAYq3/Z6KNDE13dXAY+EjmD5fHcIY4RAgHCo3NpZ8RAA109vjFhChQ7Y2RAFrQz+WQ9QBAyRzILkd/nk+KjhLm82Qisifx3c4h/iy/D89VnOC2yYnp86f6lXQ3toVhqA6hzaWdfdHlwZSCkaGFzaIKkdHlwZQildmFsdWXEIJ6cIKBirDyhZRbw+BTghtQ6314mSRDLgStC0HuNDeq2o3RhZ80CAqd2ZXJzaW9uAQ==
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/jakesarjeant
+
+==================================================================

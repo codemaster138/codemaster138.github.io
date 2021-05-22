@@ -114,6 +114,7 @@ const config = {
       scss: "scss",
       assets: "assets",
       posts: "posts",
+      wellKnown: ".well-known"
     },
 
     outDirs: {
@@ -123,6 +124,7 @@ const config = {
       assets: ":output:/assets",
       optimizedAssets: ":assets:/optimized",
       postOutput: ":output:/blog",
+      wellKnown: ":output:/.well-known"
     },
 
     rootFile: "templates/home.ejs",
@@ -130,7 +132,8 @@ const config = {
       halt({ tag: null }),
       singleHTMLBuild(),
       writeFile(":output:/index.html"),
-      halt(),
+      halt(""),
+      writeFile(":output:/.nojekyll"),
       (config, file) => {
         Object.keys(config.custom.by_tag).forEach((tag) => {
           writeFile(`:tags:/${tag}/index.html`)(
@@ -189,6 +192,15 @@ const config = {
             imgOptimize("optimizedAssets", { ignore: [] }),
           ],
         },
+      },
+      {
+        folder: "wellKnown",
+        build: {
+          traverseLevel: "recursive",
+          filePipeline: [
+            copy("wellKnown")
+          ]
+        }
       },
       {
         folder: "posts",
