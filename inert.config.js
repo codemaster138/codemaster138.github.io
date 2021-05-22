@@ -132,8 +132,6 @@ const config = {
       halt({ tag: null }),
       singleHTMLBuild(),
       writeFile(":output:/index.html"),
-      halt(""),
-      writeFile(":output:/.nojekyll"),
       (config, file) => {
         Object.keys(config.custom.by_tag).forEach((tag) => {
           writeFile(`:tags:/${tag}/index.html`)(
