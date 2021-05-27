@@ -23,7 +23,7 @@ Also, Inert was built to work for way more than just blogs. You can build a docu
 
 You won't need many tools for this, but a couple of things are necessary. First, you'll need to install [node.js](https://nodejs.org/).
 
-Once you're done, install the [inert](https://npmjs.com/package/inert) package:
+Once you're done, install the [inert-ssg](https://npmjs.com/package/inert-ssg) package:
 
 ```bash
 npm i -g inert-ssg
