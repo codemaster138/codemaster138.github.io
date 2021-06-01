@@ -310,5 +310,14 @@
         "/assets/optimized/images/lighthouse-perf-2048w.png 2048w"
       ]
     }
+  },
+  "assets/favicon.png": {
+    "hash": "c86c86a70558854d683224459e8f580aa7c52cca",
+    "srcsets": {
+      "webp": [
+        "/assets/optimized/webp/favicon.webp 300w"
+      ],
+      "default": []
+    }
   }
 }
