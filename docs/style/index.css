@@ -150,7 +150,7 @@ p.description {
 
 @media screen and (min-width: 900px) {
   div.body h1.title {
-    font-size: 84px;
+    font-size: clamp(56px, 5.41vw, 84px);
   }
 }
 body {

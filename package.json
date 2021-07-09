@@ -3,11 +3,16 @@
   "version": "1.0.0",
   "description": "My blog",
   "main": "index.js",
+  "scripts": {
+    "watch": "nodemon -e md --exec \"inert build\" posts/*"
+  },
   "repository": "https://github.com/codemaster138/codemaster138.github.io/",
   "author": "Jake Sarjeant <jakesarjeant13@gmail.com>",
   "license": "MIT",
   "devDependencies": {
+    "dominant-color": "^0.0.1",
     "inert-ssg": "^2.0.0-alpha.39",
+    "nodemon": "^2.0.9",
     "sitemap": "^7.0.0"
   }
 }

@@ -12,7 +12,7 @@ tags:
 
 In the world of decentralization and cryptocurrency, there's no word you'll hear more often than blockchain. Litterally none. So, it falls into the category of things commonly considered "good ideas", to learn what a blockchain is and how it works.
 
-In this post, I will break doen on a basic level, how a blockchain works, and hopefully, by the time you're done reading this post, you'll have a high-level understanding of how a blockhain works.
+In this post, I will break down on a basic level, how a blockchain works, and hopefully, by the time you're done reading this post, you'll have a high-level understanding of how a blockhain works.
 
 ## Blocks
 As the name implies, a *block*-*chain* is a *chain* of *blocks*. Each block is this chain is composed of a few things:

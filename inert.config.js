@@ -26,7 +26,7 @@ const config = {
                 quite interested in decentralization, cryptocurrency and blockchain, and I hope to be able
                 to write more about those topics in the near future.`,
         avatar: "/assets/avatars/avatar.png",
-      },
+      }
     },
     tags: {
       space: {
@@ -41,8 +41,8 @@ const config = {
       },
       pandemic: {
         display: "Pandemic 😷",
-        color: "#dd2163",
-        bg: "#dd216325",
+        color: "#d8a117",
+        bg: "#d8a11725",
       },
       code: {
         display: "Code 👨‍💻",
@@ -61,8 +61,8 @@ const config = {
       },
       blockchain: {
         display: "Blockchain ⛓",
-        color: "#d8a117",
-        bg: "#d8a11525",
+        color: "#dd2163",
+        bg: "#dd216325",
       },
       skynet: {
         display: "Skynet ☁️",

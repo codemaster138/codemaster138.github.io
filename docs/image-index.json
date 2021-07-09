@@ -189,6 +189,15 @@
       ]
     }
   },
+  "assets/favicon.png": {
+    "hash": "0346fd1bd6e1546763dc6d34c35264215f0a734f",
+    "srcsets": {
+      "webp": [
+        "/assets/optimized/webp/favicon.webp 300w"
+      ],
+      "default": []
+    }
+  },
   "assets/images/Screenshot 2021-04-28 at 13.06.27.png": {
     "hash": "12ade5ba429399bd1c045ecffd6b8266dcf32234",
     "srcsets": {
@@ -309,15 +318,6 @@
         "/assets/optimized/images/lighthouse-perf-1080w.png 1080w",
         "/assets/optimized/images/lighthouse-perf-2048w.png 2048w"
       ]
-    }
-  },
-  "assets/favicon.png": {
-    "hash": "c86c86a70558854d683224459e8f580aa7c52cca",
-    "srcsets": {
-      "webp": [
-        "/assets/optimized/webp/favicon.webp 300w"
-      ],
-      "default": []
     }
   }
 }
