@@ -51,10 +51,10 @@ const chalk = require('chalk');
   while (true) {
     // Prompt for a command
     const { command } = await prompt({ name: 'command', message: '>>>', type: 'input', prefix: '' });
-    
+
     // Run the lexer on the command
     const tokens = createTokens(command);
-    
+
     // Output the tokens
     console.log(`${chalk.gray('<•')} ${tokens.map(t => t.toString()).join('; ')}`);
   }
@@ -80,7 +80,7 @@ class Token {
     this.type = _type;
     this.value = value;
   }
-  
+
   // add code here...
 }
 ```
@@ -92,7 +92,7 @@ class Token {
     this.type = _type;
     this.value = value;
   }
-  
+
   toString() {
     return `<${this.type}:${this.value}>`;
   }
@@ -204,7 +204,7 @@ class Pos {
     this.col = col;
     this.code = code;
   }
-  
+
   advance(n) {
     for (let i = 0; i < (n || 1); i++) {
       this.idx++;
@@ -215,7 +215,7 @@ class Pos {
       }
     }
   }
-  
+
   clone() {
     return new Pos(this.idx, this.ln, this.col, this.code);
   }
@@ -249,7 +249,7 @@ class Lexer {
     this.pos = new Pos(0, 0, 0, code);
     this.slice = code;
   }
-  
+
   advance(n) {
     this.pos.advance(n);
     this.slice = this.code.slice(this.pos.idx);
@@ -272,13 +272,13 @@ class Lexer {
     this.pos = new Pos(0, 0, 0, code);
     this.slice = code;
   }
-  
+
   advance(n) {
     this.pos.advance(n);
     this.slice = this.code.slice(this.pos.idx);
     while ([' ', '\t', ' '].includes(this.slice[0])) this.advance(1);
   }
-  
+
   createTokens() {
     const tokens = [];
   }
@@ -296,21 +296,21 @@ class Lexer {
     this.pos = new Pos(0, 0, 0, code);
     this.slice = code;
   }
-  
+
   advance(n) {
     this.pos.advance(n);
     this.slice = this.code.slice(this.pos.idx);
     while ([' ', '\t', ' '].includes(this.slice[0])) this.advance(1);
   }
-  
+
   createTokens() {
     const tokens = [];
-    
+
     while (this.slice) {
       var token = null;
-      
+
       // add code here...
-      
+
       if (token === null) {
         // This code is not valid. Throw an error
         return ['ERROR'] // We will change this later.
@@ -318,7 +318,7 @@ class Lexer {
       tokens.push(token);
       this.advance(token.value.length)
     }
-    
+
     return tokens;
   }
 }
@@ -332,7 +332,7 @@ Inside the loop, just below `var token = null;`, add the following code (it does
 for (let _type in this.types) {
   const e = this.types[_type].exec(this.slice) // Run the regex
   if (e === null) continue; // Skip if no match exists
-  
+
   token = new Token(_type, e[0]);
   break; // We don't have to loop over all the others; we already have a match
 }
@@ -344,6 +344,7 @@ const Token = require('./token');
 ```
 
 The lexer file should now look like this:
+
 ```js
 const Pos = require('../pos');
 const Token = require('./token');
@@ -368,28 +369,28 @@ class Lexer {
     this.pos = new Pos(0, 0, 0, code);
     this.slice = code;
   }
-  
+
   advance(n) {
     this.pos.advance(n);
     this.slice = this.code.slice(this.pos.idx);
     while ([' ', '\t', ' '].includes(this.slice[0])) this.advance(1);
   }
-  
+
   createTokens() {
     const tokens = [];
-    
+
     while (this.slice) {
       var token = null;
-      
+
       for (let _type in this.types) {
         const e = this.types[_type].exec(this.slice) // Run the regex
         if (e === null) continue; // Skip if no match exists
         if (!(e.index === 0)) continue; // Skip if match is not from start of string
-  
+
         token = new Token(_type, e[0]);
         break; // We don't have to loop over all the others; we already have a match
       }
-      
+
       if (token === null) {
         // This code is not valid. Throw an error
         return ['ERROR'] // We will change this later.
@@ -397,7 +398,7 @@ class Lexer {
       tokens.push(token);
       this.advance(token.value.length)
     }
-    
+
     return tokens;
   }
 }

@@ -14,6 +14,22 @@ const path = require('path');
 const { SitemapStream, streamToPromise } = require('sitemap');
 const { Readable } = require('stream');
 
+const modifiedHighlighter = (str, lang) => {
+	const message_re = /^(?:(?:\/\/)|(?:#)|(?:;))~(.+)\n/;
+	const [match, message] = message_re.exec(str) || ['', ''];
+	const code = str.slice(match.length);
+
+	if (lang && Prism.languages[lang]) {
+		return `<pre class="lang-${lang} code-container" data-lang="${lang}"><code data-message="${message}">${Prism.highlight(
+			code || '',
+			Prism.languages[lang],
+			lang
+		)}</code></pre>`;
+	}
+
+	return `<pre class="lang-${lang} code-container"><code data-message="${message}">${code || ''}</code></pre>`;
+};
+
 const config = {
   custom: {
     hostname: 'https://codemaster138.github.io',
@@ -69,6 +85,16 @@ const config = {
         color: "#00C65E",
         bg: "#00C65E25",
       },
+			react: {
+				display: 'React ⚛',
+				color: '#61dafb',
+				bg: '#61dafb25'
+			},
+			functionalprogramming: {
+				display: '𝝺 Functional Programming',
+				color: '#4422ff',
+				bg: "#4422ff25"
+			}
     },
 
     donations: [
@@ -154,7 +180,7 @@ const config = {
             url: `/blog/${path.basename(post, '.md')}`,
             changefreq: 'monthly',
             priority: 0.8,
-            lastmod: new Date(config.custom.posts[post].attributes.lastmod || config.custom.posts[post].attributes.time).toISOString()
+            lastmod: new Date(config.custom.posts[post].attributes.lastmod || config.custom.posts[post].attributes.time).toISOString()
           });
         });
         Object.keys(config.custom.by_tag).forEach(tag => {
@@ -205,7 +231,10 @@ const config = {
         build: {
           traverseLevel: "recursive",
           filePipeline: [
-            markdown(),
+            markdown({
+							highlight: modifiedHighlighter,
+							plugins: []
+						}),
             /**
              * Populate config.custom.posts
              */

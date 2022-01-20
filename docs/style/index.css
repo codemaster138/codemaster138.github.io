@@ -1,4 +1,5 @@
-html, body {
+html,
+body {
   width: 100vw;
   margin: 0;
   overflow-x: hidden;
@@ -71,7 +72,9 @@ img#cover {
   margin-bottom: 70px;
 }
 
-h2, h3, h4 {
+h2,
+h3,
+h4 {
   font-weight: 500;
 }
 
@@ -176,7 +179,7 @@ body main pre {
   line-height: 1.2;
   margin: 1.2em 0;
   overflow: auto;
-  padding: 0 1.4rem;
+  padding: 1.4rem 1.4rem;
   position: relative;
   word-wrap: normal;
 }
@@ -188,13 +191,13 @@ body .token.cdata,
 body .token.comment,
 body .token.doctype,
 body .token.prolog {
-  color: #8e908c;
+  color: #8a757d;
 }
 body .token.namespace {
   opacity: 0.7;
 }
 body .token.punctuation {
-  color: #525252;
+  color: #ffffff;
 }
 body .token.selector {
   color: #6679cc;
@@ -218,17 +221,17 @@ body .token.number,
 body .token.atrule,
 body .token.regex,
 body .token.statement,
-body .token.builtin {
-  color: #df1ddf;
-}
+body .token.attr-name,
 body .token.function,
+body .token.builtin {
+  color: #f8518d;
+}
 body .token.keyword,
 body .token.important,
 body .token.property,
-body .token.attr-name,
 body .token.constant {
   font-weight: 500;
-  color: #671ddf;
+  color: #6599ff;
 }
 body .token.deleted {
   text-decoration: line-through;
@@ -248,20 +251,52 @@ body .token.entity {
   cursor: help;
 }
 body main pre > code {
+  position: relative;
   -moz-osx-font-smoothing: initial;
   -webkit-font-smoothing: initial;
-  background-color: #f8f8f8;
-  border-radius: 2px;
-  color: #33333c;
+  background-color: rgba(0, 0, 0, 0.75);
+  border-radius: 12px;
+  color: #ffffff;
   display: block;
   font-family: Roboto Mono, Monaco, courier, monospace;
   line-height: inherit;
   margin: 0 2px;
   max-width: inherit;
   overflow: inherit;
-  padding: 2.2em 5px;
+  padding: 56px 16px 36px 16px;
   white-space: inherit;
   font-size: 14px;
+  z-index: 2;
+}
+body main pre > code::before {
+  letter-spacing: initial;
+  content: attr(data-message);
+  left: 78px;
+  top: 16px;
+  width: calc(100% - 156px);
+  position: absolute;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: #ffffff4d;
+  text-align: center;
+}
+body main pre > code::after {
+  position: absolute;
+  content: "";
+  left: 0;
+  top: 24px;
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  background-color: rgba(0, 0, 0, 0.06);
+  transform: translateZ(-1px);
+  filter: blur(30px);
+  z-index: -1;
+}
+body pre.code-container {
+  border-radius: 5px;
+  background: linear-gradient(140deg, #cf2f98, #6a3dec);
 }
 body main code:after,
 body main code:before {
@@ -275,15 +310,26 @@ body code .token {
   left: auto;
 }
 body pre:after {
-  color: #ccc;
+  color: #f8518d;
   content: attr(data-lang);
   font-size: 0.6em;
   font-weight: 600;
   height: 15px;
   line-height: 15px;
-  padding: 5px 10px 0;
+  padding: 2rem 2.5rem 0;
   position: absolute;
   right: 0;
   text-align: right;
   top: 0;
+  z-index: 4;
+}
+body pre:before {
+  content: "";
+  width: 52px;
+  height: 12px;
+  top: 2.5rem;
+  left: 2.5rem;
+  position: absolute;
+  display: block;
+  background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTIiIGhlaWdodD0iMTIiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iNiIgY3k9IjYiIHI9IjYiIG9wYWNpdHk9Ii43NSIgZmlsbD0iI2ZmZiIvPjxjaXJjbGUgY3g9IjI2IiBjeT0iNiIgcj0iNiIgb3BhY2l0eT0iLjc1IiBmaWxsPSIjZmZmIi8+PGNpcmNsZSBjeD0iNDYiIGN5PSI2IiByPSI2IiBvcGFjaXR5PSIuNzUiIGZpbGw9IiNmZmYiLz48L3N2Zz4=);
 }

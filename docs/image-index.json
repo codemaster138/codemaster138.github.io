@@ -67,6 +67,22 @@
       ]
     }
   },
+  "assets/covers/functional.png": {
+    "hash": "72c5d719419d28681d942ba7917c5987e2728d4b",
+    "srcsets": {
+      "webp": [
+        "/assets/optimized/webp/covers/functional.webp 1200w",
+        "/assets/optimized/webp/covers/functional-460w.webp 460w",
+        "/assets/optimized/webp/covers/functional-720w.webp 720w",
+        "/assets/optimized/webp/covers/functional-1080w.webp 1080w"
+      ],
+      "default": [
+        "/assets/optimized/covers/functional-460w.png 460w",
+        "/assets/optimized/covers/functional-720w.png 720w",
+        "/assets/optimized/covers/functional-1080w.png 1080w"
+      ]
+    }
+  },
   "assets/covers/future-of-crypto.png": {
     "hash": "e81217b2f9be5291293ed462e35813d6245ed9c8",
     "srcsets": {
@@ -82,6 +98,24 @@
         "/assets/optimized/covers/future-of-crypto-720w.png 720w",
         "/assets/optimized/covers/future-of-crypto-1080w.png 1080w",
         "/assets/optimized/covers/future-of-crypto-2048w.png 2048w"
+      ]
+    }
+  },
+  "assets/covers/ink.png": {
+    "hash": "626029be8b61ebfc0e6fc93bed3d9f8541703b92",
+    "srcsets": {
+      "webp": [
+        "/assets/optimized/webp/covers/ink.webp 3036w",
+        "/assets/optimized/webp/covers/ink-460w.webp 460w",
+        "/assets/optimized/webp/covers/ink-720w.webp 720w",
+        "/assets/optimized/webp/covers/ink-1080w.webp 1080w",
+        "/assets/optimized/webp/covers/ink-2048w.webp 2048w"
+      ],
+      "default": [
+        "/assets/optimized/covers/ink-460w.png 460w",
+        "/assets/optimized/covers/ink-720w.png 720w",
+        "/assets/optimized/covers/ink-1080w.png 1080w",
+        "/assets/optimized/covers/ink-2048w.png 2048w"
       ]
     }
   },
