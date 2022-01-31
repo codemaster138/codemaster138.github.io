@@ -263,6 +263,8 @@ body main pre > code {
   margin: 0 2px;
   max-width: inherit;
   overflow: inherit;
+  overflow-y: hidden;
+  /* Hide unnecessary scrollbars*/
   padding: 56px 16px 36px 16px;
   white-space: inherit;
   font-size: 14px;
